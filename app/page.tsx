@@ -3,7 +3,9 @@ import User from "./User";
 
 export default function Home() {
   return (
-    <div>
+    <div className="mt-8">
+      <User />
+
       <div className="flex flex-col items-center mb-8">
         <h1 className="text-2xl font-bold mb-4">환영합니다!</h1>
         <p className="mb-4">등록을 원하시면 아래 버튼을 클릭하세요.</p>
@@ -11,7 +13,6 @@ export default function Home() {
           등록하기
         </Link>
       </div>
-      <User />
     </div>
   );
 }

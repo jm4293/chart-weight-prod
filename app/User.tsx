@@ -28,7 +28,7 @@ export default function User() {
             <li
               key={user.id}
               onClick={() => handleClick(user.id)}
-              className={`p-2 cursor-pointer hover:bg-blue-100 ${selected === user.id ? "bg-blue-200" : ""}`}
+              className={`p-2 border-b cursor-pointer hover:bg-blue-100 ${selected === user.id ? "bg-blue-200" : ""}`}
             >
               {user.name} ({user.age})
             </li>

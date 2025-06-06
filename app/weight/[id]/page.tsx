@@ -1,6 +1,7 @@
 import { addWeight, getWeights, getUser } from "./actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import WeightForm from "./WeighForm";
 
 export default async function Weight({ params }: any) {
   const userId = Number(params.id);
@@ -8,7 +9,7 @@ export default async function Weight({ params }: any) {
   const weights = await getWeights(userId);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">사용자 상세 정보</h1>
       {user ? (
         <div className="mb-4">
@@ -19,30 +20,18 @@ export default async function Weight({ params }: any) {
         <div>사용자 정보를 찾을 수 없습니다.</div>
       )}
 
-      <form
-        action={async (formData) => {
-          "use server";
-          const weight = Number(formData.get("weight"));
-          await addWeight(userId, weight);
-          redirect(`/weight/${userId}`);
-        }}
-        className="mb-8 flex gap-2"
-      >
-        <input type="number" name="weight" placeholder="몸무게(kg)" className="p-2 border rounded" required />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded">
-          등록
-        </button>
-      </form>
+      <WeightForm userId={userId} />
 
       <h2 className="text-xl font-bold mb-2">과거 몸무게 기록</h2>
-      <div className="w-80 h-64 overflow-y-auto border rounded mb-8">
+
+      <div className="w-80 h-64 overflow-y-auto border rounded">
         {weights.length === 0 ? (
           <p className="text-gray-400 p-4">기록이 없습니다.</p>
         ) : (
           <ul>
             {weights.map((w) => (
               <li key={w.id} className="p-2 border-b">
-                {w.weight}kg ({new Date(w.created_at).toLocaleString()})
+                {w.weight}kg ({new Date(w.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}){" "}
               </li>
             ))}
           </ul>

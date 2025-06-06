@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { registerUser } from "./action";
+import Link from "next/link";
 
 export default function Register() {
   const [message, setMessage] = useState("");
@@ -23,7 +24,7 @@ export default function Register() {
       action={(formData) => {
         startTransition(() => handleAction(formData));
       }}
-      className="flex flex-col items-center justify-center h-screen"
+      className="flex flex-col items-center h-screen mt-8"
     >
       <h1 className="text-2xl font-bold mb-4">등록</h1>
       <input
@@ -48,6 +49,13 @@ export default function Register() {
         {isPending ? "등록 중..." : "등록하기"}
       </button>
       {message && <p className="mt-4">{message}</p>}
+
+      <Link
+        href="/"
+        className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+      >
+        홈으로 돌아가기
+      </Link>
     </form>
   );
 }
