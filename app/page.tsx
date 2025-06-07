@@ -3,7 +3,7 @@ import User from "./User";
 
 export default function Home() {
   return (
-    <div className="mt-8">
+    <div className="w-full px-16 mt-8">
       <User />
 
       <div className="flex flex-col items-center mb-8">
@@ -11,7 +11,7 @@ export default function Home() {
         <p className="mb-4">등록을 원하시면 아래 버튼을 클릭하세요.</p>
         <Link
           href="/register"
-          className="bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors w-80 text-center"
+          className="w-full bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors text-center"
         >
           등록하기
         </Link>

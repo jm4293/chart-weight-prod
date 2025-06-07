@@ -19,10 +19,17 @@ export default function WeightForm({ userId }: { userId: number }) {
       action={(formData) => {
         startTransition(() => handleAction(formData));
       }}
-      className="mb-8 flex gap-2"
+      className="w-full mb-8 flex gap-2"
     >
-      <input type="number" name="weight" placeholder="몸무게(kg)" className="p-2 border rounded" required step="any" />{" "}
-      <button type="submit" className="bg-blue-500 text-white px-4 rounded" disabled={isPending}>
+      <input
+        type="number"
+        name="weight"
+        placeholder="몸무게(kg)"
+        className="w-full p-2 border rounded"
+        required
+        step="any"
+      />{" "}
+      <button type="submit" className="bg-blue-500 text-white px-4 rounded text-nowrap" disabled={isPending}>
         {isPending ? "등록 중..." : "등록"}
       </button>
     </form>

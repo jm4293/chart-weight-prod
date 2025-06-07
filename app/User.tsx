@@ -23,9 +23,9 @@ export default function User() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4">사용자 리스트</h1>
-      <div className="mb-4 w-80 h-96 overflow-y-auto border rounded">
+      <div className="w-full mb-4 h-96 overflow-y-auto border rounded">
         {loading ? (
           <p className="text-gray-400 p-4">불러오는 중...</p>
         ) : users.length === 0 ? (
@@ -36,7 +36,9 @@ export default function User() {
               <li
                 key={user.id}
                 onClick={() => handleClick(user.id)}
-                className={`p-4 border-b cursor-pointer hover:bg-blue-100 ${selected === user.id ? "bg-blue-200" : ""}`}
+                className={`px-4 py-2 border-b cursor-pointer hover:bg-blue-100 ${
+                  selected === user.id ? "bg-blue-200" : ""
+                }`}
               >
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between items-center gap-2">

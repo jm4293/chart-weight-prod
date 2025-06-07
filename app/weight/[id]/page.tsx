@@ -9,23 +9,25 @@ export default async function Weight({ params }: any) {
   const weights = await getWeights(userId);
 
   return (
-    <div className="flex flex-col items-center mt-8">
-      <h1 className="text-2xl font-bold mb-4">사용자 상세 정보</h1>
+    <div className="w-full h-[100vh] px-16 flex flex-col items-center" style={{ border: "1px solid blue" }}>
+      <h1 className="text-2xl font-bold my-8">사용자 상세 정보</h1>
 
-      {user ? (
-        <div className="mb-4">
-          <div className="text-xl">이름: {user.name}</div>
-          <div className="text-xl">나이: {user.age}</div>
-        </div>
-      ) : (
-        <div>사용자 정보를 찾을 수 없습니다.</div>
-      )}
+      <div className="w-full">
+        {user ? (
+          <div className="mb-4">
+            <div className="text-xl">이름: {user.name}</div>
+            <div className="text-xl">나이: {user.age}</div>
+          </div>
+        ) : (
+          <div>사용자 정보를 찾을 수 없습니다.</div>
+        )}
+      </div>
 
       <WeightForm userId={userId} />
 
-      <h2 className="text-xl font-bold mb-2">몸무게 기록</h2>
+      <h2 className="text-xl font-bold mb-8">몸무게 기록</h2>
 
-      <div className="w-80 h-64 overflow-y-auto border rounded">
+      <div className="w-full h-80 max-h-80 overflow-y-auto border rounded" style={{ border: "1px solid red" }}>
         {weights.length === 0 ? (
           <p className="text-gray-400 p-4">기록이 없습니다.</p>
         ) : (
@@ -53,7 +55,7 @@ export default async function Weight({ params }: any) {
 
       <Link
         href="/"
-        className="mt-4 bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+        className="w-full mt-4 bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors text-center"
       >
         홈으로 돌아가기
       </Link>

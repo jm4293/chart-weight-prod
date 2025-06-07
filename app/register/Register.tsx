@@ -24,20 +24,26 @@ export default function Register() {
       action={(formData) => {
         startTransition(() => handleAction(formData));
       }}
-      className="flex flex-col items-center h-screen mt-8"
+      className="w-full px-16 flex flex-col items-center h-screen"
     >
-      <h1 className="text-2xl font-bold mb-8">등록</h1>
-      <input type="text" name="name" placeholder="이름" className="mb-4 border border-gray-300 rounded w-80" required />
+      <h1 className="text-2xl font-bold my-8">등록</h1>
+      <input
+        type="text"
+        name="name"
+        placeholder="이름"
+        className="w-full mb-4 border border-gray-300 rounded"
+        required
+      />
       <input
         type="number"
         name="age"
         placeholder="나이"
-        className="mb-8 border border-gray-300 rounded w-80"
+        className="w-full mb-8 border border-gray-300 rounded"
         required
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white p-4 rounded w-80 hover:bg-blue-600 transition-colors mb-4"
+        className="w-full bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors mb-4"
         disabled={isPending}
       >
         {isPending ? "등록 중..." : "등록하기"}
@@ -46,7 +52,7 @@ export default function Register() {
 
       <Link
         href="/"
-        className="bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+        className="w-full bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors text-center"
       >
         홈으로 돌아가기
       </Link>
