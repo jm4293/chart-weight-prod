@@ -1,5 +1,9 @@
 import Register from "./Register";
 
 export default function Page() {
-  return <Register />;
+  return (
+    <div className="desktop">
+      <Register />
+    </div>
+  );
 }

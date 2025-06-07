@@ -9,7 +9,7 @@ export default async function Weight({ params }: any) {
   const weights = await getWeights(userId);
 
   return (
-    <div className="w-full h-[100vh] px-16 flex flex-col items-center" style={{ border: "1px solid blue" }}>
+    <div className="desktop w-full h-[100vh] px-16 flex flex-col items-center">
       <h1 className="text-2xl font-bold my-8">사용자 상세 정보</h1>
 
       <div className="w-full">
@@ -27,7 +27,7 @@ export default async function Weight({ params }: any) {
 
       <h2 className="text-xl font-bold mb-8">몸무게 기록</h2>
 
-      <div className="w-full h-80 max-h-80 overflow-y-auto border rounded" style={{ border: "1px solid red" }}>
+      <div className="w-full h-80 max-h-80 overflow-y-auto border rounded">
         {weights.length === 0 ? (
           <p className="text-gray-400 p-4">기록이 없습니다.</p>
         ) : (
@@ -41,7 +41,7 @@ export default async function Weight({ params }: any) {
               const minute = String(date.getMinutes()).padStart(2, "0");
 
               return (
-                <li key={w.id} className="p-2 border-b">
+                <li key={w.id} className="px-4 py-2 border-b">
                   <div className="flex justify-between items-center">
                     <div>{w.weight}kg</div>
                     <div>({`${year}.${month}.${day} ${hour}:${minute}`})</div>
