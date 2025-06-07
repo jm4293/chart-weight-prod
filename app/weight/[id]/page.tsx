@@ -22,23 +22,38 @@ export default async function Weight({ params }: any) {
 
       <WeightForm userId={userId} />
 
-      <h2 className="text-xl font-bold mb-2">과거 몸무게 기록</h2>
+      <h2 className="text-xl font-bold mb-2">몸무게 기록</h2>
 
       <div className="w-80 h-64 overflow-y-auto border rounded">
         {weights.length === 0 ? (
           <p className="text-gray-400 p-4">기록이 없습니다.</p>
         ) : (
           <ul>
-            {weights.map((w) => (
-              <li key={w.id} className="p-2 border-b">
-                {w.weight}kg ({new Date(w.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}){" "}
-              </li>
-            ))}
+            {weights.map((w) => {
+              const date = new Date(w.created_at);
+              const year = String(date.getFullYear()).slice(2);
+              const month = String(date.getMonth() + 1).padStart(2, "0");
+              const day = String(date.getDate()).padStart(2, "0");
+              const hour = String(date.getHours()).padStart(2, "0");
+              const minute = String(date.getMinutes()).padStart(2, "0");
+
+              return (
+                <li key={w.id} className="p-2 border-b">
+                  <div className="flex justify-between items-center">
+                    <div>{w.weight}kg</div>
+                    <div>({`${year}.${month}.${day} ${hour}:${minute}`})</div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>
 
-      <Link href="/" className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">
+      <Link
+        href="/"
+        className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+      >
         홈으로 돌아가기
       </Link>
     </div>
