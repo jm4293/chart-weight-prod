@@ -2,14 +2,17 @@ import { getWeights, getUser } from "./actions";
 import Link from "next/link";
 import WeightForm from "./WeighForm";
 import dayjs from "dayjs";
-import "dayjs/locale/ko";
 import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/ko";
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 dayjs.locale("ko");
 
-export default async function Weight({ params }: any) {
-  const userId = Number(params.id);
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = await params;
+  const userId = Number(id);
   const user = await getUser(userId);
   const weights = await getWeights(userId);
 
