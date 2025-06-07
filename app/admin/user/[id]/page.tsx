@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         href="/admin/user"
         className="w-full bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors text-center"
       >
-        관리자페이지로 돌아가기
+        관리페이지로 돌아가기
       </Link>
     </div>
   );

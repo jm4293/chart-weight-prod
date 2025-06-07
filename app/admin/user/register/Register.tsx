@@ -28,7 +28,7 @@ export default function Register() {
       }}
       className="flex flex-col items-center h-screen"
     >
-      <h1 className="text-2xl font-bold my-8">관리자페이지 - 환자 등록</h1>
+      <h1 className="text-2xl font-bold my-8">관리페이지 - 환자 등록</h1>
 
       <input type="text" name="name" placeholder="이름" className="w-full mb-4 border border-gray-300" required />
       <input
@@ -58,7 +58,7 @@ export default function Register() {
         href="/admin/user"
         className="w-full bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors text-center"
       >
-        관리자페이지로 돌아가기
+        관리페이지로 돌아가기
       </Link>
     </form>
   );

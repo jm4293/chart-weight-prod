@@ -28,7 +28,7 @@ export default function Modify({ userId, user }: { userId: number; user: any }) 
 
   return (
     <form action={handleSubmit} className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold my-2">환자 정보</h1>
+      <h1 className="text-2xl font-bold my-2">관리페이지 - 환자 정보</h1>
       {user ? (
         <div className="flex flex-col gap-4">
           <label className="flex items-center gap-2 text-xl">
