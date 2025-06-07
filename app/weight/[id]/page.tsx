@@ -10,7 +10,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.locale("ko");
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const userId = Number(id);
   const user = await getUser(userId);
