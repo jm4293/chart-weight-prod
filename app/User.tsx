@@ -36,13 +36,26 @@ export default function User() {
               <li
                 key={user.id}
                 onClick={() => handleClick(user.id)}
-                className={`flex items-center gap-2 p-4 border-b cursor-pointer hover:bg-blue-100 ${
-                  selected === user.id ? "bg-blue-200" : ""
-                }`}
+                className={`p-4 border-b cursor-pointer hover:bg-blue-100 ${selected === user.id ? "bg-blue-200" : ""}`}
               >
-                <strong className="text-xl">{user.name}</strong>
-                <span>|</span>
-                <span>{user.age}세</span>
+                <div className="flex flex-col gap-2">
+                  <div className="flex justify-between items-center gap-2">
+                    <strong className="text-xl">{user.name}</strong>
+                    <span>{user.age}세</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-500">
+                      등록일{" "}
+                      {(() => {
+                        const date = new Date(user.created_at);
+                        const year = String(date.getFullYear()).slice(2);
+                        const month = String(date.getMonth() + 1).padStart(2, "0");
+                        const day = String(date.getDate()).padStart(2, "0");
+                        return `${year}.${month}.${day}`;
+                      })()}
+                    </span>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
