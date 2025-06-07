@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
+import dayjs from "dayjs";
 
 export default function User() {
   const [users, setUsers] = useState<any[]>([]);
@@ -48,13 +49,9 @@ export default function User() {
                   <div>
                     <span className="text-gray-500">
                       등록일{" "}
-                      {(() => {
-                        const date = new Date(user.created_at);
-                        const year = String(date.getFullYear()).slice(2);
-                        const month = String(date.getMonth() + 1).padStart(2, "0");
-                        const day = String(date.getDate()).padStart(2, "0");
-                        return `${year}.${month}.${day}`;
-                      })()}
+                      {dayjs(user.created_at.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })).format(
+                        "YY.MM.DD HH:mm"
+                      )}
                     </span>
                   </div>
                 </div>
