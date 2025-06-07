@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="desktop w-full px-16 mt-8">
       <div className="w-full flex justify-center">
-        <Image src="/toplogo.png" alt="logo" width={200} height={100} className="mb-8" />
+        <Image src="/toplogo.png" alt="logo" width={366} height={60} className="mb-8" />
       </div>
 
       <User />
