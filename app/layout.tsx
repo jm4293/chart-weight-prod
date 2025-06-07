@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className="w-full flex justify-center py-8">
+        <div className="w-full flex justify-center px-4 py-8">
           <Image src="/toplogo.png" alt="logo" width={366} height={60} />
         </div>
 

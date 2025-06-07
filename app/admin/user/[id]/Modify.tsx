@@ -31,15 +31,15 @@ export default function Modify({ userId, user }: { userId: number; user: any }) 
       {user ? (
         <div className="flex flex-col gap-4">
           <label className="flex items-center gap-2 text-xl">
-            <p className="min-w-[80px]">이름:</p>
+            <p className="min-w-[90px]">이름:</p>
             <input type="text" name="name" defaultValue={user?.name || ""} className="w-full border" />
           </label>
           <label className="flex items-center gap-2 text-xl">
-            <p className="min-w-[80px]">생년월일:</p>
+            <p className="min-w-[90px]">생년월일:</p>
             <input type="number" name="birth" defaultValue={user?.birth || ""} className="w-full border" />
           </label>
           <label className="flex items-center gap-2 text-xl">
-            <p className="min-w-[80px]">등록번호:</p>
+            <p className="min-w-[90px]">등록번호:</p>
             <input type="text" name="register" defaultValue={user?.register || ""} className="w-full border" />
           </label>
 
