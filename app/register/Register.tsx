@@ -26,24 +26,18 @@ export default function Register() {
       }}
       className="flex flex-col items-center h-screen mt-8"
     >
-      <h1 className="text-2xl font-bold mb-4">등록</h1>
-      <input
-        type="text"
-        name="name"
-        placeholder="이름"
-        className="mb-4 p-2 border border-gray-300 rounded w-80"
-        required
-      />
+      <h1 className="text-2xl font-bold mb-8">등록</h1>
+      <input type="text" name="name" placeholder="이름" className="mb-4 border border-gray-300 rounded w-80" required />
       <input
         type="number"
         name="age"
         placeholder="나이"
-        className="mb-4 p-2 border border-gray-300 rounded w-80"
+        className="mb-8 border border-gray-300 rounded w-80"
         required
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white p-2 rounded w-80 hover:bg-blue-600 transition-colors"
+        className="bg-blue-500 text-white p-4 rounded w-80 hover:bg-blue-600 transition-colors mb-4"
         disabled={isPending}
       >
         {isPending ? "등록 중..." : "등록하기"}
@@ -52,7 +46,7 @@ export default function Register() {
 
       <Link
         href="/"
-        className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+        className="bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors w-80 text-center"
       >
         홈으로 돌아가기
       </Link>

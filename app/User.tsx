@@ -24,7 +24,7 @@ export default function User() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-4">사용자 정보</h1>
+      <h1 className="text-2xl font-bold mb-4">사용자 리스트</h1>
       <div className="mb-4 w-80 h-96 overflow-y-auto border rounded">
         {loading ? (
           <p className="text-gray-400 p-4">불러오는 중...</p>
@@ -36,9 +36,13 @@ export default function User() {
               <li
                 key={user.id}
                 onClick={() => handleClick(user.id)}
-                className={`p-2 border-b cursor-pointer hover:bg-blue-100 ${selected === user.id ? "bg-blue-200" : ""}`}
+                className={`flex items-center gap-2 p-4 border-b cursor-pointer hover:bg-blue-100 ${
+                  selected === user.id ? "bg-blue-200" : ""
+                }`}
               >
-                {user.name} ({user.age})
+                <strong className="text-xl">{user.name}</strong>
+                <span>|</span>
+                <span>{user.age}세</span>
               </li>
             ))}
           </ul>

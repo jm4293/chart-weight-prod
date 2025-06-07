@@ -11,7 +11,7 @@ export default function Home() {
         <p className="mb-4">등록을 원하시면 아래 버튼을 클릭하세요.</p>
         <Link
           href="/register"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors w-80 text-center"
+          className="bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors w-80 text-center"
         >
           등록하기
         </Link>

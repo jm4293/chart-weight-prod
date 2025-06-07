@@ -11,10 +11,11 @@ export default async function Weight({ params }: any) {
   return (
     <div className="flex flex-col items-center mt-8">
       <h1 className="text-2xl font-bold mb-4">사용자 상세 정보</h1>
+
       {user ? (
         <div className="mb-4">
-          <div>이름: {user.name}</div>
-          <div>나이: {user.age}</div>
+          <div className="text-xl">이름: {user.name}</div>
+          <div className="text-xl">나이: {user.age}</div>
         </div>
       ) : (
         <div>사용자 정보를 찾을 수 없습니다.</div>
@@ -52,7 +53,7 @@ export default async function Weight({ params }: any) {
 
       <Link
         href="/"
-        className="mt-4 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors w-80 text-center"
+        className="mt-4 bg-gray-500 text-white p-4 rounded hover:bg-gray-600 transition-colors w-80 text-center"
       >
         홈으로 돌아가기
       </Link>
