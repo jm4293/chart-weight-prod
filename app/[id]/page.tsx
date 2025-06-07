@@ -1,0 +1,65 @@
+import { getWeights, getUser } from "./actions";
+import Link from "next/link";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/ko";
+import Detail from "./Detail";
+import HomeButton from "@/components/button/HomeButton";
+import Delete from "./Delete";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("ko");
+
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const userId = Number(id);
+  const user = await getUser(userId);
+  const weights = await getWeights(userId);
+
+  return (
+    <div className="flex flex-col gap-8">
+      <div>
+        <h1 className="text-2xl font-bold my-2">환자 정보</h1>
+
+        {user ? (
+          <div className="flex flex-col gap-1 mb-4">
+            <div className="text-xl">이름: {user?.name || "-"}</div>
+            <div className="text-xl">생년월일: {user?.birth || "-"}</div>
+            <div className="text-xl">생년월일: {user?.register || "-"}</div>
+          </div>
+        ) : (
+          <div>사용자 정보를 찾을 수 없습니다.</div>
+        )}
+      </div>
+
+      <Detail userId={userId} />
+
+      <div>
+        <h1 className="text-2xl font-bold mb-2">몸무게 기록</h1>
+
+        {weights.length === 0 ? (
+          <p className=" text-gray-600">기록이 없습니다.</p>
+        ) : (
+          <ul className="h-[30vh] overflow-y-auto border rounded">
+            {weights.map((w) => {
+              return (
+                <li key={w.id} className="flex justify-between items-center">
+                  <p className="text-xl">{w.weight}kg</p>
+
+                  <div className="flex items-center gap-4">
+                    <div>{dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}</div>
+                    <Delete weightId={w.id} />
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+
+      <HomeButton />
+    </div>
+  );
+}

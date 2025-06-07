@@ -1,24 +1,26 @@
 import Link from "next/link";
-import User from "./User";
 import Image from "next/image";
+import UserList from "./UserList";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="desktop w-full px-8 mt-8">
-      <div className="w-full flex justify-center">
-        <Image src="/toplogo.png" alt="logo" width={366} height={60} className="mb-8" />
-      </div>
-
-      <User />
-
-      <div className="w-full flex flex-col items-center mb-8">
-        <h1 className="text-2xl font-bold mb-4">환영합니다!</h1>
-        <p className="mb-4">등록을 원하시면 아래 버튼을 클릭하세요.</p>
+    <div>
+      <UserList />
+      {/* <div className="w-full flex flex-col items-center">
         <Link
           href="/register"
           className="w-full bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors text-center"
         >
-          등록하기
+          환자 관리
+        </Link>
+      </div> */}
+
+      <div className="mt-8 flex justify-end">
+        <Link
+          className=" bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors text-center"
+          href="/admin"
+        >
+          관리자 페이지
         </Link>
       </div>
     </div>
