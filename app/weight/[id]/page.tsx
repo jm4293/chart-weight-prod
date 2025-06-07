@@ -1,5 +1,4 @@
-import { addWeight, getWeights, getUser } from "./actions";
-import { redirect } from "next/navigation";
+import { getWeights, getUser } from "./actions";
 import Link from "next/link";
 import WeightForm from "./WeighForm";
 
@@ -39,12 +38,13 @@ export default async function Weight({ params }: any) {
               const day = String(date.getDate()).padStart(2, "0");
               const hour = String(date.getHours()).padStart(2, "0");
               const minute = String(date.getMinutes()).padStart(2, "0");
+              const formatted = `${year}.${month}.${day} ${hour}:${minute}`;
 
               return (
                 <li key={w.id} className="px-4 py-2 border-b">
                   <div className="flex justify-between items-center">
                     <div>{w.weight}kg</div>
-                    <div>({`${year}.${month}.${day} ${hour}:${minute}`})</div>
+                    <div>({formatted})</div>
                   </div>
                 </li>
               );
