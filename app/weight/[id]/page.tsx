@@ -2,6 +2,11 @@ import { getWeights, getUser } from "./actions";
 import Link from "next/link";
 import WeightForm from "./WeighForm";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+dayjs.locale("ko");
 
 export default async function Weight({ params }: any) {
   const userId = Number(params.id);
@@ -33,8 +38,6 @@ export default async function Weight({ params }: any) {
         ) : (
           <ul>
             {weights.map((w) => {
-              console.log(w);
-
               return (
                 <li key={w.id} className="px-4 py-2 border-b">
                   <div className="flex justify-between items-center">

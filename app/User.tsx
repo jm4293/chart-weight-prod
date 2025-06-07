@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
 import dayjs from "dayjs";
+import "dayjs/locale/ko";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
+dayjs.locale("ko");
 
 export default function User() {
   const [users, setUsers] = useState<any[]>([]);

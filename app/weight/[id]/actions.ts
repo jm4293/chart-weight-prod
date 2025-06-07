@@ -4,7 +4,6 @@ import { supabase } from "@/lib/supabaceClient";
 
 export async function getUser(userId: number) {
   if (isNaN(userId)) {
-    console.error("userId가 NaN입니다. 쿼리 실행하지 않음.");
     return null;
   }
 
@@ -17,7 +16,6 @@ export async function getUser(userId: number) {
 
 export async function getWeights(userId: number) {
   if (isNaN(userId)) {
-    console.error("userId가 NaN입니다. 쿼리 실행하지 않음.");
     return [];
   }
 
