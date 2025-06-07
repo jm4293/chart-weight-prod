@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   const weights = await getWeights(userId);
 
   return (
-    <div className="desktop w-full h-[100vh] px-16 flex flex-col items-center">
+    <div className="desktop w-full h-[100vh] px-8 flex flex-col items-center">
       <h1 className="text-2xl font-bold my-8">사용자 상세 정보</h1>
 
       <div className="w-full">

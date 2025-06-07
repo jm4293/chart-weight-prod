@@ -24,7 +24,7 @@ export default function Register() {
       action={(formData) => {
         startTransition(() => handleAction(formData));
       }}
-      className="w-full px-16 flex flex-col items-center h-screen"
+      className="w-full px-8 flex flex-col items-center h-screen"
     >
       <h1 className="text-2xl font-bold my-8">등록</h1>
       <input
