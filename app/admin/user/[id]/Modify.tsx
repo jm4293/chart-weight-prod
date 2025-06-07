@@ -17,9 +17,10 @@ export default function Modify({ userId, user }: { userId: number; user: any }) 
         const birth = formData.get("birth") as string;
         const register = formData.get("register") as string;
         const response = await updateUser(userId, { name, birth, register });
+
         if (response.success) {
           alert("사용자 정보가 수정되었습니다.");
-          router.push("/admin/user");
+          router.refresh();
         }
       });
     }
