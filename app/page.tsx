@@ -1,9 +1,14 @@
 import Link from "next/link";
 import User from "./User";
+import Image from "next/image";
 
 export default function Home() {
   return (
     <div className="desktop w-full px-16 mt-8">
+      <div className="w-full flex justify-center">
+        <Image src="/toplogo.png" alt="logo" width={200} height={100} className="mb-8" />
+      </div>
+
       <User />
 
       <div className="w-full flex flex-col items-center mb-8">

@@ -41,8 +41,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         ) : (
           <ul>
             {weights.map((w) => {
-              console.log(w);
-
               return (
                 <li key={w.id} className="px-4 py-2 border-b">
                   <div className="flex justify-between items-center">
