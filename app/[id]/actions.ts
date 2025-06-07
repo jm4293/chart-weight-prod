@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabaceClient";
+import dayjs from "dayjs";
 
 export async function getUser(userId: number) {
   if (isNaN(userId)) {
@@ -23,6 +24,28 @@ export async function getWeights(userId: number) {
     .from("weight")
     .select("*")
     .eq("userId", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) return [];
+
+  return data;
+}
+
+export async function getWeightsToday(userId: number) {
+  if (isNaN(userId)) {
+    return [];
+  }
+
+  // KST 기준 오늘 00:00:00 ~ 내일 00:00:00
+  const start = dayjs().tz("Asia/Seoul").startOf("day").toISOString();
+  const end = dayjs().tz("Asia/Seoul").add(1, "day").startOf("day").toISOString();
+
+  const { data, error } = await supabase
+    .from("weight")
+    .select("*")
+    .eq("userId", userId)
+    .gte("created_at", start)
+    .lt("created_at", end)
     .order("created_at", { ascending: false });
 
   if (error) return [];
