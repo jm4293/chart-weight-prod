@@ -40,30 +40,31 @@ export default function User() {
           <p className="text-gray-400 p-4">사용자가 없습니다.</p>
         ) : (
           <ul>
-            {users.map((user) => (
-              <li
-                key={user.id}
-                onClick={() => handleClick(user.id)}
-                className={`px-4 py-2 border-b cursor-pointer hover:bg-blue-100 ${
-                  selected === user.id ? "bg-blue-200" : ""
-                }`}
-              >
-                <div className="flex flex-col gap-2">
-                  <div className="flex justify-between items-center gap-2">
-                    <strong className="text-xl">{user.name}</strong>
-                    <span>{user.age}세</span>
+            {users.map((user) => {
+              console.log(user);
+
+              return (
+                <li
+                  key={user.id}
+                  onClick={() => handleClick(user.id)}
+                  className={`px-4 py-2 border-b cursor-pointer hover:bg-blue-100 ${
+                    selected === user.id ? "bg-blue-200" : ""
+                  }`}
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between items-center gap-2">
+                      <strong className="text-xl">{user.name}</strong>
+                      <span>{user.age}세</span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">
+                        등록일 {dayjs(user.created_at).tz("Asia/Seoul").format("YY.MM.DD HH:mm")}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-gray-500">
-                      등록일{" "}
-                      {dayjs(user.created_at.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })).format(
-                        "YY.MM.DD HH:mm"
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

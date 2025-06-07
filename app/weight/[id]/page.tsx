@@ -41,15 +41,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         ) : (
           <ul>
             {weights.map((w) => {
+              console.log(w);
+
               return (
                 <li key={w.id} className="px-4 py-2 border-b">
                   <div className="flex justify-between items-center">
                     <div>{w.weight}kg</div>
-                    <div>
-                      (
-                      {dayjs(w.created_at.toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })).format("YY.MM.DD HH:mm")}
-                      )
-                    </div>
+                    <div>({dayjs(w.created_at).tz("Asia/Seoul").format("YY.MM.DD HH:mm")} )</div>
                   </div>
                 </li>
               );
