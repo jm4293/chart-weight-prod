@@ -76,7 +76,7 @@ export default function UserList() {
 
       <div className="flex gap-2 mb-4 flex-wrap justify-center">
         <button
-          className={`px-4 rounded border ${
+          className={`px-3 rounded border ${
             selectedConsonant === null ? "bg-blue-500 text-white" : "bg-white text-black"
           }`}
           onClick={() => setSelectedConsonant(null)}
