@@ -10,6 +10,7 @@ import "dayjs/locale/ko";
 import Delete from "./[id]/Delete";
 import Link from "next/link";
 import HomeButton from "@/components/button/HomeButton";
+import { formatBirthDate } from "@/util/birth-format";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -48,7 +49,7 @@ export default function Page() {
                   <div className="flex items-center gap-4">
                     <strong className="text-2xl">{user.name}</strong>
                     <span>|</span>
-                    <span>{user?.birth || "-"}</span>
+                    <span>{formatBirthDate(user?.birth)}</span>
                     <span>|</span>
                     <span>{user?.register || "-"}</span>
                   </div>

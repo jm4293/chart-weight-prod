@@ -24,7 +24,7 @@ export async function getWeights(userId: number) {
     .from("weight")
     .select("*")
     .eq("userId", userId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
 
   if (error) return [];
 
@@ -46,7 +46,7 @@ export async function getWeightsToday(userId: number) {
     .eq("userId", userId)
     .gte("created_at", start)
     .lt("created_at", end)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
 
   if (error) return [];
 

@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import Detail from "./Detail";
 import HomeButton from "@/components/button/HomeButton";
 import Delete from "./Delete";
+import { formatBirthDate } from "@/util/birth-format";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -12,7 +13,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className="flex flex-col gap-8">
-      <div>
+      <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold">환자 정보</h1>
 
         {user ? (
@@ -23,7 +24,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             </div>
             <div className="flex text-xl">
               <p className="min-w-[90px]">생년월일:</p>
-              <p>{user?.birth || "-"}</p>
+              <p>{formatBirthDate(user?.birth)}</p>
             </div>
             <div className="flex text-xl">
               <p className="min-w-[90px]">등록번호:</p>
@@ -37,8 +38,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
       <Detail userId={userId} />
 
-      <div>
-        <h1 className="text-2xl font-bold mb-1">몸무게 기록</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="text-2xl font-bold">몸무게 기록</h1>
 
         {weights.length === 0 ? (
           <p className=" text-gray-600">기록이 없습니다.</p>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
+import { formatBirthDate } from "@/util/birth-format";
 
 const consonants = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
@@ -109,7 +110,7 @@ export default function UserList() {
                   <div className="flex items-center gap-4">
                     <strong className="text-2xl">{user.name}</strong>
                     <span>|</span>
-                    <span>{user?.birth || "-"}</span>
+                    <span>{formatBirthDate(user?.birth)}</span>
                     <span>|</span>
                     <span>{user?.register || "-"}</span>
                   </div>

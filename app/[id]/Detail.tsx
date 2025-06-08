@@ -23,8 +23,8 @@ export default function WeightForm({ userId }: { userId: number }) {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-2">몸무게 등록</h1>
+    <div className="flex flex-col gap-2">
+      <h1 className="text-2xl font-bold">몸무게 등록</h1>
 
       <form
         action={(formData) => {
