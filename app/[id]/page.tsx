@@ -1,11 +1,11 @@
 import { getUser, getWeightsToday } from "./actions";
 import dayjs from "dayjs";
-import Detail from "./Detail";
+import Detail from "./WeightRegister";
 import HomeButton from "@/components/button/HomeButton";
 import Delete from "./Delete";
 import { formatBirthDate } from "@/util/birth-format";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function DetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const userId = Number(id);
   const user = await getUser(userId);
@@ -19,20 +19,20 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         {user ? (
           <div className="flex flex-col gap-1 mb-4">
             <div className="flex text-xl">
-              <p className="min-w-[90px]">이름:</p>
-              <p>{user?.name || "-"}</p>
+              <p className="min-w-[100px]">이름:</p>
+              <strong>{user?.name || "-"}</strong>
             </div>
             <div className="flex text-xl">
-              <p className="min-w-[90px]">생년월일:</p>
-              <p>{formatBirthDate(user?.birth)}</p>
+              <p className="min-w-[100px]">생년월일:</p>
+              <strong>{formatBirthDate(user?.birth)}</strong>
             </div>
             <div className="flex text-xl">
-              <p className="min-w-[90px]">등록번호:</p>
-              <p>{user?.register || "-"}</p>
+              <p className="min-w-[100px]">등록번호:</p>
+              <strong>{user?.register || "-"}</strong>
             </div>
           </div>
         ) : (
-          <div>사용자 정보를 찾을 수 없습니다.</div>
+          <p>사용자 정보를 찾을 수 없습니다.</p>
         )}
       </div>
 
@@ -41,23 +41,50 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold">몸무게 기록</h1>
 
-        {weights.length === 0 ? (
-          <p className=" text-gray-600">기록이 없습니다.</p>
+        {weights.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <strong>몸무게</strong>
+                </th>
+                <th>
+                  <strong>시간</strong>
+                </th>
+                <th>
+                  <strong>삭제</strong>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {weights.map((w) => {
+                return (
+                  <tr key={w.id} className="hover:bg-gray-100">
+                    <td className="text-xl">{w.weight}kg</td>
+                    <td>{dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}</td>
+                    <td>
+                      <Delete weightId={w.id} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         ) : (
-          <ul className="h-[30vh] overflow-y-auto border rounded">
-            {weights.map((w) => {
-              return (
-                <li key={w.id} className="flex justify-between items-center">
-                  <p className="text-xl">{w.weight}kg</p>
-
-                  <div className="flex items-center gap-4">
-                    <div>{dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}</div>
-                    <Delete weightId={w.id} />
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>몸무게</th>
+                <th>시간</th>
+                <th>삭제</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan={3}>기록이 없습니다.</td>
+              </tr>
+            </tbody>
+          </table>
         )}
       </div>
 

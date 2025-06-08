@@ -41,7 +41,7 @@ function getInitialConsonant(str: string) {
     return str[0];
   }
 
-  return cho[Math.floor(code / 588)];
+  return consonants[Math.floor(code / 588)];
 }
 
 export default function UserList() {
@@ -100,25 +100,47 @@ export default function UserList() {
       {loading ? (
         <p className="text-gray-400 p-4">불러오는 중...</p>
       ) : filteredUsers.length === 0 ? (
-        <p className="text-gray-400 p-4">사용자가 없습니다.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>이름</th>
+              <th>년월일</th>
+              <th>등록번호</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan={3}>사용자가 없습니다.</td>
+            </tr>
+          </tbody>
+        </table>
       ) : (
-        <ul className="mb-16 h-[60vh] overflow-y-auto border rounded">
-          {filteredUsers.map((user) => {
-            return (
-              <li key={user.id} onClick={() => handleClick(user.id)}>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-4">
-                    <strong className="text-2xl">{user.name}</strong>
-                    <span>|</span>
-                    <span>{formatBirthDate(user?.birth)}</span>
-                    <span>|</span>
-                    <span>{user?.register || "-"}</span>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <strong>이름</strong>
+              </th>
+              <th>
+                <strong>생년월일</strong>
+              </th>
+              <th>
+                <strong>등록번호</strong>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => {
+              return (
+                <tr key={user.id} onClick={() => handleClick(user.id)} className="cursor-pointer hover:bg-gray-100">
+                  <td>{user.name}</td>
+                  <td>{formatBirthDate(user?.birth)}</td>
+                  <td>{user?.register || "-"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       )}
     </div>
   );

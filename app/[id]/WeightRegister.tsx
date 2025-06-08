@@ -4,7 +4,7 @@ import { useTransition } from "react";
 import { addWeight } from "./actions";
 import { useRouter } from "next/navigation";
 
-export default function WeightForm({ userId }: { userId: number }) {
+export default function WeightRegister({ userId }: { userId: number }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -16,7 +16,7 @@ export default function WeightForm({ userId }: { userId: number }) {
       return;
     }
 
-    if (confirm("입력하신 체중이 맞습니까?")) {
+    if (confirm(`입력하신 체중이 ${weight}kg 맞습니까?`)) {
       await addWeight(userId, weight);
       router.refresh();
     }

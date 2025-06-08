@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Image from "next/image";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
