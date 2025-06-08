@@ -6,14 +6,6 @@ export default function Page() {
   return (
     <div>
       <UserList />
-      {/* <div className="w-full flex flex-col items-center">
-        <Link
-          href="/register"
-          className="w-full bg-blue-500 text-white p-4 rounded hover:bg-blue-600 transition-colors text-center"
-        >
-          환자 관리
-        </Link>
-      </div> */}
 
       <div className="mt-8 flex justify-end">
         <Link
