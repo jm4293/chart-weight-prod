@@ -1,16 +1,8 @@
-import { getWeights, getUser, getWeightsToday } from "./actions";
-import Link from "next/link";
+import { getUser, getWeightsToday } from "./actions";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import "dayjs/locale/ko";
 import Detail from "./Detail";
 import HomeButton from "@/components/button/HomeButton";
 import Delete from "./Delete";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.locale("ko");
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

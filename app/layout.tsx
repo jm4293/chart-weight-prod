@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Image from "next/image";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import "dayjs/locale/ko";
+import Logo from "@/components/image/Logo";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("ko");
 
 export const metadata: Metadata = {
   title: "동탄연세맑음내과 투석실",
@@ -15,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <div className="w-full flex justify-center px-4 py-8">
-          <Image src="/toplogo.png" alt="logo" width={366} height={60} />
-        </div>
+        <Logo />
 
         <main className="desktop">{children}</main>
       </body>

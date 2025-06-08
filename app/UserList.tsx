@@ -3,14 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import "dayjs/locale/ko";
-
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.locale("ko");
 
 export default function UserList() {
   const [users, setUsers] = useState<any[]>([]);
@@ -18,10 +10,16 @@ export default function UserList() {
   const router = useRouter();
 
   useEffect(() => {
-    fetchUsers().then((data) => {
-      setUsers(data);
-      setLoading(false);
-    });
+    (async () => {
+      try {
+        const data = await fetchUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error("사용자 불러오기 실패:", error);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   const handleClick = (userId: number) => {
