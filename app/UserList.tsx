@@ -41,7 +41,7 @@ function getInitialConsonant(str: string) {
     return str[0];
   }
 
-  return consonants[Math.floor(code / 588)];
+  return cho[Math.floor(code / 588)];
 }
 
 export default function UserList() {
