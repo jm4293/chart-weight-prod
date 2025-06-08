@@ -104,7 +104,7 @@ export default function UserList() {
           <thead>
             <tr>
               <th>이름</th>
-              <th>년월일</th>
+              <th>생년월일</th>
               <th>등록번호</th>
             </tr>
           </thead>
