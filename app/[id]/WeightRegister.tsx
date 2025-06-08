@@ -18,7 +18,8 @@ export default function WeightRegister({ userId }: { userId: number }) {
 
     if (confirm(`입력하신 체중이 ${weight}kg 맞습니까?`)) {
       await addWeight(userId, weight);
-      router.refresh();
+      // router.refresh();
+      router.push("/");
     }
   };
 
