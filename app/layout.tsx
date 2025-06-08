@@ -5,6 +5,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ko";
 import Logo from "@/components/image/Logo";
+import Modal from "@/components/Modal/Modal";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,6 +27,7 @@ export default function RootLayout({
         <Logo />
 
         <main className="desktop">{children}</main>
+        <Modal />
       </body>
     </html>
   );

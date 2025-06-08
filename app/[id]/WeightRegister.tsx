@@ -3,10 +3,12 @@
 import { useTransition } from "react";
 import { addWeight } from "./actions";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/components/Modal/useModal";
 
 export default function WeightRegister({ userId }: { userId: number }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const { openModal } = useModal();
 
   const handleAction = async (formData: FormData) => {
     const weight = Number(formData.get("weight"));
@@ -16,11 +18,14 @@ export default function WeightRegister({ userId }: { userId: number }) {
       return;
     }
 
-    if (confirm(`입력하신 체중이 ${weight}kg 맞습니까?`)) {
-      await addWeight(userId, weight);
-      // router.refresh();
-      router.push("/");
-    }
+    openModal(
+      `입력하신 체중이 ${weight}kg 맞습니까?`,
+      async () => {
+        await addWeight(userId, weight);
+        router.push("/");
+      },
+      () => {}
+    );
   };
 
   return (
@@ -28,7 +33,9 @@ export default function WeightRegister({ userId }: { userId: number }) {
       <h1 className="text-2xl font-bold">몸무게 등록</h1>
 
       <form
-        action={(formData) => {
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
           startTransition(() => handleAction(formData));
         }}
         className="w-full flex flex-col gap-4"
