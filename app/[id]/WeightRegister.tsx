@@ -1,50 +1,30 @@
 "use client";
 
-import { useTransition } from "react";
-import { addWeight } from "./actions";
-import { useRouter } from "next/navigation";
-import { useModal } from "@/components/Modal/useModal";
+import { useState } from "react";
+
+import NumberPadModal from "@/app/[id]/NumberPadModal";
 
 export default function WeightRegister({ userId }: { userId: number }) {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const { openModal } = useModal();
-
-  const handleAction = async (formData: FormData) => {
-    const weight = Number(formData.get("weight"));
-
-    if (isNaN(weight) || weight <= 0) {
-      alert("올바른 몸무게를 입력해주세요.");
-      return;
-    }
-
-    openModal(
-      `입력하신 체중이 ${weight}kg 맞습니까?`,
-      async () => {
-        await addWeight(userId, weight);
-        router.push("/");
-      },
-      () => {}
-    );
-  };
+  const [openNumberPadModal, setOpenNumberPadModal] = useState(false);
 
   return (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-2xl font-bold">몸무게 등록</h1>
+    <>
+      {openNumberPadModal && (
+        <NumberPadModal
+          userId={userId}
+          setOpenNumberPadModal={setOpenNumberPadModal}
+        />
+      )}
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          startTransition(() => handleAction(formData));
-        }}
-        className="w-full flex flex-col gap-4"
-      >
-        <input type="number" name="weight" placeholder="몸무게(kg)" className="w-full border" required step="any" />{" "}
-        <button type="submit" className="bg-blue-500 text-white rounded" disabled={isPending}>
-          {isPending ? "등록 중..." : "등록하기"}
+      <div className="flex flex-col gap-4">
+        <button
+          type="submit"
+          className="bg-blue-500 text-4xl text-white rounded py-4"
+          onClick={() => setOpenNumberPadModal(true)}
+        >
+          몸무게 등록하기
         </button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }

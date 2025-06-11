@@ -5,7 +5,22 @@ import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
 import { formatBirthDate } from "@/util/birth-format";
 
-const consonants = ["ㄱ", "ㄴ", "ㄷ", "ㄹ", "ㅁ", "ㅂ", "ㅅ", "ㅇ", "ㅈ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
+const consonants = [
+  "ㄱ",
+  "ㄴ",
+  "ㄷ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅅ",
+  "ㅇ",
+  "ㅈ",
+  "ㅊ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+];
 
 // 한글 초성 추출 함수
 function getInitialConsonant(str: string) {
@@ -47,7 +62,9 @@ function getInitialConsonant(str: string) {
 export default function UserList() {
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedConsonant, setSelectedConsonant] = useState<string | null>(null);
+  const [selectedConsonant, setSelectedConsonant] = useState<string | null>(
+    null,
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -68,7 +85,9 @@ export default function UserList() {
   };
 
   const filteredUsers = selectedConsonant
-    ? users.filter((user) => getInitialConsonant(user.name) === selectedConsonant)
+    ? users.filter(
+        (user) => getInitialConsonant(user.name) === selectedConsonant,
+      )
     : users;
 
   return (
@@ -77,8 +96,10 @@ export default function UserList() {
 
       <div className="flex gap-2 mb-4 flex-wrap justify-center">
         <button
-          className={`px-3 rounded border ${
-            selectedConsonant === null ? "bg-blue-500 text-white" : "bg-white text-black"
+          className={`text-2xl p-3 rounded border ${
+            selectedConsonant === null
+              ? "bg-blue-500 text-white"
+              : "bg-white text-black"
           }`}
           onClick={() => setSelectedConsonant(null)}
         >
@@ -87,8 +108,10 @@ export default function UserList() {
         {consonants.map((c) => (
           <button
             key={c}
-            className={`px-4 rounded border ${
-              selectedConsonant === c ? "bg-blue-500 text-white" : "bg-white text-black"
+            className={`text-2xl p-4 rounded border ${
+              selectedConsonant === c
+                ? "bg-blue-500 text-white"
+                : "bg-white text-black"
             }`}
             onClick={() => setSelectedConsonant(c)}
           >
@@ -132,7 +155,11 @@ export default function UserList() {
           <tbody>
             {filteredUsers.map((user) => {
               return (
-                <tr key={user.id} onClick={() => handleClick(user.id)} className="cursor-pointer hover:bg-gray-100">
+                <tr
+                  key={user.id}
+                  onClick={() => handleClick(user.id)}
+                  className="cursor-pointer hover:bg-gray-100"
+                >
                   <td>{user.name}</td>
                   <td>{formatBirthDate(user?.birth)}</td>
                   <td>{user?.register || "-"}</td>

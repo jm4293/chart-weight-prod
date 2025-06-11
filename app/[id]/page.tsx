@@ -1,34 +1,40 @@
 import { getUser, getWeightsToday } from "./actions";
 import dayjs from "dayjs";
-import Detail from "./WeightRegister";
+import WeightRegister from "./WeightRegister";
 import HomeButton from "@/components/button/HomeButton";
 import Delete from "./Delete";
 import { formatBirthDate } from "@/util/birth-format";
 
-export default async function DetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function DetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const userId = Number(id);
   const user = await getUser(userId);
   const weights = await getWeightsToday(userId);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">환자 정보</h1>
+        <h1 className="text-3xl">환자 정보</h1>
 
         {user ? (
-          <div className="flex flex-col gap-1 mb-4">
-            <div className="flex text-xl">
-              <p className="min-w-[100px]">이름:</p>
-              <strong>{user?.name || "-"}</strong>
+          <div className="flex flex-col gap-4 my-4">
+            <div className="flex text-3xl">
+              <p className="min-w-[140px] text">이름:</p>
+              <strong className="text-4xl">{user?.name || "-"}</strong>
             </div>
-            <div className="flex text-xl">
-              <p className="min-w-[100px]">생년월일:</p>
-              <strong>{formatBirthDate(user?.birth)}</strong>
+            <div className="flex text-3xl">
+              <p className="min-w-[140px]">생년월일:</p>
+              <strong className="text-4xl">
+                {formatBirthDate(user?.birth)}
+              </strong>
             </div>
-            <div className="flex text-xl">
-              <p className="min-w-[100px]">등록번호:</p>
-              <strong>{user?.register || "-"}</strong>
+            <div className="flex text-3xl">
+              <p className="min-w-[140px]">등록번호:</p>
+              <strong className="text-4xl">{user?.register || "-"}</strong>
             </div>
           </div>
         ) : (
@@ -36,24 +42,18 @@ export default async function DetailPage({ params }: { params: Promise<{ id: str
         )}
       </div>
 
-      <Detail userId={userId} />
+      <WeightRegister userId={userId} />
 
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">몸무게 기록</h1>
+      <div className="flex flex-col gap-4">
+        <h1 className="text-4xl">몸무게 기록</h1>
 
         {weights.length > 0 ? (
           <table>
             <thead>
               <tr>
-                <th>
-                  <strong>몸무게</strong>
-                </th>
-                <th>
-                  <strong>시간</strong>
-                </th>
-                <th>
-                  <strong>삭제</strong>
-                </th>
+                <th>몸무게</th>
+                <th>시간</th>
+                <th>삭제</th>
               </tr>
             </thead>
             <tbody>
@@ -61,9 +61,11 @@ export default async function DetailPage({ params }: { params: Promise<{ id: str
                 return (
                   <tr key={w.id} className="hover:bg-gray-100">
                     <td className="text-xl">{w.weight}kg</td>
-                    <td>{dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}</td>
                     <td>
-                      <Delete weightId={w.id} />
+                      {dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}
+                    </td>
+                    <td>
+                      <Delete weight={w} />
                     </td>
                   </tr>
                 );

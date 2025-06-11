@@ -9,7 +9,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0 0 2rem 0;
+  /*margin: 0 0 2rem 0;*/
 }
 
 button,
@@ -22,11 +22,6 @@ li {
 input {
   padding: 1rem;
   border-radius: 0.25rem;
-}
-
-button {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 ul {
@@ -67,14 +62,17 @@ th {
   border: 2px solid #ddd;
   background-color: #f0f0f0;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 td {
   padding: 1rem 0;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .desktop {
