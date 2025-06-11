@@ -5,7 +5,7 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ko";
 import Logo from "@/components/image/Logo";
-import Modal from "@/components/modal2/Modal";
+import Modal from "@/components/modal/Modal";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

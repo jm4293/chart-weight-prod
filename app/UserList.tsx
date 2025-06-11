@@ -91,33 +91,35 @@ export default function UserList() {
     : users;
 
   return (
-    <div className="flex flex-col items-center">
-      <strong className="text-4xl mb-4">환자 명단</strong>
+    <div className="flex flex-col items-center gap-8">
+      <div className="flex flex-col items-center gap-2">
+        <strong className="text-4xl">환자 명단</strong>
 
-      <div className="flex gap-2 mb-4 flex-wrap justify-center">
-        <button
-          className={`text-2xl p-3 rounded border ${
-            selectedConsonant === null
-              ? "bg-blue-500 text-white"
-              : "bg-white text-black"
-          }`}
-          onClick={() => setSelectedConsonant(null)}
-        >
-          전체
-        </button>
-        {consonants.map((c) => (
+        <div className="flex gap-2 flex-wrap justify-center">
           <button
-            key={c}
-            className={`text-2xl p-4 rounded border ${
-              selectedConsonant === c
+            className={`text-2xl p-3 rounded border ${
+              selectedConsonant === null
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
             }`}
-            onClick={() => setSelectedConsonant(c)}
+            onClick={() => setSelectedConsonant(null)}
           >
-            {c}
+            전체
           </button>
-        ))}
+          {consonants.map((c) => (
+            <button
+              key={c}
+              className={`text-2xl p-4 rounded border ${
+                selectedConsonant === c
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-black"
+              }`}
+              onClick={() => setSelectedConsonant(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (

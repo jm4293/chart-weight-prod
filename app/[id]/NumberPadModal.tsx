@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useTransition } from "react";
 import { addWeight } from "@/app/[id]/actions";
 import { useModal } from "@/hook/modal";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
   const router = useRouter();
 
   const [weight, setWeight] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const { openModal } = useModal();
 
@@ -35,9 +36,11 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
     openModal(
       `입력하신 체중이 ${weight}kg 맞습니까?`,
-      async () => {
-        await addWeight(userId, Number(weight));
-        router.push("/");
+      () => {
+        startTransition(async () => {
+          await addWeight(userId, Number(weight));
+          router.push("/");
+        });
       },
       () => {},
     );
@@ -53,38 +56,44 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
-      <div className="w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
-        <div className="text-4xl text-center">
-          {weight || "숫자를 입력하세요"}
+      {isPending ? (
+        <div className="w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg">
+          <span className="text-3xl">로딩중...</span>
         </div>
+      ) : (
+        <div className="w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
+          <div className="text-4xl text-center">
+            {weight || "숫자를 입력하세요"}
+          </div>
 
-        <div className="w-full h-full grid grid-cols-3 gap-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "지움"].map((num) => (
+          <div className="w-full h-full grid grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "지움"].map((num) => (
+              <button
+                key={num}
+                className="border rounded"
+                onClick={() => handleClick(num.toString())}
+              >
+                <p className="w-full text-5xl">{num}</p>
+              </button>
+            ))}
+          </div>
+
+          <div className="flex gap-8">
             <button
-              key={num}
-              className="border rounded"
-              onClick={() => handleClick(num.toString())}
+              className="px-10 py-4 bg-gray-300 text-4xl text-black rounded hover:bg-gray-400"
+              onClick={handleCancel}
             >
-              <p className="w-full text-5xl">{num}</p>
+              취소
             </button>
-          ))}
+            <button
+              className="px-10 py-4 bg-blue-500 text-4xl text-white rounded hover:bg-blue-600"
+              onClick={handleConfirm}
+            >
+              확인
+            </button>
+          </div>
         </div>
-
-        <div className="flex gap-8">
-          <button
-            className="px-10 py-4 bg-gray-300 text-4xl text-black rounded hover:bg-gray-400"
-            onClick={handleCancel}
-          >
-            취소
-          </button>
-          <button
-            className="px-10 py-4 bg-blue-500 text-4xl text-white rounded hover:bg-blue-600"
-            onClick={handleConfirm}
-          >
-            확인
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
