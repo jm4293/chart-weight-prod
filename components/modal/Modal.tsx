@@ -7,8 +7,19 @@ import { useEffect, useRef } from "react";
 import { modalAtom } from "@/store/modal-atom";
 
 export default function Modal() {
-  const [modal, setModal] = useAtom(modalAtom);
   const modalRoot = useRef<Element | null>(null);
+
+  const [modal, setModal] = useAtom(modalAtom);
+
+  const handleCancel = () => {
+    setModal((prev) => ({ ...prev, visible: false }));
+    modal.onCancel?.();
+  };
+
+  const handleConfirm = () => {
+    setModal((prev) => ({ ...prev, visible: false }));
+    modal.onConfirm?.();
+  };
 
   useEffect(() => {
     modalRoot.current = document.getElementById("modal-root");
@@ -17,16 +28,6 @@ export default function Modal() {
   if (!modal.visible || !modalRoot.current) {
     return null;
   }
-
-  const handleConfirm = () => {
-    setModal((prev) => ({ ...prev, visible: false }));
-    modal.onConfirm?.();
-  };
-
-  const handleCancel = () => {
-    setModal((prev) => ({ ...prev, visible: false }));
-    modal.onCancel?.();
-  };
 
   return createPortal(
     <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40">

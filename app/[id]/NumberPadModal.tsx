@@ -79,30 +79,30 @@ export default function NumberPadModal(props: INumberPadModalProps) {
             {weight || "숫자를 입력하세요"}
           </div>
 
-          <div className="w-full h-full grid grid-cols-3 gap-4">
+          <div className="w-5/6 h-5/6 grid grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, ".", 0, "지움"].map((num) => (
               <button
                 key={num}
                 className="border rounded"
                 onClick={() => handleClick(num.toString())}
               >
-                <p className="w-full text-5xl">{num}</p>
+                <p className="w-full text-4xl">{num}</p>
               </button>
             ))}
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex gap-4">
             <button
               className="px-10 py-4 bg-gray-300 text-4xl text-black rounded hover:bg-gray-400"
               onClick={handleCancel}
             >
-              취소
+              종료
             </button>
             <button
               className="px-10 py-4 bg-blue-500 text-4xl text-white rounded hover:bg-blue-600"
               onClick={handleConfirm}
             >
-              확인
+              등록
             </button>
           </div>
         </div>
