@@ -70,11 +70,11 @@ export default function NumberPadModal(props: INumberPadModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
       {isPending ? (
-        <div className="max-w-[1024px] w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg">
+        <div className="max-w-[1024px] w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg overflow-x-hidden">
           <span className="text-3xl">등록 중...</span>
         </div>
       ) : (
-        <div className="max-w-[1024px] w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
+        <div className="max-w-[1024px] w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-x-hidden overflow-y-auto">
           <div className="text-4xl text-center whitespace-nowrap">
             {weight || "몸무게를 입력하세요"}
           </div>
