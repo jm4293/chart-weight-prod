@@ -23,9 +23,22 @@ export default function NumberPadModal(props: INumberPadModalProps) {
   const handleClick = (val: string) => {
     if (val === "지움") {
       setWeight((prev) => prev.slice(0, -1));
-    } else {
-      setWeight((prev) => prev + val);
+      return;
     }
+
+    if (weight.length === 0 && val === ".") {
+      return;
+    }
+
+    if (weight.length === 0 && val === "0") {
+      return;
+    }
+
+    if (val === "." && weight.includes(".")) {
+      return;
+    }
+
+    setWeight((prev) => prev + val);
   };
 
   const handleAction = async () => {
@@ -57,11 +70,11 @@ export default function NumberPadModal(props: INumberPadModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
       {isPending ? (
-        <div className="w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg">
-          <span className="text-3xl">로딩중...</span>
+        <div className="max-w-[1024px] w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg">
+          <span className="text-3xl">등록중...</span>
         </div>
       ) : (
-        <div className="w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
+        <div className="max-w-[1024px] w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
           <div className="text-4xl text-center">
             {weight || "숫자를 입력하세요"}
           </div>
