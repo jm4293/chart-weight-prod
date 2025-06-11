@@ -76,7 +76,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
       ) : (
         <div className="max-w-[1024px] w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">
           <div className="text-4xl text-center">
-            {weight || "숫자를 입력하세요"}
+            {weight || "몸무게를 입력하세요"}
           </div>
 
           <div className="w-5/6 h-5/6 grid grid-cols-3 gap-4">

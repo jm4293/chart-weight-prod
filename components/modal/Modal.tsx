@@ -30,8 +30,8 @@ export default function Modal() {
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded shadow-lg p-6 min-w-[300px] flex flex-col items-center">
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4">
+      <div className="bg-white rounded shadow-lg p-6 min-w-[300px] max-w-[1024px] flex flex-col items-center">
         <div className="mb-6 text-4xl text-center">{modal.content}</div>
 
         <div className="flex gap-4">
