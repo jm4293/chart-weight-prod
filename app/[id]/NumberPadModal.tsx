@@ -71,7 +71,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
       {isPending ? (
         <div className="max-w-[1024px] w-[90vw] h-[80vh] flex items-center justify-center bg-white rounded shadow-lg">
-          <span className="text-3xl">등록중...</span>
+          <span className="text-3xl">등록 중...</span>
         </div>
       ) : (
         <div className="max-w-[1024px] w-[90vw] h-[80vh] bg-white rounded shadow-lg flex flex-col items-center p-8 gap-8 overflow-y-auto">

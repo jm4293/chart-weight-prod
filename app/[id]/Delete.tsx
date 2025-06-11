@@ -12,14 +12,12 @@ export default function Delete({ weight }: { weight: any }) {
   const { openModal } = useModal();
 
   const handleDelete = () => {
-    openModal(
-      `${weight.weight}kg 기록을 삭제하시겠습니까?`,
-      async () => {
+    openModal(`${weight.weight}kg 기록을 삭제하시겠습니까?`, () => {
+      startTransition(async () => {
         await deleteWeight(weight.id);
-        router.refresh();
-      },
-      () => {},
-    );
+        router.push("/");
+      });
+    });
   };
 
   return (
