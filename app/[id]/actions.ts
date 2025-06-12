@@ -2,43 +2,55 @@
 
 import { supabase } from "@/lib/supabaceClient";
 import dayjs from "dayjs";
+import { IWeightModel } from "@/type/model/weight";
+import { IUserModel } from "@/type/model/user";
 
-export async function getUser(userId: number) {
+export async function getUser(userId: number): Promise<IUserModel | null> {
   if (isNaN(userId)) {
     return null;
   }
 
-  const { data, error } = await supabase.from("user").select("*").eq("id", userId).single();
+  const { data, error } = await supabase
+    .from("user")
+    .select("*")
+    .eq("id", userId)
+    .single();
 
-  if (error) return null;
-
-  return data;
-}
-
-export async function getWeights(userId: number) {
-  if (isNaN(userId)) {
-    return [];
+  if (error) {
+    return null;
   }
 
-  const { data, error } = await supabase
-    .from("weight")
-    .select("*")
-    .eq("userId", userId)
-    .order("created_at", { ascending: true });
-
-  if (error) return [];
-
   return data;
 }
 
-export async function getWeightsToday(userId: number) {
+// export async function getWeights(userId: number) {
+//   if (isNaN(userId)) {
+//     return [];
+//   }
+//
+//   const { data, error } = await supabase
+//     .from("weight")
+//     .select("*")
+//     .eq("userId", userId)
+//     .order("created_at", { ascending: true });
+//
+//   if (error) return [];
+//
+//   return data;
+// }
+
+export async function getWeightsToday(userId: number): Promise<IWeightModel[]> {
   if (isNaN(userId)) {
     return [];
   }
 
   // KST 기준 오늘 00:00:00 ~ 내일 00:00:00
   const start = dayjs().tz("Asia/Seoul").startOf("day").toISOString();
-  const end = dayjs().tz("Asia/Seoul").add(1, "day").startOf("day").toISOString();
+  const end = dayjs()
+    .tz("Asia/Seoul")
+    .add(1, "day")
+    .startOf("day")
+    .toISOString();
 
   const { data, error } = await supabase
     .from("weight")
@@ -48,7 +60,9 @@ export async function getWeightsToday(userId: number) {
     .lt("created_at", end)
     .order("created_at", { ascending: true });
 
-  if (error) return [];
+  if (error) {
+    return [];
+  }
 
   return data;
 }

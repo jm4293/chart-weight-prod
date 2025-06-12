@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <body>
         <Logo />
-        <main className="desktop">{children}</main>
+        <main className="main-layout">{children}</main>
 
         <Modal />
         <div id="modal-root" />

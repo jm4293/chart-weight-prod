@@ -11,9 +11,9 @@ export default async function DetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const userId = Number(id);
-  const user = await getUser(userId);
-  const weights = await getWeightsToday(userId);
+
+  const user = await getUser(Number(id));
+  const weights = await getWeightsToday(Number(id));
 
   return (
     <div className="flex flex-col gap-12">
@@ -42,52 +42,43 @@ export default async function DetailPage({
         )}
       </div>
 
-      <WeightRegister userId={userId} />
+      <WeightRegister userId={Number(id)} />
 
       <div className="flex flex-col gap-4">
         <h1 className="text-4xl">몸무게 기록</h1>
 
-        {weights.length > 0 ? (
-          <table>
-            <thead>
-              <tr>
-                <th>몸무게</th>
-                <th>시간</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
-              {weights.map((w) => {
+        <table>
+          <thead>
+            <tr>
+              <th>몸무게</th>
+              <th>시간</th>
+              <th>삭제</th>
+            </tr>
+          </thead>
+          <tbody>
+            {weights.length > 0 ? (
+              weights.map((w) => {
                 return (
                   <tr key={w.id} className="hover:bg-gray-100">
-                    <td className="text-xl">{w.weight}kg</td>
+                    <td>{w.weight}kg</td>
                     <td>
-                      {dayjs(w.created_at).tz("Asia/Seoul").format("HH시 mm분")}
+                      {dayjs(w.created_at)
+                        .tz("Asia/Seoul")
+                        .format("HH시 mm분")}{" "}
                     </td>
                     <td>
                       <Delete weight={w} />
                     </td>
                   </tr>
                 );
-              })}
-            </tbody>
-          </table>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>몸무게</th>
-                <th>시간</th>
-                <th>삭제</th>
-              </tr>
-            </thead>
-            <tbody>
+              })
+            ) : (
               <tr>
                 <td colSpan={3}>기록이 없습니다.</td>
               </tr>
-            </tbody>
-          </table>
-        )}
+            )}
+          </tbody>
+        </table>
       </div>
 
       <HomeButton />

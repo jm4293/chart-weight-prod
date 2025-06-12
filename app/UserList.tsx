@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { fetchUsers } from "./action";
 import { formatBirthDate } from "@/util/birth-format";
+import { IUserModel } from "@/type/model/user";
 
 const consonants = [
   "ㄱ",
@@ -60,25 +61,14 @@ function getInitialConsonant(str: string) {
 }
 
 export default function UserList() {
-  const [users, setUsers] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const [users, setUsers] = useState<IUserModel[]>([]);
   const [selectedConsonant, setSelectedConsonant] = useState<string | null>(
     null,
   );
-  const router = useRouter();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await fetchUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error("사용자 불러오기 실패:", error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  const [isPending, startTransition] = useTransition();
 
   const handleClick = (userId: number) => {
     router.push(`/${userId}`);
@@ -89,6 +79,16 @@ export default function UserList() {
         (user) => getInitialConsonant(user.name) === selectedConsonant,
       )
     : users;
+
+  useEffect(() => {
+    startTransition(() => {
+      fetchUsers()
+        .then((data) => setUsers(data))
+        .catch((error) => {
+          console.error("사용자 불러오기 실패:", error);
+        });
+    });
+  }, []);
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -122,9 +122,9 @@ export default function UserList() {
         </div>
       </div>
 
-      {loading ? (
+      {isPending ? (
         <p className="text-gray-400 p-4">불러오는 중...</p>
-      ) : filteredUsers.length === 0 ? (
+      ) : (
         <table>
           <thead>
             <tr>
@@ -134,29 +134,8 @@ export default function UserList() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colSpan={3}>사용자가 없습니다.</td>
-            </tr>
-          </tbody>
-        </table>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <strong>이름</strong>
-              </th>
-              <th>
-                <strong>생년월일</strong>
-              </th>
-              <th>
-                <strong>등록번호</strong>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user) => {
-              return (
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
                 <tr
                   key={user.id}
                   onClick={() => handleClick(user.id)}
@@ -166,8 +145,12 @@ export default function UserList() {
                   <td>{formatBirthDate(user?.birth)}</td>
                   <td>{user?.register || "-"}</td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3}>사용자가 없습니다.</td>
+              </tr>
+            )}
           </tbody>
         </table>
       )}

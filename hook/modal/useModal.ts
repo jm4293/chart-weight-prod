@@ -4,12 +4,23 @@ import { modalAtom } from "@/store/modal-atom";
 export function useModal() {
   const [modal, setModal] = useAtom(modalAtom);
 
-  const openModal = (
-    content: string,
-    onConfirm?: () => void,
-    onCancel?: () => void,
-  ) => {
-    setModal({ visible: true, content, onConfirm, onCancel });
+  const openModal = (params: {
+    content: string;
+    onConfirm?: () => void;
+    confirmText?: string;
+    onCancel?: () => void;
+    cancelText?: string;
+  }) => {
+    const { content, onConfirm, confirmText, onCancel, cancelText } = params;
+
+    setModal({
+      visible: true,
+      content,
+      onConfirm,
+      confirmText,
+      onCancel,
+      cancelText,
+    });
   };
 
   const closeModal = () => {

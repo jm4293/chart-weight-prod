@@ -31,21 +31,21 @@ export default function Modal() {
 
   return createPortal(
     <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4">
-      <div className="bg-white rounded shadow-lg p-6 min-w-[300px] max-w-[1024px] flex flex-col items-center">
-        <div className="mb-6 text-4xl text-center">{modal.content}</div>
+      <div className="bg-white rounded-2xl shadow-lg p-6 min-w-[300px] max-w-[1024px] flex flex-col items-center">
+        <div className="mt-4 mb-6 text-4xl text-center">{modal.content}</div>
 
         <div className="flex gap-4">
           <button
             className="p-4 text-4xl bg-gray-300 text-black rounded hover:bg-gray-400"
             onClick={handleCancel}
           >
-            취소
+            {modal.cancelText || "취소"}
           </button>
           <button
             className="p-4 text-4xl bg-blue-500 text-white rounded hover:bg-blue-600"
             onClick={handleConfirm}
           >
-            확인
+            {modal.confirmText || "확인"}
           </button>
         </div>
       </div>

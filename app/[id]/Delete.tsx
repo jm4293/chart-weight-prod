@@ -4,19 +4,24 @@ import { useTransition } from "react";
 import { deleteWeight } from "./actions";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hook/modal";
+import { IWeightModel } from "@/type/model/weight";
 
-export default function Delete({ weight }: { weight: any }) {
-  const [isPending, startTransition] = useTransition();
+export default function Delete({ weight }: { weight: IWeightModel }) {
   const router = useRouter();
+
+  const [isPending, startTransition] = useTransition();
 
   const { openModal } = useModal();
 
   const handleDelete = () => {
-    openModal(`${weight.weight}kg 기록을 삭제하시겠습니까?`, () => {
-      startTransition(async () => {
-        await deleteWeight(weight.id);
-        router.push("/");
-      });
+    openModal({
+      content: `${weight.weight}kg 기록을 삭제하시겠습니까?`,
+      onConfirm: () => {
+        startTransition(async () => {
+          await deleteWeight(weight.id);
+          router.refresh();
+        });
+      },
     });
   };
 
