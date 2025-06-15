@@ -4,6 +4,35 @@ import WeightRegister from "./WeightRegister";
 import HomeButton from "@/components/button/HomeButton";
 import Delete from "./Delete";
 import { formatBirthDate } from "@/util/birth-format";
+import Image from "next/image";
+
+function WeightCell({
+  weight,
+  image,
+}: {
+  weight?: number | null;
+  image?: string | null;
+}) {
+  if (weight) {
+    return `${weight}kg`;
+  }
+
+  if (image) {
+    return (
+      <div className="flex justify-center items-center gap-2">
+        <Image
+          src={image}
+          alt="weight image"
+          width={100}
+          height={100}
+          className="w-24 h-24 object-cover rounded-lg"
+        />
+      </div>
+    );
+  }
+
+  return "-";
+}
 
 export default async function DetailPage({
   params,
@@ -14,6 +43,8 @@ export default async function DetailPage({
 
   const user = await getUser(Number(id));
   const weights = await getWeightsToday(Number(id));
+
+  console.log("weights", weights);
 
   return (
     <div className="flex flex-col gap-12">
@@ -42,7 +73,7 @@ export default async function DetailPage({
         )}
       </div>
 
-      <WeightRegister userId={Number(id)} />
+      {user && <WeightRegister userId={Number(id)} user={user} />}
 
       <div className="flex flex-col gap-4">
         <h1 className="text-4xl">몸무게 기록</h1>
@@ -60,7 +91,9 @@ export default async function DetailPage({
               weights.map((w) => {
                 return (
                   <tr key={w.id} className="hover:bg-gray-100">
-                    <td>{w.weight}kg</td>
+                    <td>
+                      <WeightCell weight={w.weight} image={w.image} />
+                    </td>
                     <td>
                       {dayjs(w.created_at)
                         .tz("Asia/Seoul")

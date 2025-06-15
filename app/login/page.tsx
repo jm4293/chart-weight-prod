@@ -54,7 +54,7 @@ export default function LoginPage() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+          className="bg-blue-500 text-white py-4 rounded hover:bg-blue-600 disabled:opacity-50"
           disabled={isPending}
         >
           {isPending ? "로그인 중..." : "로그인"}
