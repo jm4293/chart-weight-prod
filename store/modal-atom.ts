@@ -7,13 +7,17 @@ export interface ModalState {
   confirmText?: string;
   onCancel?: () => void;
   cancelText?: string;
+  disableClose?: boolean;
 }
 
-export const modalAtom = atom<ModalState>({
+export const defaultModalState: ModalState = {
   visible: false,
   content: "",
   onConfirm: undefined,
   confirmText: undefined,
   onCancel: undefined,
   cancelText: undefined,
-});
+  disableClose: false,
+};
+
+export const modalAtom = atom<ModalState>({ ...defaultModalState });

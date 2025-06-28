@@ -8,12 +8,18 @@ export default function Logo() {
   const router = useRouter();
 
   const handleLogoClick = () => {
-    router.push("/");
+    router.push("/patient");
   };
 
   return (
     <div className="w-full flex justify-center px-4 py-8 cursor-pointer">
-      <Image src={logo} alt="logo" width={366} height={60} onClick={handleLogoClick} />
+      <Image
+        src={logo}
+        alt="logo"
+        width={366}
+        height={60}
+        onClick={handleLogoClick}
+      />
     </div>
   );
 }

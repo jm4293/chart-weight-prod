@@ -6,6 +6,7 @@ import timezone from "dayjs/plugin/timezone";
 import "dayjs/locale/ko";
 import Logo from "@/components/image/Logo";
 import Modal from "@/components/modal/Modal";
+import Providers from "../common/providers";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -32,11 +33,13 @@ export default function RootLayout({
         <title>동탄연세맑은내과 투석실</title>
       </head>
       <body>
-        <Logo />
-        <main className="main-layout">{children}</main>
+        <Providers>
+          <Logo />
+          <main className="main-layout">{children}</main>
 
-        <Modal />
-        <div id="modal-root" />
+          <Modal />
+          <div id="modal-root" />
+        </Providers>
       </body>
     </html>
   );
