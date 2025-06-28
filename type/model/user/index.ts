@@ -1,6 +1,7 @@
 export interface IUserModel {
   id: number;
+  email: string;
   name: string;
-  birth: number;
-  register: string;
+  type: number;
+  created_at: Date;
 }
