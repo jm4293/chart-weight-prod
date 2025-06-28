@@ -1,25 +1,27 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState, useTransition } from "react";
-import { addWeight } from "@/app/[id]/actions";
+import { registerWeight } from "@/app/patient/[id]/actions";
 import { useModal } from "@/hook/modal";
 import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface INumberPadModalProps {
-  userId: number;
+  id: string;
   setOpenNumberPadModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function NumberPadModal(props: INumberPadModalProps) {
-  const { userId, setOpenNumberPadModal } = props;
+  const { id, setOpenNumberPadModal } = props;
 
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [weight, setWeight] = useState("");
 
   const [isPending, startTransition] = useTransition();
 
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
 
   const handleClick = (val: string) => {
     if (val === "지움") {
@@ -44,17 +46,31 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
   const handleAction = async () => {
     if (weight === "") {
-      openModal({ content: "체중을 입력해주세요" });
+      openModal({
+        content: "체중을 입력해주세요",
+        onConfirm: () => {
+          closeModal();
+        },
+        disableClose: true,
+      });
       return;
     }
 
     openModal({
       content: `입력하신 체중이 ${weight}kg 맞습니까?`,
+      confirmText: "등록",
       onConfirm: () => {
+        closeModal();
+
         startTransition(async () => {
-          await addWeight(userId, Number(weight));
-          router.push("/");
+          await registerWeight(Number(id), weight);
+          await queryClient.invalidateQueries({ queryKey: ["patient", id] });
+
+          router.push("/patient");
         });
+      },
+      onCancel: () => {
+        closeModal();
       },
     });
   };
@@ -77,7 +93,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
         ) : (
           <>
             <div className="text-4xl text-center whitespace-nowrap">
-              {weight || "몸무게를 입력하세요"}
+              {weight ? `${weight}kg` : "몸무게를 입력하세요"}
             </div>
 
             <div className="w-5/6 h-5/6 grid grid-cols-3 gap-4">
@@ -101,7 +117,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
                 className="px-10 py-4 bg-gray-300 text-4xl text-black rounded hover:bg-gray-400"
                 onClick={handleCancel}
               >
-                종료
+                취소
               </button>
               <button
                 className="px-10 py-4 bg-blue-500 text-4xl text-white rounded hover:bg-blue-600"
