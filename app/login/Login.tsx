@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   return (
-    <div className="w-full max-w-[1024px] flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4">
       <input
         className="border p-2 rounded"
         type="text"
