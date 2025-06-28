@@ -11,7 +11,7 @@ function Loading() {
   return <p className="text-2xl text-gray-400">불러오는 중...</p>;
 }
 
-export default function Patient(props: IProps) {
+export default function PatientInfo(props: IProps) {
   const { id } = props;
 
   const { data, isLoading, isSuccess, isError } = usePatient({ id });

@@ -3,6 +3,7 @@
 import { usePatient } from "@/hook/patient";
 import Loading from "@/components/loading/Loading";
 import WeightDelete from "@/app/patient/[id]/WeightDelete";
+import { IWeightModel } from "@/type/model/weight";
 
 interface IProps {
   id: string;
@@ -12,6 +13,22 @@ export default function WeightList(props: IProps) {
   const { id } = props;
 
   const { data, isLoading, isSuccess, isError } = usePatient({ id });
+
+  const handleTableRowClick = (params: {
+    event: React.MouseEvent<HTMLTableRowElement>;
+    weight: IWeightModel;
+  }) => {
+    const { event, weight } = params;
+    const { file_name } = weight;
+
+    if (file_name) {
+      event.stopPropagation();
+      window.open(
+        `${process.env.NEXT_PUBLIC_API_URL}/uploads/${file_name}`,
+        "_blank",
+      );
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -38,14 +55,18 @@ export default function WeightList(props: IProps) {
         {isSuccess && data.patient.weights.length > 0 ? (
           data.patient.weights.map((weight) => {
             return (
-              <tr key={weight.id} className="hover:bg-gray-100">
+              <tr
+                key={weight.id}
+                className={`hover:bg-gray-100 ${weight.file_name ? " cursor-pointer" : ""}`}
+                onClick={(event) => handleTableRowClick({ event, weight })}
+              >
                 <td>
                   <div className="flex justify-center items-center gap-2">
                     {weight.weight && `${weight.weight}kg`}
                     {weight.file_name && (
                       <img
                         className="w-24 h-24 object-cover rounded-lg"
-                        src={`http://localhost:5007/uploads/${weight.file_name}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${weight.file_name}`}
                         alt="weight image"
                       />
                     )}

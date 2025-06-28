@@ -13,7 +13,8 @@ export function usePatient(props: IProps) {
     patient: IPatientModel;
   }>({
     queryKey: ["patient", id],
-    queryFn: () => api.get(`http://localhost:5007/patient/${id}`).json(),
+    queryFn: () =>
+      api.get(`${process.env.NEXT_PUBLIC_API_URL}/patient/${id}`).json(),
     staleTime: 1000 * 60 * 60, // 1시간
   });
 }

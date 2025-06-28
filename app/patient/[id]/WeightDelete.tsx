@@ -20,7 +20,11 @@ export default function WeightDelete(props: IProps) {
 
   const { openModal, closeModal } = useModal();
 
-  const handleDelete = () => {
+  const handleDelete = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.stopPropagation();
+
     openModal({
       content: weight.weight
         ? `${weight.weight}kg 기록을 삭제하시겠습니까?`

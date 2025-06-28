@@ -1,6 +1,6 @@
 import WeightRegister from "./WeightRegister";
 import HomeButton from "@/components/button/HomeButton";
-import Patient from "@/app/patient/[id]/Patient";
+import PatientInfo from "@/app/patient/[id]/PatientInfo";
 import WeightList from "@/app/patient/[id]/WeightList";
 
 export default async function DetailPage({
@@ -14,14 +14,13 @@ export default async function DetailPage({
     <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl">환자 정보</h1>
-        <Patient id={id} />
+        <PatientInfo id={id} />
       </div>
 
       <WeightRegister id={id} />
 
       <div className="flex flex-col gap-4">
         <h1 className="text-4xl">몸무게 기록</h1>
-
         <WeightList id={id} />
       </div>
 

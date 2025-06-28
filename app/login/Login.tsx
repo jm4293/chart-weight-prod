@@ -14,7 +14,7 @@ export default function Login() {
 
   const mutation = useMutation({
     mutationFn: () =>
-      api.post("http://localhost:5007/auth/login", {
+      api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         json: { email, password },
       }),
     onSuccess: (res) => {

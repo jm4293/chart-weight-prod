@@ -2,11 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { formatBirthDate } from "@/util/birth-format";
-import { useQuery } from "@tanstack/react-query";
-import api from "@/common/api";
 import { useState } from "react";
 import Consonant from "@/app/patient/Consonant";
 import { IPatientModel } from "@/type/model/patient";
+import { usePatientList } from "@/hook/patient";
 
 // 한글 초성 추출 함수
 function getInitialConsonant(str: string) {
@@ -52,13 +51,7 @@ export default function PatientList() {
     null,
   );
 
-  const { data, isLoading, isSuccess } = useQuery<{
-    patients: IPatientModel[];
-  }>({
-    queryKey: ["users"],
-    queryFn: () => api.get("http://localhost:5007/patient/list").json(),
-    staleTime: 1000 * 60 * 60 * 6, // 6시간
-  });
+  const { data, isLoading, isSuccess } = usePatientList();
 
   const handleClick = (id: number) => {
     router.push(`/patient/${id}`);

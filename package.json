@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build-rm": "rm -rf .next",
+    "node_modules-rm": "rm -rf node_modules"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.0",
