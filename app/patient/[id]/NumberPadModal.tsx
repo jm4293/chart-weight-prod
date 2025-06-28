@@ -64,7 +64,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
         startTransition(async () => {
           await registerWeight(Number(id), weight);
-          await queryClient.invalidateQueries({ queryKey: ["patient", id] });
+          await queryClient.invalidateQueries({ queryKey: ["weight", id] });
 
           router.push("/patient");
         });

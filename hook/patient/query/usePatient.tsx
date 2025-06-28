@@ -15,6 +15,6 @@ export function usePatient(props: IProps) {
     queryKey: ["patient", id],
     queryFn: () =>
       api.get(`${process.env.NEXT_PUBLIC_API_URL}/patient/${id}`).json(),
-    staleTime: 1000 * 60 * 60, // 1시간
+    staleTime: 1000 * 60 * 60 * 6, // 6시간
   });
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { usePatient } from "@/hook/patient";
 import Loading from "@/components/loading/Loading";
 import WeightDelete from "@/app/patient/[id]/WeightDelete";
 import { IWeightModel } from "@/type/model/weight";
+import { usePatientWeightList } from "@/hook/weight";
 
 interface IProps {
   id: string;
@@ -12,7 +12,9 @@ interface IProps {
 export default function WeightList(props: IProps) {
   const { id } = props;
 
-  const { data, isLoading, isSuccess, isError } = usePatient({ id });
+  const { data, isLoading, isSuccess, isError } = usePatientWeightList({
+    patient_id: id,
+  });
 
   const handleTableRowClick = (params: {
     event: React.MouseEvent<HTMLTableRowElement>;
@@ -52,8 +54,8 @@ export default function WeightList(props: IProps) {
         </tr>
       </thead>
       <tbody>
-        {isSuccess && data.patient.weights.length > 0 ? (
-          data.patient.weights.map((weight) => {
+        {isSuccess && data.weights.length > 0 ? (
+          data.weights.map((weight) => {
             return (
               <tr
                 key={weight.id}

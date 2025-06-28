@@ -34,7 +34,7 @@ export default function WeightRegister(props: IProps) {
     if (file) {
       startTransition(async () => {
         await addWeightWithImage(Number(id), file);
-        await queryClient.invalidateQueries({ queryKey: ["patient", id] });
+        await queryClient.invalidateQueries({ queryKey: ["weight", id] });
 
         router.push("/patient");
         fileInputRef.current!.value = "";

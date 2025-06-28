@@ -33,7 +33,7 @@ export default function WeightDelete(props: IProps) {
         closeModal();
         startTransition(async () => {
           await deleteWeight(weight.id);
-          await queryClient.invalidateQueries({ queryKey: ["patient", id] });
+          await queryClient.invalidateQueries({ queryKey: ["weight", id] });
         });
       },
       onCancel: () => {
