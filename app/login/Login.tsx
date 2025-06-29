@@ -28,6 +28,11 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setErrorMessage("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
+
     setErrorMessage("");
 
     mutation.mutate();
