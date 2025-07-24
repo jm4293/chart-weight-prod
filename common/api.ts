@@ -12,8 +12,13 @@ const api = ky.create({
       async (request, options, response) => {
         console.log("API 요청:", response.ok, response.status);
 
+        console.log("요청 URL:", request.url);
+        console.log("12312312", response.ok);
+
         if (!response.ok) {
           const data = await response.clone().json();
+
+          console.error("API 응답 오류:", data);
 
           if (response.status === 401) {
             alert("로그인이 필요합니다.");
@@ -34,8 +39,10 @@ const api = ky.create({
           //   alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
           // }
 
-          throw new Error(`${data.message}`);
+          // throw new Error(`${data.message}`);
         }
+
+        console.log("응답 데이터:", await response.clone().json());
 
         return response;
       },

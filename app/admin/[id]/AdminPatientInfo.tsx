@@ -2,6 +2,7 @@
 
 import { formatBirthDate } from "@/util/birth-format";
 import { usePatient } from "@/hook/patient";
+import { useState } from "react";
 
 interface IProps {
   id: string;
@@ -11,8 +12,10 @@ function Loading() {
   return <p className="text-2xl text-gray-400">불러오는 중...</p>;
 }
 
-export default function PatientInfo(props: IProps) {
+export default function AdminPatientInfo(props: IProps) {
   const { id } = props;
+
+  const [] = useState();
 
   const { data, isLoading, isSuccess, isError } = usePatient({ id });
 
@@ -30,10 +33,15 @@ export default function PatientInfo(props: IProps) {
         <p className="min-w-[140px] text text-3xl">이름:</p>
         {isLoading ? (
           <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">{data.patient.name}</strong>
         ) : (
-          "이름 없음"
+          isSuccess && (
+            <input
+              type="text"
+              className="w-full border p-2 rounded"
+              value={data.patient.name}
+              placeholder="이름을 입력하세요"
+            />
+          )
         )}
       </div>
 
@@ -41,12 +49,15 @@ export default function PatientInfo(props: IProps) {
         <p className="min-w-[140px] text-3xl">생년월일:</p>
         {isLoading ? (
           <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">
-            {formatBirthDate(data.patient.birth)}
-          </strong>
         ) : (
-          "-"
+          isSuccess && (
+            <input
+              type="text"
+              className="w-full border p-2 rounded"
+              value={data.patient.birth}
+              placeholder="생년월일을 입력하세요"
+            />
+          )
         )}
       </div>
 
@@ -54,10 +65,15 @@ export default function PatientInfo(props: IProps) {
         <p className="min-w-[140px] text-3xl">등록번호:</p>
         {isLoading ? (
           <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">{data.patient.register_num}</strong>
         ) : (
-          "-"
+          isSuccess && (
+            <input
+              type="text"
+              className="w-full border p-2 rounded"
+              value={data.patient.register_num}
+              placeholder="등록번호를 입력하세요"
+            />
+          )
         )}
       </div>
     </div>

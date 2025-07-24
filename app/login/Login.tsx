@@ -12,30 +12,28 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: () =>
       api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
         json: { email, password },
       }),
-    onSuccess: (res) => {
-      router.push("/patient");
-    },
-    onError: (err) => {
-      setErrorMessage(err.message);
-    },
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent, redirectPath: string) => {
     e.preventDefault();
-
     if (!email || !password) {
       setErrorMessage("아이디와 비밀번호를 입력해주세요.");
       return;
     }
-
     setErrorMessage("");
-
-    mutation.mutate();
+    mutate(undefined, {
+      onSuccess: () => {
+        router.push(redirectPath);
+      },
+      onError: (err) => {
+        setErrorMessage(err.message);
+      },
+    });
   };
 
   return (
@@ -55,20 +53,29 @@ export default function Login() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") handleSubmit(e);
+          if (e.key === "Enter") handleSubmit(e, "/patient");
         }}
         required
       />
-      <button
-        className="bg-blue-500 text-white p-4 rounded disabled:opacity-50"
-        onClick={handleSubmit}
-        disabled={mutation.isPending}
-      >
-        <p className="text-2xl">
-          {mutation.isPending ? "로그인 중..." : "로그인"}
-        </p>
-      </button>
+
       {errorMessage && <div className="text-red-500">{errorMessage}</div>}
+
+      <div className="flex flex-col gap-8">
+        <button
+          className="bg-blue-500 text-white p-4 rounded disabled:opacity-50"
+          onClick={(e) => handleSubmit(e, "/patient")}
+          disabled={isPending}
+        >
+          <p className="text-2xl">로그인</p>
+        </button>
+        {/* <button
+          className="bg-red-500 text-white p-4 rounded disabled:opacity-50"
+          onClick={(e) => handleSubmit(e, "/admin")}
+          disabled={isPending}
+        >
+          <p className="text-2xl">관리 페이지 로그인</p>
+        </button> */}
+      </div>
     </div>
   );
 }
