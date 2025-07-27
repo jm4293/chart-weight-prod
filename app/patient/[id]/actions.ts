@@ -1,10 +1,9 @@
-"use server";
+'use server';
 
-import { supabase } from "@/lib/supabaceClient";
-import dayjs from "dayjs";
-import { IWeightModel } from "@/type/model/weight";
-import api from "@/common/api";
-import { cookies } from "next/headers";
+import dayjs from 'dayjs';
+import { IWeightModel } from '@/type/model/weight';
+import api from '@/lib/fetch/fetch';
+import { cookies } from 'next/headers';
 
 // export async function getWeightsToday(userId: number): Promise<IWeightModel[]> {
 //   if (isNaN(userId)) {
@@ -35,14 +34,14 @@ import { cookies } from "next/headers";
 // }
 
 export async function registerWeight(id: number, weight: string) {
-  const cookie = (await cookies()).get("connect.sid");
+  const cookie = (await cookies()).get('connect.sid');
 
   const ret = await api.post(
     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight`,
     {
       json: { id, weight },
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Cookie: `${cookie?.name}=${cookie?.value}`,
       },
     },
@@ -56,11 +55,11 @@ export async function registerWeight(id: number, weight: string) {
 }
 
 export async function addWeightWithImage(id: number, file: File) {
-  const cookie = (await cookies()).get("connect.sid");
+  const cookie = (await cookies()).get('connect.sid');
 
   const formData = new FormData();
-  formData.append("id", String(id));
-  formData.append("file", file);
+  formData.append('id', String(id));
+  formData.append('file', file);
 
   const ret = await api.post(
     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight-image`,
@@ -80,13 +79,13 @@ export async function addWeightWithImage(id: number, file: File) {
 }
 
 export async function deleteWeight(id: number) {
-  const cookie = (await cookies()).get("connect.sid");
+  const cookie = (await cookies()).get('connect.sid');
 
   const ret = await api.delete(
     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight/${id}`,
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Cookie: `${cookie?.name}=${cookie?.value}`,
       },
     },

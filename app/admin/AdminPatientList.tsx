@@ -1,39 +1,39 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { formatBirthDate } from "@/util/birth-format";
-import { useState } from "react";
-import Consonant from "@/app/patient/Consonant";
-import { IPatientModel } from "@/type/model/patient";
-import { usePatientList } from "@/hook/patient";
-import LogoutButton from "@/components/button/LogoutButton";
+import { useRouter } from 'next/navigation';
+import { formatBirthDate } from '@/utils/birth-format';
+import { useState } from 'react';
+import Consonant from '@/app/patient/Consonant';
+import { IPatientModel } from '@/type/model/patient';
+import { usePatientList } from '@/hooks/patient';
+import LogoutButton from '@/components/button/LogoutButton';
 
 // 한글 초성 추출 함수
 function getInitialConsonant(str: string) {
   const cho = [
-    "ㄱ",
-    "ㄲ",
-    "ㄴ",
-    "ㄷ",
-    "ㄸ",
-    "ㄹ",
-    "ㅁ",
-    "ㅂ",
-    "ㅃ",
-    "ㅅ",
-    "ㅆ",
-    "ㅇ",
-    "ㅈ",
-    "ㅉ",
-    "ㅊ",
-    "ㅋ",
-    "ㅌ",
-    "ㅍ",
-    "ㅎ",
+    'ㄱ',
+    'ㄲ',
+    'ㄴ',
+    'ㄷ',
+    'ㄸ',
+    'ㄹ',
+    'ㅁ',
+    'ㅂ',
+    'ㅃ',
+    'ㅅ',
+    'ㅆ',
+    'ㅇ',
+    'ㅈ',
+    'ㅉ',
+    'ㅊ',
+    'ㅋ',
+    'ㅌ',
+    'ㅍ',
+    'ㅎ',
   ];
 
   if (!str || str.length === 0) {
-    return "";
+    return '';
   }
 
   const code = str.charCodeAt(0) - 0xac00;
@@ -91,11 +91,10 @@ export default function AdminPatientList() {
                   <tr
                     key={user.id}
                     onClick={() => handleClick(user.id)}
-                    className="cursor-pointer hover:bg-gray-100"
-                  >
+                    className="cursor-pointer hover:bg-gray-100">
                     <td>{user.name}</td>
                     <td>{formatBirthDate(user?.birth)}</td>
-                    <td>{user?.register_num || "-"}</td>
+                    <td>{user?.register_num || '-'}</td>
                   </tr>
                 ))
             ) : (

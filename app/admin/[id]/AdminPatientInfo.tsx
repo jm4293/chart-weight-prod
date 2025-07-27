@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { formatBirthDate } from "@/util/birth-format";
-import { usePatient } from "@/hook/patient";
-import { useState } from "react";
+import { formatBirthDate } from '@/utils/birth-format';
+import { usePatient } from '@/hooks/patient';
+import { useState } from 'react';
 
 interface IProps {
   id: string;

@@ -1,16 +1,19 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import api from "@/common/api";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import api from '@/lib/fetch/fetch';
+import Image from 'next/image';
+import kakako from '@/public/kakao/kakao_login_large_wide.png';
+import { browserClient } from '@/utils/supabase';
 
 export default function Login() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { mutate, isPending } = useMutation({
     mutationFn: () =>
@@ -22,10 +25,10 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent, redirectPath: string) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMessage("아이디와 비밀번호를 입력해주세요.");
+      setErrorMessage('아이디와 비밀번호를 입력해주세요.');
       return;
     }
-    setErrorMessage("");
+    setErrorMessage('');
     mutate(undefined, {
       onSuccess: () => {
         router.push(redirectPath);
@@ -36,9 +39,20 @@ export default function Login() {
     });
   };
 
+  const onKakaoLogin = async () => {
+    const supabase = browserClient();
+
+    await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: {
+        redirectTo: 'http://localhost:3000/auth/kakao',
+      },
+    });
+  };
+
   return (
-    <div className="w-full flex flex-col gap-4">
-      <input
+    <div className="flex justify-center" style={{ border: '1px solid red' }}>
+      {/* <input
         className="border p-2 rounded"
         type="text"
         placeholder="아이디"
@@ -74,8 +88,25 @@ export default function Login() {
           disabled={isPending}
         >
           <p className="text-2xl">관리 페이지 로그인</p>
-        </button> */}
-      </div>
+        </button>
+      </div> */}
+
+      {/* <button
+        className="bg-blue-500 text-white p-4 rounded disabled:opacity-50"
+        onClick={(e) => handleSubmit(e, "/patient")}
+        disabled={isPending}
+      >
+        <p className="text-2xl">로그인</p>
+      </button> */}
+
+      <Image
+        className="cursor-pointer"
+        src={kakako}
+        alt="카카오 로그인"
+        width={360}
+        priority
+        onClick={onKakaoLogin}
+      />
     </div>
   );
 }

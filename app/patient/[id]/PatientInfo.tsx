@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { formatBirthDate } from "@/util/birth-format";
-import { usePatient } from "@/hook/patient";
+import { formatBirthDate } from '@/utils/birth-format';
+import { usePatient } from '@/hooks/patient';
 
 interface IProps {
   id: string;
@@ -33,7 +33,7 @@ export default function PatientInfo(props: IProps) {
         ) : isSuccess ? (
           <strong className="text-4xl">{data.patient.name}</strong>
         ) : (
-          "이름 없음"
+          '이름 없음'
         )}
       </div>
 
@@ -46,7 +46,7 @@ export default function PatientInfo(props: IProps) {
             {formatBirthDate(data.patient.birth)}
           </strong>
         ) : (
-          "-"
+          '-'
         )}
       </div>
 
@@ -57,7 +57,7 @@ export default function PatientInfo(props: IProps) {
         ) : isSuccess ? (
           <strong className="text-4xl">{data.patient.register_num}</strong>
         ) : (
-          "-"
+          '-'
         )}
       </div>
     </div>

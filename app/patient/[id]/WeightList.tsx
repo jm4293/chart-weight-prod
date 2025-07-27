@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Loading from "@/components/loading/Loading";
-import WeightDelete from "@/app/patient/[id]/WeightDelete";
-import { IWeightModel } from "@/type/model/weight";
-import { usePatientWeightList } from "@/hook/weight";
+import Loading from '@/components/loading/Loading';
+import WeightDelete from '@/app/patient/[id]/WeightDelete';
+import { IWeightModel } from '@/type/model/weight';
+import { usePatientWeightList } from '@/hooks/weight';
 
 interface IProps {
   id: string;
@@ -27,7 +27,7 @@ export default function WeightList(props: IProps) {
       event.stopPropagation();
       window.open(
         `${process.env.NEXT_PUBLIC_API_URL}/uploads/${file_name}`,
-        "_blank",
+        '_blank',
       );
     }
   };
@@ -59,9 +59,8 @@ export default function WeightList(props: IProps) {
             return (
               <tr
                 key={weight.id}
-                className={`hover:bg-gray-100 ${weight.file_name ? " cursor-pointer" : ""}`}
-                onClick={(event) => handleTableRowClick({ event, weight })}
-              >
+                className={`hover:bg-gray-100 ${weight.file_name ? ' cursor-pointer' : ''}`}
+                onClick={(event) => handleTableRowClick({ event, weight })}>
                 <td>
                   <div className="flex justify-center items-center gap-2">
                     {weight.weight && `${weight.weight}kg`}
@@ -75,9 +74,9 @@ export default function WeightList(props: IProps) {
                   </div>
                 </td>
                 <td>
-                  {new Date(weight.created_at).toLocaleTimeString("ko-KR", {
-                    hour: "2-digit",
-                    minute: "2-digit",
+                  {new Date(weight.created_at).toLocaleTimeString('ko-KR', {
+                    hour: '2-digit',
+                    minute: '2-digit',
                   })}
                 </td>
                 <td>

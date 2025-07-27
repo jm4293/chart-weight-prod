@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useTransition } from "react";
-import { deleteWeight } from "./actions";
-import { useModal } from "@/hook/modal";
-import { IWeightModel } from "@/type/model/weight";
-import { useQueryClient } from "@tanstack/react-query";
+import { useTransition } from 'react';
+import { deleteWeight } from './actions';
+import { useModal } from '@/hooks/modal';
+import { IWeightModel } from '@/type/model/weight';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface IProps {
   patient_id: string;
@@ -33,7 +33,7 @@ export default function WeightDelete(props: IProps) {
         closeModal();
         startTransition(async () => {
           await deleteWeight(weight.id);
-          await queryClient.invalidateQueries({ queryKey: ["weight", id] });
+          await queryClient.invalidateQueries({ queryKey: ['weight', id] });
         });
       },
       onCancel: () => {
@@ -45,9 +45,8 @@ export default function WeightDelete(props: IProps) {
   return (
     <button
       className="text-red-500 hover:underline disabled:opacity-50"
-      onClick={handleDelete}
-    >
-      {isPending ? "삭제 중..." : "삭제"}
+      onClick={handleDelete}>
+      {isPending ? '삭제 중...' : '삭제'}
     </button>
   );
 }

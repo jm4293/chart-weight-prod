@@ -1,0 +1,11 @@
+{
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "printWidth": 80,
+  "importOrder": [],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

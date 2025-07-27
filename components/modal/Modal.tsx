@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
-import { createPortal } from "react-dom";
-import { useEffect, useRef } from "react";
-import { modalAtom } from "@/store/modal-atom";
+import { createPortal } from 'react-dom';
+import { useEffect, useRef } from 'react';
+import { modalAtom } from '@/store/modal-atom';
 
 export default function Modal() {
   const modalRoot = useRef<Element | null>(null);
@@ -28,7 +28,7 @@ export default function Modal() {
   };
 
   useEffect(() => {
-    modalRoot.current = document.getElementById("modal-root");
+    modalRoot.current = document.getElementById('modal-root');
   }, []);
 
   if (!visible || !modalRoot.current) {
@@ -44,16 +44,14 @@ export default function Modal() {
           {!disableClose && (
             <button
               className="px-10 py-4 text-4xl bg-gray-300 text-black rounded hover:bg-gray-400"
-              onClick={handleCancel}
-            >
-              {cancelText || "취소"}
+              onClick={handleCancel}>
+              {cancelText || '취소'}
             </button>
           )}
           <button
             className="px-10 py-4 text-4xl bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleConfirm}
-          >
-            {confirmText || "확인"}
+            onClick={handleConfirm}>
+            {confirmText || '확인'}
           </button>
         </div>
       </div>
