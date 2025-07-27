@@ -1,43 +1,39 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import api from '@/lib/fetch/fetch';
 import Image from 'next/image';
 import kakako from '@/public/kakao/kakao_login_large_wide.png';
 import { browserClient } from '@/utils/supabase';
 
 export default function Login() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () =>
-      api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        json: { email, password },
-      }),
-  });
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: () =>
+  //     api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+  //       json: { email, password },
+  //     }),
+  // });
 
-  const handleSubmit = (e: React.FormEvent, redirectPath: string) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage('아이디와 비밀번호를 입력해주세요.');
-      return;
-    }
-    setErrorMessage('');
-    mutate(undefined, {
-      onSuccess: () => {
-        router.push(redirectPath);
-      },
-      onError: (err) => {
-        setErrorMessage(err.message);
-      },
-    });
-  };
+  // const handleSubmit = (e: React.FormEvent, redirectPath: string) => {
+  //   e.preventDefault();
+  //   if (!email || !password) {
+  //     setErrorMessage('아이디와 비밀번호를 입력해주세요.');
+  //     return;
+  //   }
+  //   setErrorMessage('');
+  //   mutate(undefined, {
+  //     onSuccess: () => {
+  //       router.push(redirectPath);
+  //     },
+  //     onError: (err) => {
+  //       setErrorMessage(err.message);
+  //     },
+  //   });
+  // };
 
   const onKakaoLogin = async () => {
     const supabase = browserClient();
@@ -51,7 +47,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center" style={{ border: '1px solid red' }}>
+    <div className="flex justify-center">
       {/* <input
         className="border p-2 rounded"
         type="text"

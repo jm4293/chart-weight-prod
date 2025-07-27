@@ -1,5 +1,5 @@
-import AdminPatientInfo from "@/app/admin/[id]/AdminPatientInfo";
-import AdminHomeButton from "@/components/button/AdminHomeButton";
+import AdminPatientInfo from '@/app/admin/patient/[id]/AdminPatientInfo';
+import AdminHomeButton from '@/components/button/AdminHomeButton';
 
 export default async function AdminDetailPage({
   params,

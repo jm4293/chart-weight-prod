@@ -1,4 +1,5 @@
 interface IProps {
+  type?: 'button' | 'submit' | 'reset';
   className?: string;
   onClick?: () => void;
   text?: string;
@@ -8,6 +9,7 @@ interface IProps {
 
 export const Button = (props: IProps) => {
   const {
+    type = 'button',
     className,
     onClick,
     text = '확인',
@@ -17,6 +19,7 @@ export const Button = (props: IProps) => {
 
   return (
     <button
+      type={type}
       className={`text-2xl p-3 rounded border ${
         color === 'blue'
           ? 'bg-blue-500 text-white'
