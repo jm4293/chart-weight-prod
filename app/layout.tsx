@@ -7,6 +7,9 @@ import './globals.css';
 // import Modal from '@/components/modal/Modal';
 import Header from '@/components/header';
 import Providers from '@/lib/provider';
+import { NetworkError } from '@/components/network-error';
+import Modal from '@/components/modal/modal';
+import Toast from '@/components/modal/toast';
 
 // dayjs.extend(utc);
 // dayjs.extend(timezone);
@@ -36,9 +39,17 @@ export default function RootLayout(props: IProps) {
       </head>
       <body>
         <Header />
-        <Providers>
-          <main className="main-layout">{children}</main>
-        </Providers>
+        <NetworkError>
+          <Providers>
+            <main className="main-layout">{children}</main>
+          </Providers>
+        </NetworkError>
+
+        <Modal />
+        <Toast />
+
+        <div id="modal-root" />
+        <div id="toast-root" />
       </body>
     </html>
   );
