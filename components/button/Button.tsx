@@ -1,11 +1,19 @@
+'use client';
+
 interface IProps {
-  type?: 'button' | 'submit' | 'reset';
   className?: string;
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   text?: string;
   color?: 'white' | 'blue' | 'red';
   disabled?: boolean;
 }
+
+const colorClassMap: Record<string, string> = {
+  blue: 'bg-blue-500 text-white',
+  red: 'bg-red-500 text-white',
+  white: 'bg-white text-black',
+};
 
 export const Button = (props: IProps) => {
   const {
@@ -20,13 +28,7 @@ export const Button = (props: IProps) => {
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border ${
-        color === 'blue'
-          ? 'bg-blue-500 text-white'
-          : color === 'red'
-            ? 'bg-red-500 text-white'
-            : 'bg-white text-black'
-      } ${className}`}
+      className={`text-2xl p-3 rounded border ${colorClassMap[color]} ${className}`}
       onClick={onClick}
       disabled={disabled}>
       {text}

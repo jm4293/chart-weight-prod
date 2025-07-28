@@ -26,7 +26,7 @@ export default function AdminLogin() {
         return;
       }
 
-      router.push('/admin/user');
+      router.push('/admin/dashboard');
     });
   };
 

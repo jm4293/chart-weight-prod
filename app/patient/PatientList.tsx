@@ -51,7 +51,7 @@ export default function PatientList() {
     null,
   );
 
-  const { data, isLoading, isSuccess } = usePatientList();
+  // const { data, isLoading, isSuccess } = usePatientList();
 
   const handleClick = (id: number) => {
     router.push(`/patient/${id}`);
@@ -59,13 +59,9 @@ export default function PatientList() {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      <div className="flex flex-col items-center gap-2">
-        <strong className="text-4xl">환자 명단</strong>
+      <Consonant {...{ selectedConsonant, setSelectedConsonant }} />
 
-        <Consonant {...{ selectedConsonant, setSelectedConsonant }} />
-      </div>
-
-      {isLoading ? (
+      {/* {isLoading ? (
         <p className="text-gray-500 p-4">불러오는 중...</p>
       ) : (
         <table>
@@ -103,7 +99,7 @@ export default function PatientList() {
             )}
           </tbody>
         </table>
-      )}
+      )} */}
     </div>
   );
 }

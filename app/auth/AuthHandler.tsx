@@ -2,14 +2,14 @@
 
 import { Button } from '@/components/button';
 import LineSkeleton from '@/components/skeleton';
+import { createAccount, findByAccountId } from '@/services/account';
 import {
   AccountStatus,
   AccountType,
   AccountTypeLabels,
-  createAccount,
-  findByAccountId,
-} from '@/services/account';
+} from '@/shared/enum/account';
 import { browserClient } from '@/utils/supabase';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 const getSupabaseUser = async () => {
@@ -24,37 +24,12 @@ const getSupabaseUser = async () => {
 };
 
 export default function AuthHandler() {
+  const router = useRouter();
+
   const supabaseUserRef = useRef<any>(null);
 
   const [step, setStep] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<AccountType | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const supabaseUser = await getSupabaseUser();
-
-      if (!supabaseUser) {
-        return;
-      }
-
-      supabaseUserRef.current = supabaseUser;
-
-      const account = await findByAccountId(supabaseUserRef.current.id);
-
-      if (!account) {
-        setStep(1);
-        return;
-      }
-
-      const { type, status } = account;
-
-      if (status === AccountStatus.PENDING) {
-        setStep(2);
-        setSelectedType(type);
-        return;
-      }
-    })();
-  }, []);
 
   const onCreateAccountHandle = async () => {
     if (!selectedType) {
@@ -76,6 +51,38 @@ export default function AuthHandler() {
 
     setStep(2);
   };
+
+  useEffect(() => {
+    (async () => {
+      const supabaseUser = await getSupabaseUser();
+
+      if (!supabaseUser) {
+        return;
+      }
+
+      supabaseUserRef.current = supabaseUser;
+
+      const account = await findByAccountId(supabaseUserRef.current.id);
+
+      if (!account) {
+        setStep(1);
+        return;
+      }
+
+      const { type, status } = account;
+
+      if (status === AccountStatus.ACTIVE) {
+        router.push('/patient');
+        return;
+      }
+
+      if (status === AccountStatus.PENDING) {
+        setStep(2);
+        setSelectedType(type);
+        return;
+      }
+    })();
+  }, []);
 
   if (!step) {
     return (

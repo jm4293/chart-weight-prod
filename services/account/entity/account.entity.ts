@@ -1,7 +1,7 @@
-import { AccountStatus, AccountType } from '../enum';
+import { AccountStatus, AccountType } from '@/shared/enum/account';
 
 export interface IAccountEntity {
-  id: number;
+  id: string;
   email: string;
   name: string;
   type: AccountType;

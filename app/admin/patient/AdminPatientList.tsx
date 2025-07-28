@@ -6,44 +6,43 @@ import { useState } from 'react';
 import Consonant from '@/app/patient/Consonant';
 import { IPatientModel } from '@/type/model/patient';
 import { usePatientList } from '@/hooks/patient';
-import LogoutButton from '@/components/button/LogoutButton';
 
 // 한글 초성 추출 함수
-function getInitialConsonant(str: string) {
-  const cho = [
-    'ㄱ',
-    'ㄲ',
-    'ㄴ',
-    'ㄷ',
-    'ㄸ',
-    'ㄹ',
-    'ㅁ',
-    'ㅂ',
-    'ㅃ',
-    'ㅅ',
-    'ㅆ',
-    'ㅇ',
-    'ㅈ',
-    'ㅉ',
-    'ㅊ',
-    'ㅋ',
-    'ㅌ',
-    'ㅍ',
-    'ㅎ',
-  ];
+// function getInitialConsonant(str: string) {
+//   const cho = [
+//     'ㄱ',
+//     'ㄲ',
+//     'ㄴ',
+//     'ㄷ',
+//     'ㄸ',
+//     'ㄹ',
+//     'ㅁ',
+//     'ㅂ',
+//     'ㅃ',
+//     'ㅅ',
+//     'ㅆ',
+//     'ㅇ',
+//     'ㅈ',
+//     'ㅉ',
+//     'ㅊ',
+//     'ㅋ',
+//     'ㅌ',
+//     'ㅍ',
+//     'ㅎ',
+//   ];
 
-  if (!str || str.length === 0) {
-    return '';
-  }
+//   if (!str || str.length === 0) {
+//     return '';
+//   }
 
-  const code = str.charCodeAt(0) - 0xac00;
+//   const code = str.charCodeAt(0) - 0xac00;
 
-  if (code < 0 || code > 11171) {
-    return str[0];
-  }
+//   if (code < 0 || code > 11171) {
+//     return str[0];
+//   }
 
-  return cho[Math.floor(code / 588)];
-}
+//   return cho[Math.floor(code / 588)];
+// }
 
 export default function AdminPatientList() {
   const router = useRouter();
@@ -60,13 +59,13 @@ export default function AdminPatientList() {
 
   return (
     <div className="flex flex-col items-center gap-8">
-      <div className="flex flex-col items-center gap-2">
-        <strong className="text-4xl">관리자 페이지 - 환자 명단</strong>
+      {/* <div className="flex flex-col items-center gap-2"> */}
+      <strong className="text-4xl">관리자 페이지 - 환자 명단</strong>
 
-        <Consonant {...{ selectedConsonant, setSelectedConsonant }} />
-      </div>
+      {/* <Consonant {...{ selectedConsonant, setSelectedConsonant }} /> */}
+      {/* </div> */}
 
-      {isLoading ? (
+      {/* {isLoading ? (
         <p className="text-gray-500 p-4">불러오는 중...</p>
       ) : (
         <table>
@@ -104,7 +103,7 @@ export default function AdminPatientList() {
             )}
           </tbody>
         </table>
-      )}
+      )} */}
     </div>
   );
 }
