@@ -78,13 +78,13 @@ export default function Login() {
         className="cursor-pointer"
         src={kakako}
         alt="카카오 로그인"
-        width={360}
+        width={320}
         height={60}
         priority
         onClick={() => signinByKakao()}
       />
       <Button.BLUE
-        className="w-[360px] rounded-xl"
+        className="w-[320px] rounded-xl"
         type="button"
         text="관리자 이메일 로그인"
         onClick={handleAdminEmailLogin}

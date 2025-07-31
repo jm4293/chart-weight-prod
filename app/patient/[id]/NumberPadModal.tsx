@@ -5,6 +5,7 @@ import { useModal, useToast } from '@/hooks/modal';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/button';
 import { createWeight } from '@/services/weight/action';
+import { Text } from '@/components/text';
 
 interface INumberPadModalProps {
   patientId: string;
@@ -79,42 +80,38 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
-      <div className="w-[80vw] h-[50vh] bg-white rounded-2xl shadow-lg flex flex-col justify-center items-center  gap-8 overflow-x-hidden overflow-y-auto">
+      <div className="min-w-[320px] p-4 bg-white rounded-2xl shadow-lg flex flex-col justify-center items-center gap-8 overflow-x-hidden overflow-y-auto">
         {isPending ? (
           <div className="flex items-center justify-center h-full">
             <span className="text-3xl">등록 중...</span>
           </div>
         ) : (
           <>
-            <div className="text-4xl text-center whitespace-nowrap">
+            {/* <div className="text-4xl text-center whitespace-nowrap">
               {weight ? `${weight}kg` : '몸무게를 입력하세요'}
-            </div>
+            </div> */}
 
-            <div className="w-2/3 h-2/3 grid grid-cols-3 gap-4">
+            <Text.HEADING
+              text={weight ? `${weight}kg` : '몸무게를 입력하세요'}
+            />
+
+            <div className="grid grid-cols-3 gap-4">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0, '지움'].map((num) => (
                 <button
                   key={num}
                   className="border rounded"
                   onClick={() => handleClick(num.toString())}>
                   <p
-                    className={`w-full text-4xl ${num === '지움' ? 'text-red-500' : ''}`}>
+                    className={`p-4 text-2xl ${num === '지움' ? 'text-red-500' : ''}`}>
                     {num}
                   </p>
                 </button>
               ))}
             </div>
 
-            <div className="flex gap-4">
-              <Button.GRAY
-                text="취소"
-                className="px-8 py-4 text-4xl"
-                onClick={handleCancel}
-              />
-              <Button.BLUE
-                text="등록"
-                className="px-8 py-4 text-4xl"
-                onClick={handleConfirm}
-              />
+            <div className="w-full flex flex-col gap-4">
+              <Button.GRAY text="취소" onClick={handleCancel} />
+              <Button.BLUE text="등록" onClick={handleConfirm} />
             </div>
           </>
         )}
