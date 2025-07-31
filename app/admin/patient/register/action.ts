@@ -10,9 +10,6 @@ export async function registerPatient(params: {
 }) {
   const cookie = (await cookies()).get('connect.sid');
 
-  console.log('registerPatient params', params);
-  console.log('registerPatient cookie', cookie);
-
   const ret = await api.post(
     `${process.env.NEXT_PUBLIC_API_URL}/patient/register`,
     {

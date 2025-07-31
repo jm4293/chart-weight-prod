@@ -13,6 +13,7 @@ const Modal = () => {
   const handleCancel = () => {
     if (modal.onCancel) {
       modal.onCancel();
+      return;
     }
 
     closeModal();
@@ -21,6 +22,7 @@ const Modal = () => {
   const handleConfirm = () => {
     if (modal.onConfirm) {
       modal.onConfirm();
+      return;
     }
 
     closeModal();
@@ -46,18 +48,20 @@ const Modal = () => {
         <div className="text-lg mb-6 whitespace-pre-wrap">{modal.content}</div>
 
         <div className="flex justify-center gap-4">
-          {!!modal.onCancel && (
+          {modal.onCancel && (
             <button
               className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
               onClick={handleCancel}>
               {modal.cancelText || '취소'}
             </button>
           )}
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleConfirm}>
-            {modal.confirmText || '확인'}
-          </button>
+          {modal.onConfirm && (
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              onClick={handleConfirm}>
+              {modal.confirmText || '확인'}
+            </button>
+          )}
         </div>
       </div>
     </div>,

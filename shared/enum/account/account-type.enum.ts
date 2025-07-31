@@ -1,4 +1,5 @@
 export enum AccountType {
+  MASTER = 1,
   ADMIN = 2,
   DOCTOR = 3,
   NURSE = 4,
@@ -9,6 +10,7 @@ export enum AccountType {
 }
 
 export const AccountTypeLabels: Record<AccountType, string> = {
+  [AccountType.MASTER]: '마스터',
   [AccountType.ADMIN]: '관리자',
   [AccountType.DOCTOR]: '의사',
   [AccountType.NURSE]: '간호사',

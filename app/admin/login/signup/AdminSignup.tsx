@@ -4,12 +4,9 @@ import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Text } from '@/components/text';
 import { useToast } from '@/hooks/modal';
-import { signinByEmail } from '@/services/supabase';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { signupByEmail } from '@/services/supabase';
 
-export default function AdminLogin() {
-  const router = useRouter();
+export default function AdminSignup() {
   const { openToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -17,22 +14,22 @@ export default function AdminLogin() {
 
     const form = new FormData(e.currentTarget);
 
-    const { success, error, user } = await signinByEmail(form);
+    const { success, error } = await signupByEmail(form);
 
     if (!success) {
       openToast({
         type: 'error',
-        message: `로그인에 실패했습니다: ${error}`,
+        message: `회원가입에 실패했습니다: ${error}`,
       });
+
       return;
     }
 
     openToast({
       type: 'success',
-      message: `${user!.email}님 로그인에 성공했습니다.`,
+      message:
+        '입력하신 이메일로 인증 링크가 전송되었습니다. 이메일을 확인해주세요.',
     });
-
-    router.push('/admin/auth');
   };
 
   return (
@@ -60,14 +57,15 @@ export default function AdminLogin() {
             minLength={6}
           />
         </div>
+        <div className="w-full flex flex-col gap-2">
+          <label htmlFor="name">
+            <Text.HEADING text="이름" />
+          </label>
+          <Input.TEXT id="name" name="name" placeholder="이름을 입력하세요" />
+        </div>
       </div>
-      w
-      <div className="flex flex-col gap-4">
-        <Button.BLUE type="submit" text="로그인" />
-        <Link href="/admin/login/signup">
-          <Button.BLUE className="w-full" type="button" text="회원가입" />
-        </Link>
-      </div>
+
+      <Button.BLUE type="submit" text="회원가입" />
     </form>
   );
 }

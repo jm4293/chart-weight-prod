@@ -4,12 +4,16 @@ interface IProps {
   className?: string;
   type?: 'text' | 'email' | 'password';
   required?: boolean;
-  // value?: string;
+  value?: string;
   placeholder?: string;
-  // onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
-  // autoComplete?: string;
+  autoComplete?: string;
   autoFocus?: boolean;
+  min?: number;
+  minLength?: number;
+  max?: number;
+  maxLength?: number;
 }
 
 const TEXT = (props: IProps) => {
