@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 import { deleteWeight } from './actions';
 import { useModal } from '@/hooks/modal';
-import { IWeightModel } from '@/type/model/weight';
+import { IWeightModel } from '@/types/model/weight';
 import { useQueryClient } from '@tanstack/react-query';
 
 interface IProps {

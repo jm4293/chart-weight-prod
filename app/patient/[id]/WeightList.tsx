@@ -2,8 +2,6 @@
 
 import Loading from '@/components/loading/Loading';
 import WeightDelete from '@/app/patient/[id]/WeightDelete';
-import { IWeightModel } from '@/type/model/weight';
-import { usePatientWeightList } from '@/hooks/weight';
 
 interface IProps {
   id: string;
@@ -12,37 +10,37 @@ interface IProps {
 export default function WeightList(props: IProps) {
   const { id } = props;
 
-  const { data, isLoading, isSuccess, isError } = usePatientWeightList({
-    patient_id: id,
-  });
+  // const { data, isLoading, isSuccess, isError } = usePatientWeightList({
+  //   patient_id: id,
+  // });
 
-  const handleTableRowClick = (params: {
-    event: React.MouseEvent<HTMLTableRowElement>;
-    weight: IWeightModel;
-  }) => {
-    const { event, weight } = params;
-    const { file_name } = weight;
+  // const handleTableRowClick = (params: {
+  //   event: React.MouseEvent<HTMLTableRowElement>;
+  //   weight: IWeightModel;
+  // }) => {
+  //   const { event, weight } = params;
+  //   const { file_name } = weight;
 
-    if (file_name) {
-      event.stopPropagation();
-      window.open(
-        `${process.env.NEXT_PUBLIC_API_URL}/uploads/${file_name}`,
-        '_blank',
-      );
-    }
-  };
+  //   if (file_name) {
+  //     event.stopPropagation();
+  //     window.open(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/uploads/${file_name}`,
+  //       '_blank',
+  //     );
+  //   }
+  // };
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  if (isError) {
-    return (
-      <p className="text-red-500 p-4">
-        몸무게 기록을 불러오는 데 실패했습니다.
-      </p>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <p className="text-red-500 p-4">
+  //       몸무게 기록을 불러오는 데 실패했습니다.
+  //     </p>
+  //   );
+  // }
 
   return (
     <table>
@@ -54,7 +52,7 @@ export default function WeightList(props: IProps) {
         </tr>
       </thead>
       <tbody>
-        {isSuccess && data.weights.length > 0 ? (
+        {/* {isSuccess && data.weights.length > 0 ? (
           data.weights.map((weight) => {
             return (
               <tr
@@ -91,7 +89,7 @@ export default function WeightList(props: IProps) {
               기록이 없습니다.
             </td>
           </tr>
-        )}
+        )} */}
       </tbody>
     </table>
   );

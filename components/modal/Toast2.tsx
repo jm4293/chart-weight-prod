@@ -50,9 +50,10 @@ const Toast: React.FC = () => {
   return ReactDOM.createPortal(
     <div
       className={`fixed left-1/2 bottom-8 -translate-x-1/2 px-6 py-3 rounded shadow-lg z-[1100] animate-fadeIn ${bgColor}`}
-      style={{ minWidth: 200, textAlign: 'center' }}
-    >
-      <p className={`whitespace-pre-line w-full break-keep ${textColor}`}>{toast.message}</p>
+      style={{ minWidth: 200, textAlign: 'center' }}>
+      <p className={`whitespace-pre-line w-full break-keep ${textColor}`}>
+        {toast.message}
+      </p>
     </div>,
     toastRoot.current,
   );

@@ -1,7 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
-import { IWeightModel } from '@/type/model/weight';
+import { IWeightModel } from '@/types/model/weight';
 import api from '@/lib/fetch/fetch';
 import { cookies } from 'next/headers';
 

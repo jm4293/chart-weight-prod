@@ -1,7 +1,6 @@
 'use client';
 
 import { formatBirthDate } from '@/utils/birth-format';
-import { usePatient } from '@/hooks/patient';
 
 interface IProps {
   id: string;
@@ -14,32 +13,22 @@ function Loading() {
 export default function PatientInfo(props: IProps) {
   const { id } = props;
 
-  const { data, isLoading, isSuccess, isError } = usePatient({ id });
-
-  if (isError) {
-    return (
-      <p className="text-red-500 p-4">
-        사용자 정보를 불러오는 데 실패했습니다.
-      </p>
-    );
-  }
-
   return (
     <div className="flex flex-col gap-4 my-4">
       <div className="flex items-center">
         <p className="min-w-[140px] text text-3xl">이름:</p>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : isSuccess ? (
           <strong className="text-4xl">{data.patient.name}</strong>
         ) : (
           '이름 없음'
-        )}
+        )} */}
       </div>
 
       <div className="flex items-center">
         <p className="min-w-[140px] text-3xl">생년월일:</p>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : isSuccess ? (
           <strong className="text-4xl">
@@ -47,18 +36,18 @@ export default function PatientInfo(props: IProps) {
           </strong>
         ) : (
           '-'
-        )}
+        )} */}
       </div>
 
       <div className="flex items-center">
         <p className="min-w-[140px] text-3xl">등록번호:</p>
-        {isLoading ? (
+        {/* {isLoading ? (
           <Loading />
         ) : isSuccess ? (
           <strong className="text-4xl">{data.patient.register_num}</strong>
         ) : (
           '-'
-        )}
+        )} */}
       </div>
     </div>
   );

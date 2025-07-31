@@ -3,35 +3,61 @@
 interface IProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
   text?: string;
-  color?: 'white' | 'blue' | 'red';
+  onClick?: () => void;
   disabled?: boolean;
 }
 
-const colorClassMap: Record<string, string> = {
-  blue: 'bg-blue-500 text-white',
-  red: 'bg-red-500 text-white',
-  white: 'bg-white text-black',
-};
-
-export const Button = (props: IProps) => {
-  const {
-    type = 'button',
-    className,
-    onClick,
-    text = '확인',
-    color = 'white',
-    disabled,
-  } = props;
+const WHITE = (props: IProps) => {
+  const { className, type = 'button', text = '확인', ...rest } = props;
 
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border ${colorClassMap[color]} ${className}`}
-      onClick={onClick}
-      disabled={disabled}>
+      className={`text-2xl p-3 rounded border bg-white text-black ${className}`}
+      {...rest}>
       {text}
     </button>
   );
 };
+
+const GRAY = (props: IProps) => {
+  const { className, type = 'button', text = '확인', ...rest } = props;
+
+  return (
+    <button
+      type={type}
+      className={`text-2xl p-3 rounded border bg-gray-300 text-black ${className}`}
+      {...rest}>
+      {text}
+    </button>
+  );
+};
+
+const BLUE = (props: IProps) => {
+  const { className, type = 'button', text = '확인', ...rest } = props;
+
+  return (
+    <button
+      type={type}
+      className={`text-2xl p-3 rounded border bg-blue-500 text-white ${className}`}
+      {...rest}>
+      {text}
+    </button>
+  );
+};
+
+const RED = (props: IProps) => {
+  const { className, type = 'button', text = '확인', ...rest } = props;
+
+  return (
+    <button
+      type={type}
+      className={`text-2xl p-3 rounded border bg-red-500 text-white ${className}`}
+      {...rest}>
+      {text}
+    </button>
+  );
+};
+
+export const Button = { WHITE, GRAY, BLUE, RED };

@@ -1,1 +1,1 @@
-export * from './weight.entity';
+export * from './entity';

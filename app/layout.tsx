@@ -9,7 +9,7 @@ import Header from '@/components/header';
 import Providers from '@/lib/provider';
 import { NetworkError } from '@/components/network-error';
 import Modal from '@/components/modal/modal';
-import Toast from '@/components/modal/toast';
+import Toast from '@/components/modal/Toast2';
 
 // dayjs.extend(utc);
 // dayjs.extend(timezone);
@@ -38,7 +38,7 @@ export default function RootLayout(props: IProps) {
         <title>동탄연세맑은내과 투석실</title>
       </head>
       <body>
-        <Header />
+        {/* <Header /> */}
         <NetworkError>
           <Providers>
             <main className="main-layout">{children}</main>

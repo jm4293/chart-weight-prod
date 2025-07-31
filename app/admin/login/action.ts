@@ -1,7 +1,7 @@
 'use server';
 
+import { serverClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
-import { serverClient } from '@/utils/supabase';
 
 export async function loginAdmin(email: string, password: string) {
   const supabase = await serverClient();

@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { formatBirthDate } from '@/utils/birth-format';
 import { useState } from 'react';
 import Consonant from '@/app/patient/Consonant';
-import { IPatientModel } from '@/type/model/patient';
 import { usePatientList } from '@/hooks/patient';
 
 // 한글 초성 추출 함수

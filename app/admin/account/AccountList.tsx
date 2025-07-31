@@ -18,7 +18,7 @@ export default function AccountList() {
   const [accounts, setAccounts] = useState<IAccountEntity[] | null>(null);
 
   const [isPending, startTransition] = useTransition();
-  const { openModal, closeModal } = useModal();
+  const { openModal } = useModal();
 
   const onClickHandle = (account: IAccountEntity) => {
     openModal({
@@ -87,8 +87,7 @@ export default function AccountList() {
               <td>{AccountTypeLabels[account.type]}</td>
               <td>{AccountStatusLabels[account.status]}</td>
               <td>
-                <Button
-                  color="white"
+                <Button.WHITE
                   text="상세"
                   onClick={() => onClickHandle(account)}
                 />

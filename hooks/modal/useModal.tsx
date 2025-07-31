@@ -1,4 +1,4 @@
-import { IModalState, modalAtom } from '@/store/modal.atom';
+import { IModalState, modalAtom } from '@/stores/modal.atom';
 import { useAtom } from 'jotai';
 
 export const useModal = () => {
