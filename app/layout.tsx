@@ -8,8 +8,7 @@ import './globals.css';
 import Header from '@/components/header';
 import Providers from '@/lib/provider';
 import { NetworkError } from '@/components/network-error';
-import Modal from '@/components/modal/modal';
-import Toast from '@/components/modal/Toast2';
+import { Modal, Toast } from '@/components/modal';
 
 // dayjs.extend(utc);
 // dayjs.extend(timezone);

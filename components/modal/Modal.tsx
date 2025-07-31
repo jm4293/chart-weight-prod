@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import { useModal } from '@/hooks/modal';
 
-const Modal = () => {
+export const Modal = () => {
   const modalRoot = useRef<Element | null>(null);
 
   const { modal, closeModal } = useModal();
@@ -68,5 +68,3 @@ const Modal = () => {
     modalRoot.current,
   );
 };
-
-export default Modal;

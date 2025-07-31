@@ -19,7 +19,7 @@ const TOAST_TEXT_COLOR: Record<string, string> = {
   info: 'text-black dark:text-white',
 };
 
-const Toast: React.FC = () => {
+export const Toast = () => {
   const toastRoot = useRef<Element | null>(null);
 
   const { toast, closeToast } = useToast();
@@ -58,5 +58,3 @@ const Toast: React.FC = () => {
     toastRoot.current,
   );
 };
-
-export default Toast;
