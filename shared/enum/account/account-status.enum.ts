@@ -9,8 +9,8 @@ export enum AccountStatus {
 export const AccountStatusLabels: Record<AccountStatus, string> = {
   [AccountStatus.ACTIVE]: '활성',
   [AccountStatus.INACTIVE]: '비활성',
-  [AccountStatus.SUSPENDED]: '정지됨',
-  [AccountStatus.DELETED]: '삭제됨',
-  [AccountStatus.PENDING]: '대기 중',
+  [AccountStatus.SUSPENDED]: '정지',
+  [AccountStatus.DELETED]: '삭제',
+  [AccountStatus.PENDING]: '대기',
   [AccountStatus.UNKNOWN]: '알 수 없음',
 };

@@ -61,11 +61,11 @@ export default function AdminLogin() {
           />
         </div>
       </div>
-      w
+
       <div className="flex flex-col gap-4">
         <Button.BLUE type="submit" text="로그인" />
         <Link href="/admin/login/signup">
-          <Button.BLUE className="w-full" type="button" text="회원가입" />
+          <Button.BLUE className="w-full" text="관리자 회원가입" />
         </Link>
       </div>
     </form>

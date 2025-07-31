@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { formatBirthDate } from '@/utils/birth-format';
 import { useState } from 'react';
 import Consonant from '@/app/patient/Consonant';
-import { usePatientList } from '@/hooks/patient';
+// import { usePatientList } from '@/hooks/patient';
 
 // 한글 초성 추출 함수
 // function getInitialConsonant(str: string) {
@@ -50,11 +50,11 @@ export default function AdminPatientList() {
     null,
   );
 
-  const { data, isLoading, isSuccess } = usePatientList();
+  // const { data, isLoading, isSuccess } = usePatientList();
 
-  const handleClick = (id: number) => {
-    router.push(`/admin/${id}`);
-  };
+  // const handleClick = (id: number) => {
+  //   router.push(`/admin/${id}`);
+  // };
 
   return (
     <div className="flex flex-col items-center gap-8">
