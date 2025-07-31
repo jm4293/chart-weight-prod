@@ -13,7 +13,7 @@ export const updateAccount = async (id: string, formData: FormData) => {
   const supabase = await serverClient();
 
   const { data, error } = await supabase
-    .from('accounts')
+    .from('account')
     .update({ name, status })
     .eq('id', id);
 

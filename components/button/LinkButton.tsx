@@ -22,7 +22,7 @@ const GRAY = (props: IProps) => {
   return (
     <Link
       href={href}
-      className={`text-2xl text-center p-3 rounded border bg-gray-300 text-black ${className}`}>
+      className={`text-2xl text-center p-3 rounded bg-gray-300 text-black ${className}`}>
       {text}
     </Link>
   );

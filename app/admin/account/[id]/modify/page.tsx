@@ -1,4 +1,4 @@
-import { SubmitButton } from '@/components/button';
+import { LinkButton, SubmitButton } from '@/components/button';
 import { Input } from '@/components/input';
 import { Select } from '@/components/select';
 import { Text } from '@/components/text';
@@ -74,7 +74,10 @@ export default async function AdminAccountModifyPage(props: IProps) {
           />
         </div>
 
-        <SubmitButton text="수정하기" />
+        <div className="flex flex-col gap-2">
+          <SubmitButton text="수정하기" />
+          <LinkButton.GRAY text="취소하기" href={`/admin/account/${id}`} />
+        </div>
       </form>
     </div>
   );
