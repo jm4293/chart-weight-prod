@@ -11,7 +11,7 @@ export const getAccountList = async (): Promise<IAccountEntity[]> => {
     .from('account')
     .select('*')
     .not('type', 'in', `(${AccountType.MASTER},${AccountType.ADMIN})`)
-    .order('created_at', { ascending: false });
+    .order('name', { ascending: false });
 
   if (error || !data) {
     return [];

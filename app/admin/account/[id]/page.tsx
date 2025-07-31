@@ -34,6 +34,9 @@ export default async function AdminAccountDetailPage(props: IProps) {
         <Text.HEADING
           text={`계정 상태: ${AccountStatusLabels[account.status]}`}
         />
+        <Text.HEADING
+          text={`계정 생성일: ${new Date(account.created_at).toLocaleDateString()}`}
+        />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -41,7 +44,7 @@ export default async function AdminAccountDetailPage(props: IProps) {
           text="계정 수정"
           href={`/admin/account/${id}/modify`}
         />
-        <LinkButton.GRAY text="목록으로 돌아가기" href="/admin/account" />
+        <LinkButton.GRAY text="계정 목록" href="/admin/account" />
       </div>
     </div>
   );

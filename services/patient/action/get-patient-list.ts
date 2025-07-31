@@ -9,7 +9,7 @@ export const getPatientList = async (): Promise<IPatientEntity[]> => {
   const { data, error } = await supabase
     .from('patient')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('name', { ascending: true });
 
   if (error || !data) {
     return [];

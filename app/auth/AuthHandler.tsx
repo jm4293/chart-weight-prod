@@ -31,9 +31,9 @@ export default function AuthHandler() {
       return;
     }
 
-    const ret = await createAccount({ ...user, type });
+    const { success, error } = await createAccount({ ...user, type });
 
-    if (!ret) {
+    if (!success) {
       openToast({
         type: 'error',
         message: '요청에 실패했습니다. 다시 시도해주세요.',
@@ -55,6 +55,11 @@ export default function AuthHandler() {
 
       const { id, user_metadata } = supabaseUser;
       const { email, name, email_verified } = user_metadata;
+
+      openToast({
+        type: 'success',
+        message: `${email}님 로그인에 성공했습니다.`,
+      });
 
       setUser({ id, email, name });
       const account = await getAccount(id);
@@ -133,9 +138,9 @@ export default function AuthHandler() {
       <div className="flex flex-col gap-8">
         <Text.HEADING text="관리자의 승인을 기다려주세요" />
 
-        <Text.PARAGRAPH text={`이름: ${user.name}로 로그인되었습니다.`} />
+        <Text.PARAGRAPH text={`이름: ${user.name} 로그인되었습니다.`} />
         <Text.PARAGRAPH
-          text={`${user.email}님, ${AccountTypeLabels[type!]}으로 요청되었습니다.`}
+          text={`${user.email}님, ${AccountTypeLabels[type!]} 요청되었습니다.`}
         />
       </div>
     );

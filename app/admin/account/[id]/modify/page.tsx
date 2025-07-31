@@ -21,7 +21,6 @@ export default async function AdminAccountModifyPage(props: IProps) {
     return (
       <div className="flex flex-col gap-8">
         <Text.TITLE text="관리자 - 계정 상세" />
-
         <Text.HEADING text="계정을 찾을 수 없습니다." />
       </div>
     );

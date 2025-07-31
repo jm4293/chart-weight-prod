@@ -1,10 +1,5 @@
 'use server';
 
-import dayjs from 'dayjs';
-import { IWeightModel } from '@/types/model/weight';
-import api from '@/lib/fetch/fetch';
-import { cookies } from 'next/headers';
-
 // export async function getWeightsToday(userId: number): Promise<IWeightModel[]> {
 //   if (isNaN(userId)) {
 //     return [];
@@ -33,67 +28,67 @@ import { cookies } from 'next/headers';
 //   return data;
 // }
 
-export async function registerWeight(id: number, weight: string) {
-  const cookie = (await cookies()).get('connect.sid');
+// export async function registerWeight(id: number, weight: string) {
+//   const cookie = (await cookies()).get('connect.sid');
 
-  const ret = await api.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/patient/weight`,
-    {
-      json: { id, weight },
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: `${cookie?.name}=${cookie?.value}`,
-      },
-    },
-  );
+//   const ret = await api.post(
+//     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight`,
+//     {
+//       json: { id, weight },
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Cookie: `${cookie?.name}=${cookie?.value}`,
+//       },
+//     },
+//   );
 
-  if (!ret.ok) {
-    return { success: false };
-  }
+//   if (!ret.ok) {
+//     return { success: false };
+//   }
 
-  return { success: true };
-}
+//   return { success: true };
+// }
 
-export async function addWeightWithImage(id: number, file: File) {
-  const cookie = (await cookies()).get('connect.sid');
+// export async function addWeightWithImage(id: string, file: File) {
+//   const cookie = (await cookies()).get('connect.sid');
 
-  const formData = new FormData();
-  formData.append('id', String(id));
-  formData.append('file', file);
+//   const formData = new FormData();
+//   formData.append('id', String(id));
+//   formData.append('file', file);
 
-  const ret = await api.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/patient/weight-image`,
-    {
-      body: formData,
-      headers: {
-        Cookie: `${cookie?.name}=${cookie?.value}`,
-      },
-    },
-  );
+//   const ret = await api.post(
+//     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight-image`,
+//     {
+//       body: formData,
+//       headers: {
+//         Cookie: `${cookie?.name}=${cookie?.value}`,
+//       },
+//     },
+//   );
 
-  if (!ret.ok) {
-    return { success: false };
-  }
+//   if (!ret.ok) {
+//     return { success: false };
+//   }
 
-  return { success: true };
-}
+//   return { success: true };
+// }
 
-export async function deleteWeight(id: number) {
-  const cookie = (await cookies()).get('connect.sid');
+// export async function deleteWeight(id: number) {
+//   const cookie = (await cookies()).get('connect.sid');
 
-  const ret = await api.delete(
-    `${process.env.NEXT_PUBLIC_API_URL}/patient/weight/${id}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: `${cookie?.name}=${cookie?.value}`,
-      },
-    },
-  );
+//   const ret = await api.delete(
+//     `${process.env.NEXT_PUBLIC_API_URL}/patient/weight/${id}`,
+//     {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         Cookie: `${cookie?.name}=${cookie?.value}`,
+//       },
+//     },
+//   );
 
-  if (!ret.ok) {
-    return { success: false };
-  }
+//   if (!ret.ok) {
+//     return { success: false };
+//   }
 
-  return { success: true };
-}
+//   return { success: true };
+// }

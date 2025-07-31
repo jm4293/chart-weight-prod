@@ -1,18 +1,21 @@
-import Link from 'next/link';
 import AdminPatientList from './AdminPatientList';
 import { Text } from '@/components/text';
-import { Button } from '@/components/button';
+import { LinkButton } from '@/components/button';
+import { getPatientList } from '@/services/patient';
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const patientList = await getPatientList();
+
   return (
     <div className="flex flex-col gap-8">
       <Text.TITLE text="관리자 - 환자 리스트" />
 
-      <AdminPatientList />
+      <AdminPatientList patientList={patientList} />
 
-      <Link href="/admin/patient/register">
-        <Button.BLUE text="환자 등록" />
-      </Link>
+      <div className="flex flex-col gap-4">
+        <LinkButton.BLUE text="환자 등록" href="/admin/patient/register" />
+        <LinkButton.GRAY text="대시보드" href="/admin/dashboard" />
+      </div>
     </div>
   );
 }

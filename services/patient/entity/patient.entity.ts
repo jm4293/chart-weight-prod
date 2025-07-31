@@ -1,5 +1,5 @@
 export interface IPatientEntity {
-  id: number;
+  id: string;
   name: string;
   birth: string;
   register: string;

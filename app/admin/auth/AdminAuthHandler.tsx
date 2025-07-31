@@ -30,9 +30,9 @@ export default function AdminAuthHandler() {
       return;
     }
 
-    const ret = await createAccount({ ...user, type });
+    const { success, error } = await createAccount({ ...user, type });
 
-    if (!ret) {
+    if (!success) {
       openToast({
         type: 'error',
         message: '요청에 실패했습니다. 다시 시도해주세요.',

@@ -1,16 +1,13 @@
-'use client';
-
-import { LinkButton } from '@/components/button';
 import { IAccountEntity } from '@/services/account';
 import { AccountStatusLabels, AccountTypeLabels } from '@/shared/enum/account';
 import Link from 'next/link';
 
 interface IProps {
-  accounts: IAccountEntity[];
+  accountList: IAccountEntity[];
 }
 
 export default function AccountList(props: IProps) {
-  const { accounts } = props;
+  const { accountList } = props;
 
   return (
     <div className="flex flex-col gap-8">
@@ -24,8 +21,8 @@ export default function AccountList(props: IProps) {
           </tr>
         </thead>
         <tbody>
-          {accounts.length > 0 ? (
-            accounts.map((account) => (
+          {accountList.length > 0 ? (
+            accountList.map((account) => (
               <Link href={`/admin/account/${account.id}`} key={account.id}>
                 <tr key={account.id} className="hover:bg-gray-100">
                   <td>{account.name}</td>
@@ -42,8 +39,6 @@ export default function AccountList(props: IProps) {
           )}
         </tbody>
       </table>
-
-      <LinkButton.GRAY text="대시보드로 돌아가기" href="/admin/dashboard" />
     </div>
   );
 }

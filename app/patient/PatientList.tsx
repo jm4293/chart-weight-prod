@@ -4,6 +4,12 @@ import { useRouter } from 'next/navigation';
 import { formatBirthDate } from '@/utils/birth-format';
 import { useState } from 'react';
 import Consonant from '@/app/patient/Consonant';
+import { IPatientEntity } from '@/services/patient';
+import { Text } from '@/components/text';
+
+interface IProps {
+  patientList: IPatientEntity[];
+}
 
 // 한글 초성 추출 함수
 function getInitialConsonant(str: string) {
@@ -42,62 +48,59 @@ function getInitialConsonant(str: string) {
   return cho[Math.floor(code / 588)];
 }
 
-export default function PatientList() {
+export default function PatientList(props: IProps) {
+  const { patientList } = props;
+
   const router = useRouter();
 
   const [selectedConsonant, setSelectedConsonant] = useState<string | null>(
     null,
   );
 
-  // const { data, isLoading, isSuccess } = usePatientList();
-
   const handleClick = (id: number) => {
     router.push(`/patient/${id}`);
   };
 
+  if (!patientList || patientList.length === 0) {
+    return <Text.HEADING text="환자 명단이 없습니다." />;
+  }
+
   return (
     <div className="flex flex-col items-center gap-8">
-      <Consonant {...{ selectedConsonant, setSelectedConsonant }} />
+      <Consonant
+        selectedConsonant={selectedConsonant}
+        setSelectedConsonant={setSelectedConsonant}
+      />
 
-      {/* {isLoading ? (
-        <p className="text-gray-500 p-4">불러오는 중...</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>이름</th>
-              <th>생년월일</th>
-              <th>등록번호</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isSuccess && data.patients.length > 0 ? (
-              data.patients
-                .filter((user: IPatientModel) => {
-                  const initial = getInitialConsonant(user.name);
+      <table>
+        <thead>
+          <tr>
+            <th>이름</th>
+            <th>생년월일</th>
+            <th>등록번호</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patientList
+            .filter((user) => {
+              const initial = getInitialConsonant(user.name);
 
-                  return (
-                    selectedConsonant === null || initial === selectedConsonant
-                  );
-                })
-                .map((user: IPatientModel) => (
-                  <tr
-                    key={user.id}
-                    onClick={() => handleClick(user.id)}
-                    className="cursor-pointer hover:bg-gray-100">
-                    <td>{user.name}</td>
-                    <td>{formatBirthDate(user?.birth)}</td>
-                    <td>{user?.register_num || '-'}</td>
-                  </tr>
-                ))
-            ) : (
-              <tr>
-                <td colSpan={3}>사용자가 없습니다.</td>
+              return (
+                selectedConsonant === null || initial === selectedConsonant
+              );
+            })
+            .map((user) => (
+              <tr
+                key={user.id}
+                className="hover:bg-gray-100"
+                onClick={() => handleClick(user.id)}>
+                <td>{user.name}</td>
+                <td>{formatBirthDate(user.birth)}</td>
+                <td>{user.register}</td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      )} */}
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 }

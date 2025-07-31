@@ -1,24 +1,24 @@
 'use client';
 
 import { useTransition } from 'react';
-import { deleteWeight } from './actions';
-import { useModal } from '@/hooks/modal';
-import { IWeightModel } from '@/types/model/weight';
-import { useQueryClient } from '@tanstack/react-query';
+import { useModal, useToast } from '@/hooks/modal';
+import { IWeightEntity } from '@/services/weight';
+import { deleteWeight } from '@/services/weight/action';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
-  patient_id: string;
-  weight: IWeightModel;
+  weight: IWeightEntity;
 }
 
 export default function WeightDelete(props: IProps) {
-  const { patient_id: id, weight } = props;
+  const { weight } = props;
 
-  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
 
   const { openModal, closeModal } = useModal();
+  const { openToast } = useToast();
 
   const handleDelete = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -29,11 +29,20 @@ export default function WeightDelete(props: IProps) {
       content: weight.weight
         ? `${weight.weight}kg 기록을 삭제하시겠습니까?`
         : `사진 기록을 삭제하시겠습니까?`,
+      confirmText: '삭제',
       onConfirm: () => {
         closeModal();
         startTransition(async () => {
           await deleteWeight(weight.id);
-          await queryClient.invalidateQueries({ queryKey: ['weight', id] });
+
+          openToast({
+            type: 'success',
+            message: weight.weight
+              ? `${weight.weight}kg 기록이 삭제되었습니다.`
+              : `사진 기록이 삭제되었습니다.`,
+          });
+          closeModal();
+          router.refresh();
         });
       },
       onCancel: () => {

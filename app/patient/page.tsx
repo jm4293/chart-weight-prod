@@ -1,11 +1,14 @@
 import PatientList from '@/app/patient/PatientList';
 import { Text } from '@/components/text';
+import { getPatientList } from '@/services/patient';
 
-export default function PatientPage() {
+export default async function PatientPage() {
+  const patientList = await getPatientList();
+
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <Text.TITLE text="환자 명단" />
-      <PatientList />
+      <PatientList patientList={patientList} />
     </div>
   );
 }

@@ -20,8 +20,8 @@ export const createAccount = async (params: {
     .single();
 
   if (error) {
-    return false;
+    return { success: false, error: error.message };
   }
 
-  return true;
+  return { success: true };
 };

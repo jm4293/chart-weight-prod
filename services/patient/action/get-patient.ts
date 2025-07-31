@@ -4,7 +4,7 @@ import { serverClient } from '@/lib/supabase/server';
 import { IPatientEntity } from '../entity';
 
 export const getPatient = async (
-  patientId: number,
+  patientId: string,
 ): Promise<IPatientEntity | null> => {
   const supabase = await serverClient();
 

@@ -30,11 +30,6 @@ export default function Login() {
       return;
     }
 
-    openToast({
-      type: 'success',
-      message: `${user!.email}님 로그인에 성공했습니다.`,
-    });
-
     closeModal();
     router.push('/auth');
   };
@@ -43,7 +38,9 @@ export default function Login() {
     openModal({
       title: '관리자 이메일 로그인',
       content: (
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form
+          className="min-w-[480] flex flex-col gap-4"
+          onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
             <div className="w-full flex flex-col gap-2">
               <label htmlFor="email">
@@ -87,7 +84,7 @@ export default function Login() {
         onClick={() => signinByKakao()}
       />
       <Button.BLUE
-        className="w-[360px]"
+        className="w-[360px] rounded-xl"
         type="button"
         text="관리자 이메일 로그인"
         onClick={handleAdminEmailLogin}

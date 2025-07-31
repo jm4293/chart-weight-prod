@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { useState, useRef, useTransition } from "react";
-import NumberPadModal from "@/app/patient/[id]/NumberPadModal";
-import { addWeightWithImage } from "@/app/patient/[id]/actions";
-import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { useState, useRef, useTransition } from 'react';
+import NumberPadModal from '@/app/patient/[id]/NumberPadModal';
+import { addWeightWithImage } from '@/app/patient/[id]/actions';
+import { useRouter } from 'next/navigation';
+import { Text } from '@/components/text';
+import { Button } from '@/components/button';
 
 interface IProps {
-  id: string;
+  patientId: string;
 }
 
 export default function WeightRegister(props: IProps) {
-  const { id } = props;
+  const { patientId } = props;
 
   const router = useRouter();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [openNumberPadModal, setOpenNumberPadModal] = useState(false);
+  const [numberModal, setNumberModal] = useState(false);
 
   const [isPending, startTransition] = useTransition();
 
@@ -33,19 +34,21 @@ export default function WeightRegister(props: IProps) {
 
     if (file) {
       startTransition(async () => {
-        await addWeightWithImage(Number(id), file);
-        await queryClient.invalidateQueries({ queryKey: ["weight", id] });
+        // await addWeightWithImage(patientId, file);
+        // await queryClient.invalidateQueries({ queryKey: ['weight', id] });
 
-        router.push("/patient");
-        fileInputRef.current!.value = "";
+        router.push('/patient');
+        fileInputRef.current!.value = '';
       });
     }
   };
 
   return (
-    <>
-      {openNumberPadModal && (
-        <NumberPadModal id={id} setOpenNumberPadModal={setOpenNumberPadModal} />
+    <div className="flex flex-col gap-2">
+      <Text.SUBTITLE text="몸무게 등록" />
+
+      {numberModal && (
+        <NumberPadModal patientId={patientId} setNumberModal={setNumberModal} />
       )}
 
       <input
@@ -53,7 +56,7 @@ export default function WeightRegister(props: IProps) {
         accept="image/*"
         capture
         ref={fileInputRef}
-        style={{ display: "none" }}
+        className="hidden"
         onChange={handleFileChange}
       />
 
@@ -64,23 +67,14 @@ export default function WeightRegister(props: IProps) {
           </div>
         ) : (
           <>
-            <button
-              type="button"
-              className="bg-blue-500 text-4xl text-white rounded py-4"
-              onClick={handleButtonClick}
-            >
-              사진으로 등록하기
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-4xl text-white rounded py-4"
-              onClick={() => setOpenNumberPadModal(true)}
-            >
-              입력으로 등록하기
-            </button>
+            {/* <Button.BLUE text="사진으로 등록하기" onClick={handleButtonClick} /> */}
+            <Button.BLUE
+              text="몸무게 입력"
+              onClick={() => setNumberModal(true)}
+            />
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }

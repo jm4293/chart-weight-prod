@@ -4,7 +4,7 @@ interface IProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   text?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
 }
 
@@ -27,7 +27,7 @@ const GRAY = (props: IProps) => {
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border bg-gray-300 text-black ${className}`}
+      className={`text-2xl p-3 rounded bg-gray-300 text-black ${className}`}
       {...rest}>
       {text}
     </button>

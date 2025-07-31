@@ -14,6 +14,18 @@ export default function AdminSignup() {
 
     const form = new FormData(e.currentTarget);
 
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
+    const name = form.get('name') as string;
+
+    if (email.trim() === '' || password.trim() === '' || name.trim() === '') {
+      openToast({
+        type: 'error',
+        message: '모든 필드를 입력해주세요.',
+      });
+      return;
+    }
+
     const { success, error } = await signupByEmail(form);
 
     if (!success) {
