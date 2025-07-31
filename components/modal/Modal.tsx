@@ -10,19 +10,27 @@ export const Modal = () => {
 
   const { modal, closeModal } = useModal();
 
-  const handleCancel = () => {
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
     if (modal.onCancel) {
       modal.onCancel();
-      return;
     }
 
     closeModal();
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    console.log('handleConfirm', modal.onConfirm);
+
     if (modal.onConfirm) {
       modal.onConfirm();
-      return;
     }
 
     closeModal();
@@ -51,14 +59,14 @@ export const Modal = () => {
           {modal.onCancel && (
             <button
               className="px-4 py-2 bg-gray-300 text-black rounded hover:bg-gray-400"
-              onClick={handleCancel}>
+              onClick={(e) => handleCancel(e)}>
               {modal.cancelText || '취소'}
             </button>
           )}
           {modal.onConfirm && (
             <button
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-              onClick={handleConfirm}>
+              onClick={(e) => handleConfirm(e)}>
               {modal.confirmText || '확인'}
             </button>
           )}

@@ -5,6 +5,7 @@ interface IProps {
   type?: 'text' | 'email' | 'password';
   required?: boolean;
   value?: string;
+  defaultValue?: string;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
