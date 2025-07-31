@@ -7,7 +7,7 @@ interface IProps {
   height?: number;
 }
 
-export const LineSkeleton = (props: IProps) => {
+const Line = (props: IProps) => {
   const { height = 1, text } = props;
 
   return (
@@ -23,4 +23,4 @@ export const LineSkeleton = (props: IProps) => {
   );
 };
 
-export default LineSkeleton;
+export const Skeleton = { Line };

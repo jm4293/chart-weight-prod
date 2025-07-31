@@ -4,20 +4,12 @@ export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
 export interface IToastState {
   visible: boolean;
-  message: string;
   type: ToastType;
+  message: string;
 }
 
-export const toastAtom = atom<IToastState>({
+export const toastAtom = atom({
   visible: false,
   message: '',
   type: 'info',
 });
-
-// export const showToastAtom = atom(null, (get, set, payload: { message: string; type?: ToastType }) => {
-//   set(toastAtom, { open: true, message: payload.message, type: payload.type ?? 'info' });
-// });
-//
-// export const hideToastAtom = atom(null, (get, set) => {
-//   set(toastAtom, { open: false, message: '', type: 'info' });
-// });

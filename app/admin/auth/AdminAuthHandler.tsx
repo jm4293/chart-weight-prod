@@ -1,10 +1,10 @@
 'use client';
 
 import { Button } from '@/components/button';
-import LineSkeleton from '@/components/skeleton';
+import { Skeleton } from '@/components/skeleton';
 import { Text } from '@/components/text';
-import { useModal } from '@/hooks/modal';
-import { createAccount, findByAccountId } from '@/services/account';
+import { useModal, useToast } from '@/hooks/modal';
+import { createAccount, getAccount } from '@/services/account';
 import { getSupabaseUserInfo } from '@/services/supabase';
 import {
   AccountStatus,
@@ -22,6 +22,7 @@ export default function AdminAuthHandler() {
   const [type, setType] = useState<AccountType | null>(null);
 
   const { openModal } = useModal();
+  const { openToast } = useToast();
 
   const onCreateAccountHandle = async () => {
     if (!type) {
@@ -32,7 +33,10 @@ export default function AdminAuthHandler() {
     const ret = await createAccount({ ...user, type });
 
     if (!ret) {
-      alert('요청에 실패했습니다. 다시 시도해주세요.');
+      openToast({
+        type: 'error',
+        message: '요청에 실패했습니다. 다시 시도해주세요.',
+      });
       return;
     }
 
@@ -52,7 +56,7 @@ export default function AdminAuthHandler() {
       const { email, name, email_verified } = user_metadata;
 
       setUser({ id, email, name });
-      const account = await findByAccountId(id);
+      const account = await getAccount(id);
 
       if (!account) {
         setStep(1);
@@ -74,7 +78,7 @@ export default function AdminAuthHandler() {
   if (!step) {
     return (
       <>
-        <LineSkeleton height={4} text="관리자 인증 중..." />
+        <Skeleton.Line height={4} text="관리자 인증 중..." />
       </>
     );
   }

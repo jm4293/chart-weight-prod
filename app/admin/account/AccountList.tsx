@@ -1,9 +1,10 @@
 'use client';
 
 import { Button } from '@/components/button';
+import { Skeleton } from '@/components/skeleton';
 import { useModal } from '@/hooks/modal';
 import {
-  findAllAccounts,
+  getAccountList,
   IAccountEntity,
   updateAccountStatus,
 } from '@/services/account';
@@ -24,19 +25,19 @@ export default function AccountList() {
     openModal({
       title: '계정 상태 변경',
       content: (
-        <div>
+        <>
           <p>이름: {account.name}</p>
           <p>이메일: {account.email}</p>
           <p>타입: {AccountTypeLabels[account.type]}</p>
           <p>상태: {AccountStatusLabels[account.status]}</p>
-        </div>
+        </>
       ),
-      confirmText: '승인',
+      confirmText: '활성',
       onConfirm: async () => {
         await updateAccountStatus(account.id, AccountStatus.ACTIVE);
 
         startTransition(async () => {
-          const ret = await findAllAccounts();
+          const ret = await getAccountList();
           setAccounts(ret);
         });
       },
@@ -45,7 +46,7 @@ export default function AccountList() {
         await updateAccountStatus(account.id, AccountStatus.SUSPENDED);
 
         startTransition(async () => {
-          const ret = await findAllAccounts();
+          const ret = await getAccountList();
           setAccounts(ret);
         });
       },
@@ -54,17 +55,17 @@ export default function AccountList() {
 
   useEffect(() => {
     startTransition(async () => {
-      const ret = await findAllAccounts();
+      const ret = await getAccountList();
       setAccounts(ret);
     });
   }, []);
 
   if (!accounts) {
-    return <div>계정 정보를 불러오는 중...</div>;
+    return <></>;
   }
 
   if (isPending) {
-    return <div>계정 정보를 불러오는 중...</div>;
+    return <Skeleton.Line height={4} text="계정 정보를 불러오는 중..." />;
   }
 
   return (
