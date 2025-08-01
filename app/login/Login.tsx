@@ -1,74 +1,94 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import api from "@/common/api";
+import Image from 'next/image';
+import kakako from '@/public/kakao/kakao_login_large_wide.png';
+import { signinByEmail, signinByKakao } from '@/services/supabase';
+import { useModal, useToast } from '@/hooks/modal';
+import { Button } from '@/components/button';
+import { Text } from '@/components/text';
+import { Input } from '@/components/input';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const { openModal, closeModal } = useModal();
+  const { openToast } = useToast();
 
-  const mutation = useMutation({
-    mutationFn: () =>
-      api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-        json: { email, password },
-      }),
-    onSuccess: (res) => {
-      router.push("/patient");
-    },
-    onError: (err) => {
-      setErrorMessage(err.message);
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      setErrorMessage("아이디와 비밀번호를 입력해주세요.");
+    const form = new FormData(e.currentTarget);
+
+    const { success, error, user } = await signinByEmail(form);
+
+    if (!success) {
+      openToast({
+        type: 'error',
+        message: `로그인에 실패했습니다: ${error}`,
+      });
       return;
     }
 
-    setErrorMessage("");
+    closeModal();
+    router.push('/auth');
+  };
 
-    mutation.mutate();
+  const handleAdminEmailLogin = () => {
+    openModal({
+      title: '관리자 이메일 로그인',
+      content: (
+        <form
+          className="min-w-[480] flex flex-col gap-4"
+          onSubmit={handleSubmit}>
+          <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-2">
+              <label htmlFor="email">
+                <Text.HEADING text="이메일" />
+              </label>
+              <Input.EMAIL
+                id="email"
+                name="email"
+                placeholder="이메일을 입력하세요"
+                autoFocus
+              />
+            </div>
+            <div className="w-full flex flex-col gap-2">
+              <label htmlFor="password">
+                <Text.HEADING text="비밀번호" />
+              </label>
+              <Input.PASSWORD
+                id="password"
+                name="password"
+                placeholder="비밀번호를 입력하세요"
+                minLength={6}
+              />
+            </div>
+          </div>
+
+          <Button.BLUE type="submit" text="로그인" />
+        </form>
+      ),
+    });
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
-      <input
-        className="border p-2 rounded"
-        type="text"
-        placeholder="아이디"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
+    <div className="flex flex-col justify-center items-center gap-4">
+      <Image
+        className="min-w-[320px] cursor-pointer"
+        src={kakako}
+        alt="카카오 로그인"
+        width={320}
+        height={60}
+        priority
+        onClick={() => signinByKakao()}
       />
-      <input
-        className="border p-2 rounded"
-        type="password"
-        placeholder="비밀번호"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") handleSubmit(e);
-        }}
-        required
+      <Button.BLUE
+        className="h-[48px] flex justify-center items-center rounded-lg"
+        type="button"
+        text="관리자 이메일 로그인"
+        onClick={handleAdminEmailLogin}
       />
-      <button
-        className="bg-blue-500 text-white p-4 rounded disabled:opacity-50"
-        onClick={handleSubmit}
-        disabled={mutation.isPending}
-      >
-        <p className="text-2xl">
-          {mutation.isPending ? "로그인 중..." : "로그인"}
-        </p>
-      </button>
-      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
     </div>
   );
 }

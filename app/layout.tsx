@@ -1,27 +1,22 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import timezone from "dayjs/plugin/timezone";
-import "dayjs/locale/ko";
-import Logo from "@/components/image/Logo";
-import Modal from "@/components/modal/Modal";
-import Providers from "../common/providers";
+import type { Metadata } from 'next';
+import './globals.css';
+import Providers from '@/lib/provider';
+import { NetworkError } from '@/components/network-error';
+import { Modal, Toast } from '@/components/modal';
+import Header from '@/components/header';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-dayjs.locale("ko");
+interface IProps {
+  children: React.ReactNode;
+}
 
 export const metadata: Metadata = {
-  title: "동탄연세맑은내과 투석실",
-  description: "투석실",
+  title: '동탄연세맑은내과 투석실',
+  description: '투석실',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(props: IProps) {
+  const { children } = props;
+
   return (
     <html lang="ko">
       <head>
@@ -33,13 +28,18 @@ export default function RootLayout({
         <title>동탄연세맑은내과 투석실</title>
       </head>
       <body>
-        <Providers>
-          <Logo />
-          <main className="main-layout">{children}</main>
+        <Header />
+        <NetworkError>
+          <Providers>
+            <main className="main-layout">{children}</main>
+          </Providers>
+        </NetworkError>
 
-          <Modal />
-          <div id="modal-root" />
-        </Providers>
+        <Modal />
+        <Toast />
+
+        <div id="modal-root" />
+        <div id="toast-root" />
       </body>
     </html>
   );

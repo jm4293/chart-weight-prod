@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -15,11 +15,13 @@ body {
 button,
 a,
 li {
+  min-width: 320px;
   cursor: pointer;
   white-space: nowrap;
 }
 
 input {
+  min-width: 320px;
   padding: 1rem;
   border-radius: 0.25rem;
 }
@@ -55,6 +57,7 @@ tr {
   width: 100%;
   display: table;
   table-layout: fixed;
+  cursor: pointer;
 }
 
 th {
@@ -77,12 +80,12 @@ td {
 
 .main-layout {
   padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
 }
 
-.main-layout > div {
+/* .main-layout > div {
   width: 80vw;
   min-width: 320px;
 
@@ -91,4 +94,4 @@ td {
     min-width: 60vw;
     max-width: 1024px;
   }
-}
+} */

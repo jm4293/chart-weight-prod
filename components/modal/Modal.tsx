@@ -1,63 +1,68 @@
-"use client";
+'use client';
 
-import { useAtomValue } from "jotai";
+import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 
-import { createPortal } from "react-dom";
-import { useEffect, useRef } from "react";
-import { modalAtom } from "@/store/modal-atom";
+import { useModal } from '@/hooks/modal';
+import { Button } from '../button';
 
-export default function Modal() {
+export const Modal = () => {
   const modalRoot = useRef<Element | null>(null);
 
-  const {
-    visible,
-    content,
-    onConfirm,
-    confirmText,
-    onCancel,
-    cancelText,
-    disableClose,
-  } = useAtomValue(modalAtom);
+  const { modal, closeModal } = useModal();
 
-  const handleCancel = () => {
-    onCancel?.();
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+
+    if (modal.onCancel) {
+      modal.onCancel();
+    }
   };
 
-  const handleConfirm = () => {
-    onConfirm?.();
+  const handleConfirm = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+
+    if (modal.onConfirm) {
+      modal.onConfirm();
+    }
   };
 
   useEffect(() => {
-    modalRoot.current = document.getElementById("modal-root");
+    modalRoot.current = document.getElementById('modal-root');
   }, []);
 
-  if (!visible || !modalRoot.current) {
+  if (!modal.visible || !modalRoot.current) {
     return null;
   }
 
-  return createPortal(
-    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/40 px-4">
-      <div className="bg-white rounded-2xl shadow-lg p-6 min-w-[300px] max-w-[1024px] flex flex-col items-center">
-        <div className="mt-4 mb-6 text-4xl text-center">{content}</div>
+  return ReactDOM.createPortal(
+    <div
+      className="fixed inset-0 w-screen h-screen bg-black/40 flex items-center justify-center z-[1000]"
+      onClick={closeModal}>
+      <div
+        className="bg-white rounded-2xl shadow-lg p-6 min-w-[320px] flex flex-col gap-4"
+        onClick={(e) => e.stopPropagation()}>
+        <div className="text-2xl font-bold mb-4">{modal.title}</div>
 
-        <div className="flex gap-4">
-          {!disableClose && (
-            <button
-              className="px-10 py-4 text-4xl bg-gray-300 text-black rounded hover:bg-gray-400"
-              onClick={handleCancel}
-            >
-              {cancelText || "취소"}
-            </button>
-          )}
-          <button
-            className="px-10 py-4 text-4xl bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={handleConfirm}
-          >
-            {confirmText || "확인"}
-          </button>
-        </div>
+        <div className="text-xl mb-6 whitespace-pre-wrap">{modal.content}</div>
+
+        {modal.onCancel && (
+          <Button.GRAY
+            text={modal.cancelText || '취소'}
+            onClick={(e) => handleCancel(e)}
+          />
+        )}
+
+        {modal.onConfirm && (
+          <Button.BLUE
+            text={modal.confirmText || '확인'}
+            onClick={(e) => handleConfirm(e)}
+          />
+        )}
       </div>
     </div>,
     modalRoot.current,
   );
-}
+};

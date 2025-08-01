@@ -1,30 +1,43 @@
-import WeightRegister from "./WeightRegister";
-import HomeButton from "@/components/button/HomeButton";
-import PatientInfo from "@/app/patient/[id]/PatientInfo";
-import WeightList from "@/app/patient/[id]/WeightList";
+import WeightRegister from './WeightRegister';
+import PatientInfo from '@/app/patient/[id]/PatientInfo';
+import WeightList from '@/app/patient/[id]/WeightList';
+import { Text } from '@/components/text';
+import { getPatient } from '@/services/patient';
+import { LinkButton } from '@/components/button';
+import { getWeightList } from '@/services/weight/action';
 
-export default async function DetailPage({
-  params,
-}: {
+interface IProps {
   params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function DetailPage(props: IProps) {
+  const { params } = props;
   const { id } = await params;
 
+  const patient = await getPatient(id);
+  const weightList = await getWeightList(id);
+
+  if (!patient) {
+    return (
+      <div className="flex flex-col gap-8">
+        <Text.TITLE text="관리자 - 환자 상세" />
+        <Text.HEADING text="환자를 찾을 수 없습니다." />
+        <LinkButton.GRAY text="환자 목록" href="/patient" />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-12">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl">환자 정보</h1>
-        <PatientInfo id={id} />
-      </div>
+    <div className="flex flex-col gap-8">
+      <Text.TITLE text="환자 상세" />
 
-      <WeightRegister id={id} />
+      <PatientInfo patient={patient} />
 
-      <div className="flex flex-col gap-4">
-        <h1 className="text-4xl">몸무게 기록</h1>
-        <WeightList id={id} />
-      </div>
+      <WeightRegister patientId={id} />
 
-      <HomeButton />
+      <WeightList weightList={weightList} />
+
+      <LinkButton.GRAY text="환자 목록" href="/patient" />
     </div>
   );
 }

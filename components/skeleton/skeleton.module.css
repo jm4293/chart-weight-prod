@@ -1,0 +1,33 @@
+@keyframes pulse {
+  0% {
+    background-color: #e0e0e0;
+  }
+  12.5% {
+    background-color: #e5e5e5;
+  }
+  25% {
+    background-color: #ebebeb;
+  }
+  37.5% {
+    background-color: #f0f0f0;
+  }
+  50% {
+    background-color: #f5f5f5;
+  }
+  62.5% {
+    background-color: #f0f0f0;
+  }
+  75% {
+    background-color: #ebebeb;
+  }
+  87.5% {
+    background-color: #e5e5e5;
+  }
+  100% {
+    background-color: #e0e0e0;
+  }
+}
+
+.animatePulse {
+  animation: pulse 1.8s infinite;
+}

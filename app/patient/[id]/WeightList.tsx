@@ -1,99 +1,76 @@
-"use client";
+'use client';
 
-import Loading from "@/components/loading/Loading";
-import WeightDelete from "@/app/patient/[id]/WeightDelete";
-import { IWeightModel } from "@/type/model/weight";
-import { usePatientWeightList } from "@/hook/weight";
+import WeightDelete from '@/app/patient/[id]/WeightDelete';
+import { IWeightEntity } from '@/services/weight';
+import { Text } from '@/components/text';
+import Image from 'next/image';
 
 interface IProps {
-  id: string;
+  weightList: IWeightEntity[];
 }
 
 export default function WeightList(props: IProps) {
-  const { id } = props;
+  const { weightList } = props;
 
-  const { data, isLoading, isSuccess, isError } = usePatientWeightList({
-    patient_id: id,
-  });
-
-  const handleTableRowClick = (params: {
-    event: React.MouseEvent<HTMLTableRowElement>;
-    weight: IWeightModel;
-  }) => {
-    const { event, weight } = params;
-    const { file_name } = weight;
-
-    if (file_name) {
-      event.stopPropagation();
-      window.open(
-        `${process.env.NEXT_PUBLIC_API_URL}/uploads/${file_name}`,
-        "_blank",
-      );
-    }
-  };
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
+  if (!weightList || weightList.length === 0) {
     return (
-      <p className="text-red-500 p-4">
-        몸무게 기록을 불러오는 데 실패했습니다.
-      </p>
+      <div className="flex flex-col gap-2">
+        <Text.SUBTITLE text="몸무게 리스트" />
+        <Text.HEADING text="몸무게 기록이 없습니다." />
+      </div>
     );
   }
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>몸무게</th>
-          <th>시간</th>
-          <th>삭제</th>
-        </tr>
-      </thead>
-      <tbody>
-        {isSuccess && data.weights.length > 0 ? (
-          data.weights.map((weight) => {
-            return (
-              <tr
-                key={weight.id}
-                className={`hover:bg-gray-100 ${weight.file_name ? " cursor-pointer" : ""}`}
-                onClick={(event) => handleTableRowClick({ event, weight })}
-              >
-                <td>
-                  <div className="flex justify-center items-center gap-2">
-                    {weight.weight && `${weight.weight}kg`}
-                    {weight.file_name && (
-                      <img
-                        className="w-24 h-24 object-cover rounded-lg"
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${weight.file_name}`}
-                        alt="weight image"
-                      />
-                    )}
-                  </div>
-                </td>
-                <td>
-                  {new Date(weight.created_at).toLocaleTimeString("ko-KR", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </td>
-                <td>
-                  <WeightDelete patient_id={id} weight={weight} />
-                </td>
-              </tr>
-            );
-          })
-        ) : (
+    <div className="flex flex-col gap-2">
+      <Text.SUBTITLE text="몸무게 리스트" />
+
+      <table>
+        <thead>
           <tr>
-            <td colSpan={3} className="text-center">
-              기록이 없습니다.
-            </td>
+            <th>몸무게</th>
+            <th>사진</th>
+            <th>시간</th>
+            <th>삭제</th>
           </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {weightList.map((weight) => (
+            <tr key={weight.id}>
+              <td>{weight?.weight ? `${weight.weight}kg` : '-'}</td>
+              <td className="flex items-center justify-center">
+                {weight.image ? (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${weight.image}`}
+                    alt="몸무게 이미지"
+                    width={50}
+                    height={50}
+                    className="rounded-md"
+                    loading="lazy"
+                    onClick={() =>
+                      window.open(
+                        `${process.env.NEXT_PUBLIC_IMAGE_URL}/${weight.image}`,
+                        '_blank',
+                      )
+                    }
+                  />
+                ) : (
+                  '-'
+                )}
+              </td>
+              <td>
+                {new Date(weight.created_at).toLocaleTimeString('ko-KR', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </td>
+              <td>
+                <WeightDelete weight={weight} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

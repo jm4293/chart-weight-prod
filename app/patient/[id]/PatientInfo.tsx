@@ -1,65 +1,30 @@
-"use client";
+'use client';
 
-import { formatBirthDate } from "@/util/birth-format";
-import { usePatient } from "@/hook/patient";
+import { Text } from '@/components/text';
+import { IPatientEntity } from '@/services/patient';
+import { formatBirthDate } from '@/utils/birth-format';
 
 interface IProps {
-  id: string;
-}
-
-function Loading() {
-  return <p className="text-2xl text-gray-400">불러오는 중...</p>;
+  patient: IPatientEntity;
 }
 
 export default function PatientInfo(props: IProps) {
-  const { id } = props;
+  const { patient } = props;
 
-  const { data, isLoading, isSuccess, isError } = usePatient({ id });
-
-  if (isError) {
-    return (
-      <p className="text-red-500 p-4">
-        사용자 정보를 불러오는 데 실패했습니다.
-      </p>
-    );
+  if (!patient) {
+    return <Text.HEADING text="환자 정보를 불러올 수 없습니다." />;
   }
 
   return (
-    <div className="flex flex-col gap-4 my-4">
-      <div className="flex">
-        <p className="min-w-[140px] text text-3xl">이름:</p>
-        {isLoading ? (
-          <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">{data.patient.name}</strong>
-        ) : (
-          "이름 없음"
-        )}
-      </div>
+    <div className="flex flex-col gap-2">
+      <Text.SUBTITLE text="정보" />
 
-      <div className="flex">
-        <p className="min-w-[140px] text-3xl">생년월일:</p>
-        {isLoading ? (
-          <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">
-            {formatBirthDate(data.patient.birth)}
-          </strong>
-        ) : (
-          "-"
-        )}
-      </div>
-
-      <div className="flex">
-        <p className="min-w-[140px] text-3xl">등록번호:</p>
-        {isLoading ? (
-          <Loading />
-        ) : isSuccess ? (
-          <strong className="text-4xl">{data.patient.register_num}</strong>
-        ) : (
-          "-"
-        )}
-      </div>
+      <Text.HEADING text={`이름: ${patient.name}`} />
+      <Text.HEADING text={`생년월일: ${formatBirthDate(patient.birth)}`} />
+      <Text.HEADING text={`등록번호: ${patient.register}`} />
+      <Text.HEADING
+        text={`계정 생성일: ${new Date(patient.created_at).toLocaleDateString()}`}
+      />
     </div>
   );
 }
