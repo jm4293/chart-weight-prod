@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 
 export const deletePatient = async (patientId: string) => {
   const supabase = await serverClient();

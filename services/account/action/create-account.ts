@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 import { AccountStatus, AccountType } from '@/shared/enum/account';
 
 export const createAccount = async (params: {

@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 import { IPatientEntity } from '../entity';
 
 export const getPatientList = async (): Promise<IPatientEntity[]> => {

@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 import { IAccountEntity } from '../entity';
 
 export const getAccount = async (

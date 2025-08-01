@@ -1,4 +1,4 @@
-import { browserClient } from '@/lib/supabase/client';
+import { browserClient } from '@/lib/supabase';
 
 export const signinByKakao = async () => {
   const supabase = browserClient();

@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 
 export const signinByEmail = async (formData: FormData) => {
   const supabase = await serverClient();

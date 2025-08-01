@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 
 export const deleteWeight = async (weightId: string) => {
   const supabase = await serverClient();

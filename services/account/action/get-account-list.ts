@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 import { IAccountEntity } from '../entity';
 import { AccountType } from '@/shared/enum/account';
 

@@ -1,3 +1,3 @@
-export * from '../../utils/supabase/client';
-export * from '../../utils/supabase/server';
+export * from './client';
+export * from './server';
 export * from './supabase.middleware';

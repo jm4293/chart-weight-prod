@@ -1,6 +1,6 @@
 'use server';
 
-import { serverClient } from '@/lib/supabase/server';
+import { serverClient } from '@/lib/supabase';
 
 export const deleteAccount = async (accountId: string) => {
   const supabase = await serverClient();
