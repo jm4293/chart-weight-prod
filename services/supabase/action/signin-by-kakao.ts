@@ -7,7 +7,7 @@ export const signinByKakao = async () => {
     provider: 'kakao',
     options: {
       // redirectTo: 'http://localhost:3000/auth/kakao',
-      redirectTo: 'https://chart-weight-prod.vercel.app/auth/kakao',
+      redirectTo: 'https://chart-weight.vercel.app/auth/kakao',
     },
   });
 };

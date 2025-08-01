@@ -26,10 +26,10 @@ export async function GET(request: Request) {
       });
 
       // return NextResponse.redirect('http://localhost:3000/auth');
-      return NextResponse.redirect('https://chart-weight-prod.vercel.app/auth');
+      return NextResponse.redirect('https://chart-weight.vercel.app/auth');
     }
   }
 
   // return NextResponse.redirect('http://localhost:3000/login');
-  return NextResponse.redirect('https://chart-weight-prod.vercel.app/login');
+  return NextResponse.redirect('https://chart-weight.vercel.app/login');
 }

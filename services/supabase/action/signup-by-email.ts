@@ -14,7 +14,7 @@ export const signupByEmail = async (formData: FormData) => {
     password,
     options: {
       // emailRedirectTo: 'http://localhost:3000/admin/login',
-      emailRedirectTo: 'https://chart-weight-prod.vercel.app/admin/login',
+      emailRedirectTo: 'https://chart-weight.vercel.app/admin/login',
       data: { name },
     },
   });
