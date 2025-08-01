@@ -18,8 +18,6 @@ export const signupByEmail = async (formData: FormData) => {
     },
   });
 
-  console.log('signUpBySupabaseEmail error', error);
-
   if (error) {
     return { success: false, error: error.message };
   }

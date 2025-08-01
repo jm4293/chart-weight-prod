@@ -5,8 +5,6 @@ import { cookies } from 'next/headers';
 export async function middleware(request: NextRequest) {
   const cookieStore = await cookies();
 
-  console.log('request.nextUrl.pathname', request.nextUrl.pathname);
-
   if (
     !request.nextUrl.pathname.includes('admin') &&
     !request.nextUrl.pathname.includes('login') &&

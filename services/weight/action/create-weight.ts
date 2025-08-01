@@ -20,8 +20,6 @@ export async function createWeight(params: {
     })
     .single();
 
-  console.log('Weight creation result:', data, error);
-
   if (error) {
     return { success: false, error: error.message };
   }
