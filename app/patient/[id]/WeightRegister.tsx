@@ -75,7 +75,7 @@ export default function WeightRegister(props: IProps) {
         onChange={handleFileChange}
       />
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         {isPending ? (
           <div className="flex items-center justify-center h-full">
             <span className="text-3xl">등록 중...</span>

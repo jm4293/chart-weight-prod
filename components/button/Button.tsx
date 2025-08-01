@@ -14,7 +14,7 @@ const WHITE = (props: IProps) => {
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border bg-white text-black ${className}`}
+      className={`text-2xl p-3 border rounded bg-white text-black ${className}`}
       {...rest}>
       {text}
     </button>
@@ -40,7 +40,7 @@ const BLUE = (props: IProps) => {
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border bg-blue-500 text-white ${className}`}
+      className={`text-2xl p-3 rounded bg-blue-500 text-white ${className}`}
       {...rest}>
       {text}
     </button>
@@ -53,11 +53,24 @@ const RED = (props: IProps) => {
   return (
     <button
       type={type}
-      className={`text-2xl p-3 rounded border bg-red-500 text-white ${className}`}
+      className={`text-2xl p-3 rounded bg-red-500 text-white ${className}`}
       {...rest}>
       {text}
     </button>
   );
 };
 
-export const Button = { WHITE, GRAY, BLUE, RED };
+const YELLOW = (props: IProps) => {
+  const { className, type = 'button', text = '확인', ...rest } = props;
+
+  return (
+    <button
+      type={type}
+      className={`text-2xl p-3 rounded bg-yellow-300 text-black ${className}`}
+      {...rest}>
+      {text}
+    </button>
+  );
+};
+
+export const Button = { WHITE, GRAY, BLUE, RED, YELLOW };

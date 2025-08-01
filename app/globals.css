@@ -9,19 +9,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /*margin: 0 0 2rem 0;*/
 }
 
 button,
 a,
 li {
-  min-width: 320px;
   cursor: pointer;
   white-space: nowrap;
 }
 
 input {
-  min-width: 320px;
   padding: 1rem;
   border-radius: 0.25rem;
 }
@@ -79,19 +76,6 @@ td {
 }
 
 .main-layout {
-  padding: 1rem 2rem;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
+  /* padding: 1rem 2rem; */
+  padding: 100px 2rem 1rem 2rem; /* header 높이만큼 padding-top */
 }
-
-/* .main-layout > div {
-  width: 80vw;
-  min-width: 320px;
-
-  @media (min-width: 1025px) {
-    width: 60vw;
-    min-width: 60vw;
-    max-width: 1024px;
-  }
-} */

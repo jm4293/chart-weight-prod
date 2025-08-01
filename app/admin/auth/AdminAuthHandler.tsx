@@ -102,7 +102,7 @@ export default function AdminAuthHandler() {
       <div className="flex flex-col gap-8">
         <Text.HEADING text="타입을 선택해주세요" />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {[AccountType.DOCTOR, AccountType.NURSE].map((el) =>
             type === el ? (
               <Button.BLUE
@@ -130,10 +130,12 @@ export default function AdminAuthHandler() {
       <div className="flex flex-col gap-8">
         <Text.HEADING text="마스터의 승인을 기다려주세요" />
 
-        <Text.PARAGRAPH text={`이름: ${user.name}로 로그인되었습니다.`} />
-        <Text.PARAGRAPH
-          text={`${user.email} 관리자님, ${AccountTypeLabels[type!]}으로 요청되었습니다.`}
-        />
+        <div className="flex flex-col gap-2">
+          <Text.PARAGRAPH text={`이름: ${user.name}로 로그인되었습니다.`} />
+          <Text.PARAGRAPH
+            text={`${user.email} 관리자님, ${AccountTypeLabels[type!]}으로 요청되었습니다.`}
+          />
+        </div>
       </div>
     );
   }

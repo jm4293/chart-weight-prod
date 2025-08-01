@@ -80,7 +80,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/70">
-      <div className="min-w-[320px] p-4 bg-white rounded-2xl shadow-lg flex flex-col justify-center items-center gap-8 overflow-x-hidden overflow-y-auto">
+      <div className="w-5/6 p-4 bg-white rounded-2xl shadow-lg flex flex-col justify-center items-center gap-8 overflow-x-hidden overflow-y-auto">
         {isPending ? (
           <div className="flex items-center justify-center h-full">
             <span className="text-3xl">등록 중...</span>

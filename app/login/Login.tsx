@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import kakako from '@/public/kakao/kakao_login_large_wide.png';
 import { signinByEmail, signinByKakao } from '@/services/supabase';
 import { useModal, useToast } from '@/hooks/modal';
 import { Button } from '@/components/button';
@@ -38,11 +36,9 @@ export default function Login() {
     openModal({
       title: '관리자 이메일 로그인',
       content: (
-        <form
-          className="min-w-[480] flex flex-col gap-4"
-          onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <label htmlFor="email">
                 <Text.HEADING text="이메일" />
               </label>
@@ -53,7 +49,7 @@ export default function Login() {
                 autoFocus
               />
             </div>
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
               <label htmlFor="password">
                 <Text.HEADING text="비밀번호" />
               </label>
@@ -73,18 +69,13 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
-      <Image
-        className="min-w-[320px] cursor-pointer"
-        src={kakako}
-        alt="카카오 로그인"
-        width={320}
-        height={60}
-        priority
+    <div className="flex flex-col gap-2">
+      <Button.YELLOW
+        type="button"
+        text="카카오 로그인"
         onClick={() => signinByKakao()}
       />
       <Button.BLUE
-        className="h-[48px] flex justify-center items-center rounded-lg"
         type="button"
         text="관리자 이메일 로그인"
         onClick={handleAdminEmailLogin}

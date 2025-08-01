@@ -12,7 +12,7 @@ export default async function AdminPage() {
 
       <AdminPatientList patientList={patientList} />
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <LinkButton.BLUE text="환자 등록" href="/admin/patient/register" />
         <LinkButton.GRAY text="대시보드" href="/admin/dashboard" />
       </div>

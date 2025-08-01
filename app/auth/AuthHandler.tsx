@@ -105,7 +105,7 @@ export default function AuthHandler() {
       <div className="flex flex-col gap-8">
         <Text.HEADING text="타입을 선택해주세요" />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
           {[
             AccountType.DOCTOR,
             AccountType.NURSE,

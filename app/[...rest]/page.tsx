@@ -7,9 +7,10 @@ export default function CatchAllPage() {
       <Text.TITLE text="잘못된 경로입니다." />
 
       <div className="flex flex-col gap-2">
-        <Text.SUBTITLE text="존재하지 않는 페이지입니다." />
+        <Text.HEADING text="존재하지 않는 페이지입니다." />
         <LinkButton.BLUE href="/login" text="로그인 페이지로 이동" />
       </div>
     </div>
   );
 }
+// https://chart-weight-prod.vercel.app

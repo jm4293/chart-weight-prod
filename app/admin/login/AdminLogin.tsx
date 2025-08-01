@@ -47,7 +47,6 @@ export default function AdminLogin() {
             name="email"
             placeholder="이메일을 입력하세요"
             required
-            autoFocus
           />
         </div>
         <div className="w-full flex flex-col gap-2">
@@ -64,7 +63,7 @@ export default function AdminLogin() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <Button.BLUE type="submit" text="관리자 로그인" />
         <Link href="/admin/login/signup">
           <Button.BLUE className="w-full" text="관리자 회원가입" />
