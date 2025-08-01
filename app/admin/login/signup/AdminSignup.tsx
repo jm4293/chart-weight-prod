@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/button';
+import { Button, LinkButton } from '@/components/button';
 import { Input } from '@/components/input';
 import { Text } from '@/components/text';
 import { useToast } from '@/hooks/modal';
@@ -77,7 +77,10 @@ export default function AdminSignup() {
         </div>
       </div>
 
-      <Button.BLUE type="submit" text="회원가입" />
+      <div className="flex flex-col gap-4">
+        <Button.BLUE type="submit" text="회원가입" />
+        <LinkButton.GRAY href="/admin/login" text="뒤로가기" />
+      </div>
     </form>
   );
 }

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 interface IProps {
   className?: string;
   href: string;
@@ -58,4 +60,3 @@ export const LinkButton = {
   BLUE,
   RED,
 };
-import Link from 'next/link';
