@@ -1,41 +1,68 @@
-// import { NextRequest, NextResponse } from 'next/server';
-
-// export function middleware(request: NextRequest) {
-//   if (request.nextUrl.pathname === '/') {
-//     return NextResponse.redirect(new URL('/login', request.url));
-//   }
-
-//   // /login 접근 시 connect.sid 쿠키가 있으면 /patient로 리다이렉트
-//   // if (request.nextUrl.pathname === "/login") {
-//   //   const cookie = request.cookies.get("connect.sid");
-//   //   if (cookie && cookie.value) {
-//   //     return NextResponse.redirect(new URL("/patient", request.url));
-//   //   }
-//   // }
-
-//   return NextResponse.next();
-// }
-
-// // export const config = {
-// //   matcher: ['/((?!_next/static|_next/image|favicon.ico|api|public).*)'],
-// // };
-
-import { type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { updateSession } from '@/lib/supabase/supabase.middleware';
+import { cookies } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  const cookieStore = await cookies();
+
+  console.log('request.nextUrl.pathname', request.nextUrl.pathname);
+
+  if (
+    !request.nextUrl.pathname.includes('admin') &&
+    !request.nextUrl.pathname.includes('login') &&
+    !request.nextUrl.pathname.includes('auth')
+  ) {
+    const adminSession = cookieStore.get('__SE');
+
+    if (!adminSession) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  if (
+    request.nextUrl.pathname.includes('admin') &&
+    !request.nextUrl.pathname.includes('admin/login') &&
+    !request.nextUrl.pathname.includes('admin/signup') &&
+    !request.nextUrl.pathname.includes('admin/auth')
+  ) {
+    const adminSession = cookieStore.get('__SE');
+
+    if (!adminSession) {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+  }
+
+  if (request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+
+  if (request.nextUrl.pathname === '/admin') {
+    return NextResponse.redirect(new URL('/admin/login', request.url));
+  }
+
+  if (request.nextUrl.pathname === '/login') {
+    const response = NextResponse.next();
+
+    for (const cookie of cookieStore.getAll()) {
+      response.cookies.delete(cookie.name);
+    }
+
+    return response;
+  }
+
+  if (request.nextUrl.pathname === '/admin/login') {
+    const response = NextResponse.next();
+
+    for (const cookie of cookieStore.getAll()) {
+      response.cookies.delete(cookie.name);
+    }
+
+    return response;
+  }
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };

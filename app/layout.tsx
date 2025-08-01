@@ -28,7 +28,7 @@ export default function RootLayout(props: IProps) {
         <title>동탄연세맑은내과 투석실</title>
       </head>
       <body>
-        <Header />
+        {/* <Header /> */}
         <NetworkError>
           <Providers>
             <main className="main-layout">{children}</main>
