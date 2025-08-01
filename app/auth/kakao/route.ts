@@ -25,9 +25,11 @@ export async function GET(request: Request) {
         sameSite: 'lax',
       });
 
-      return NextResponse.redirect(`${origin}/login/auth`);
+      // return NextResponse.redirect(`${origin}/auth`);
+      return NextResponse.redirect('https://chart-weight-prod.vercel.app/auth');
     }
   }
 
-  return NextResponse.redirect(`${origin}/login`);
+  // return NextResponse.redirect(`${origin}/login`);
+  return NextResponse.redirect('https://chart-weight-prod.vercel.app/login');
 }
