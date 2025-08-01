@@ -65,7 +65,7 @@ export default function AdminLogin() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <Button.BLUE type="submit" text="로그인" />
+        <Button.BLUE type="submit" text="관리자 로그인" />
         <Link href="/admin/login/signup">
           <Button.BLUE className="w-full" text="관리자 회원가입" />
         </Link>
