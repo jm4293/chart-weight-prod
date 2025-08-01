@@ -72,7 +72,7 @@ export default async function AdminPatientModifyPage(props: IProps) {
 
         <div className="flex flex-col gap-2">
           <SubmitButton text="수정하기" />
-          <LinkButton.GRAY text="취소하기" href={`/admin/account/${id}`} />
+          <LinkButton.GRAY text="취소하기" href={`/admin/patient/${id}`} />
         </div>
       </form>
     </div>
