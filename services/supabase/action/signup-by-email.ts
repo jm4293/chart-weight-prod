@@ -13,7 +13,7 @@ export const signupByEmail = async (formData: FormData) => {
     email,
     password,
     options: {
-      emailRedirectTo: 'http://localhost:3000/admin/login',
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/admin/login`,
       data: { name },
     },
   });
