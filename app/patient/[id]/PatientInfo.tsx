@@ -22,9 +22,6 @@ export default function PatientInfo(props: IProps) {
       <Text.HEADING text={`이름: ${patient.name}`} />
       <Text.HEADING text={`생년월일: ${formatBirthDate(patient.birth)}`} />
       <Text.HEADING text={`등록번호: ${patient.register}`} />
-      <Text.HEADING
-        text={`계정 생성일: ${new Date(patient.created_at).toLocaleDateString()}`}
-      />
     </div>
   );
 }

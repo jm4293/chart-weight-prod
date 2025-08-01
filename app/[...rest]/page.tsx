@@ -13,4 +13,3 @@ export default function CatchAllPage() {
     </div>
   );
 }
-// https://chart-weight-prod.vercel.app

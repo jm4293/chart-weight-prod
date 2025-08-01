@@ -87,15 +87,11 @@ export default function NumberPadModal(props: INumberPadModalProps) {
           </div>
         ) : (
           <>
-            {/* <div className="text-4xl text-center whitespace-nowrap">
-              {weight ? `${weight}kg` : '몸무게를 입력하세요'}
-            </div> */}
-
             <Text.HEADING
               text={weight ? `${weight}kg` : '몸무게를 입력하세요'}
             />
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-3 gap-4">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0, '지움'].map((num) => (
                 <button
                   key={num}
@@ -109,7 +105,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
               ))}
             </div>
 
-            <div className="w-full flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-2">
               <Button.GRAY text="취소" onClick={handleCancel} />
               <Button.BLUE text="등록" onClick={handleConfirm} />
             </div>
