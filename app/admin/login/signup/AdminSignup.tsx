@@ -5,8 +5,10 @@ import { Input } from '@/components/input';
 import { Text } from '@/components/text';
 import { useToast } from '@/hooks/modal';
 import { signupByEmail } from '@/services/supabase';
+import { useRouter } from 'next/navigation';
 
 export default function AdminSignup() {
+  const router = useRouter();
   const { openToast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +44,10 @@ export default function AdminSignup() {
       message:
         '입력하신 이메일로 인증 링크가 전송되었습니다. 이메일을 확인해주세요.',
     });
+
+    router.push(
+      '/admin/login/signup/verify?email=' + encodeURIComponent(email),
+    );
   };
 
   return (
