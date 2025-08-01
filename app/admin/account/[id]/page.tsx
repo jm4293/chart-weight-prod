@@ -2,6 +2,7 @@ import { Text } from '@/components/text';
 import { getAccount } from '@/services/account';
 import { LinkButton } from '@/components/button';
 import { AccountStatusLabels, AccountTypeLabels } from '@/shared/enum/account';
+import AdminDeleteAccount from './DeleteAccount';
 
 interface IProps {
   params: Promise<{ id: string }>;
@@ -40,6 +41,7 @@ export default async function AdminAccountDetailPage(props: IProps) {
       </div>
 
       <div className="flex flex-col gap-2">
+        <AdminDeleteAccount account={account} />
         <LinkButton.BLUE
           text="계정 수정"
           href={`/admin/account/${id}/modify`}
