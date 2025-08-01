@@ -73,7 +73,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
+    <div className="w-[320px] flex flex-col justify-center items-center gap-4">
       <Image
         className="cursor-pointer"
         src={kakako}
@@ -84,7 +84,7 @@ export default function Login() {
         onClick={() => signinByKakao()}
       />
       <Button.BLUE
-        className="w-[320px] rounded-xl"
+        className="w-full h-[48px] flex justify-center items-center rounded-lg"
         type="button"
         text="관리자 이메일 로그인"
         onClick={handleAdminEmailLogin}

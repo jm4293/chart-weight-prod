@@ -1,11 +1,11 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { formatBirthDate } from '@/utils/birth-format';
 import { useState } from 'react';
 import Consonant from '@/app/patient/Consonant';
 import { IPatientEntity } from '@/services/patient';
 import { Text } from '@/components/text';
+import Link from 'next/link';
 
 interface IProps {
   patientList: IPatientEntity[];
@@ -51,15 +51,9 @@ function getInitialConsonant(str: string) {
 export default function PatientList(props: IProps) {
   const { patientList } = props;
 
-  const router = useRouter();
-
   const [selectedConsonant, setSelectedConsonant] = useState<string | null>(
     null,
   );
-
-  const handleClick = (id: number) => {
-    router.push(`/patient/${id}`);
-  };
 
   if (!patientList || patientList.length === 0) {
     return <Text.HEADING text="환자 명단이 없습니다." />;
@@ -90,13 +84,18 @@ export default function PatientList(props: IProps) {
               );
             })
             .map((user) => (
-              <tr
-                key={user.id}
-                className="hover:bg-gray-100"
-                onClick={() => handleClick(user.id)}>
-                <td>{user.name}</td>
-                <td>{formatBirthDate(user.birth)}</td>
-                <td>{user.register}</td>
+              <tr key={user.id} className="hover:bg-gray-100">
+                <td>
+                  <Link href={`/patient/${user.id}`}>{user.name}</Link>
+                </td>
+                <td>
+                  <Link href={`/patient/${user.id}`}>
+                    {formatBirthDate(user.birth)}
+                  </Link>
+                </td>
+                <td>
+                  <Link href={`/patient/${user.id}`}>{user.register}</Link>
+                </td>
               </tr>
             ))}
         </tbody>

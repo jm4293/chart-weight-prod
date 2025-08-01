@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useNetworkOffline = () => {
+export const NetworkOffline = () => {
   const [isNetworkOffline, setIsNetworkOffline] = useState(() => {
     if (typeof window === 'undefined') {
       return false;

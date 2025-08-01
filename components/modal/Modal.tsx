@@ -13,26 +13,20 @@ export const Modal = () => {
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    e.preventDefault();
 
     if (modal.onCancel) {
       modal.onCancel();
     }
-
-    closeModal();
   };
 
   const handleConfirm = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    e.preventDefault();
 
     if (modal.onConfirm) {
       modal.onConfirm();
     }
-
-    closeModal();
   };
 
   useEffect(() => {

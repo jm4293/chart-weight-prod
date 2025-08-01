@@ -1,6 +1,6 @@
 'use client';
 
-import { useNetworkOffline } from '@/hooks/network-offline';
+import { NetworkOffline } from '@/components/network-offline';
 
 interface IProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface IProps {
 export const NetworkError = (props: IProps) => {
   const { children } = props;
 
-  const { isNetworkOffline } = useNetworkOffline();
+  const { isNetworkOffline } = NetworkOffline();
 
   if (isNetworkOffline) {
     return (

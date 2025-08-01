@@ -26,13 +26,19 @@ export default function AdminPatientList(props: IProps) {
         </thead>
         <tbody>
           {patientList.map((user) => (
-            <Link href={`/admin/patient/${user.id}`} key={user.id}>
-              <tr className="hover:bg-gray-100">
-                <td>{user.name}</td>
-                <td>{formatBirthDate(user.birth)}</td>
-                <td>{user.register}</td>
-              </tr>
-            </Link>
+            <tr key={user.id} className="hover:bg-gray-100">
+              <td>
+                <Link href={`/admin/patient/${user.id}`}>{user.name}</Link>
+              </td>
+              <td>
+                <Link href={`/admin/patient/${user.id}`}>
+                  {formatBirthDate(user.birth)}
+                </Link>
+              </td>
+              <td>
+                <Link href={`/admin/patient/${user.id}`}>{user.register}</Link>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>

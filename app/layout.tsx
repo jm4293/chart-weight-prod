@@ -1,18 +1,9 @@
 import type { Metadata } from 'next';
 import './globals.css';
-// import dayjs from 'dayjs';
-// import utc from 'dayjs/plugin/utc';
-// import timezone from 'dayjs/plugin/timezone';
-// import 'dayjs/locale/ko';
-// import Modal from '@/components/modal/Modal';
-import Header from '@/components/header';
 import Providers from '@/lib/provider';
 import { NetworkError } from '@/components/network-error';
 import { Modal, Toast } from '@/components/modal';
-
-// dayjs.extend(utc);
-// dayjs.extend(timezone);
-// dayjs.locale('ko');
+import Header from '@/components/header';
 
 interface IProps {
   children: React.ReactNode;
