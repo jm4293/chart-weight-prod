@@ -6,7 +6,7 @@ export const signinByKakao = async () => {
   await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/auth/kakao`,
+      redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/login/auth/kakao`,
     },
   });
 };

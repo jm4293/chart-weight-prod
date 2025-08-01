@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from '@/lib/supabase/supabase.middleware';
 import { cookies } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
@@ -10,9 +9,9 @@ export async function middleware(request: NextRequest) {
     !request.nextUrl.pathname.includes('login') &&
     !request.nextUrl.pathname.includes('auth')
   ) {
-    const adminSession = cookieStore.get('__SE');
+    const session = cookieStore.get('__SE');
 
-    if (!adminSession) {
+    if (!session) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
   }

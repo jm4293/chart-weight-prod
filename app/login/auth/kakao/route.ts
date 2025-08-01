@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         sameSite: 'lax',
       });
 
-      return NextResponse.redirect(`${origin}/auth`);
+      return NextResponse.redirect(`${origin}/login/auth`);
     }
   }
 
