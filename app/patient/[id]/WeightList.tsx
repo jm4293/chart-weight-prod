@@ -3,6 +3,7 @@
 import WeightDelete from '@/app/patient/[id]/WeightDelete';
 import { IWeightEntity } from '@/services/weight';
 import { Text } from '@/components/text';
+import Image from 'next/image';
 
 interface IProps {
   weightList: IWeightEntity[];
@@ -28,6 +29,7 @@ export default function WeightList(props: IProps) {
         <thead>
           <tr>
             <th>몸무게</th>
+            <th>사진</th>
             <th>시간</th>
             <th>삭제</th>
           </tr>
@@ -35,17 +37,26 @@ export default function WeightList(props: IProps) {
         <tbody>
           {weightList.map((weight) => (
             <tr key={weight.id}>
-              <td>
-                <div className="flex justify-center items-center gap-2">
-                  {weight.weight && `${weight.weight}kg`}
-                  {/* {weight.image && (
-                    <img
-                      className="w-24 h-24 object-cover rounded-lg"
-                      src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${weight.file_name}`}
-                      alt="weight image"
-                    />
-                  )} */}
-                </div>
+              <td>{weight?.weight ? `${weight.weight}kg` : '-'}</td>
+              <td className="flex items-center justify-center">
+                {weight.image ? (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${weight.image}`}
+                    alt="몸무게 이미지"
+                    width={50}
+                    height={50}
+                    className="rounded-md"
+                    loading="lazy"
+                    onClick={() =>
+                      window.open(
+                        `${process.env.NEXT_PUBLIC_IMAGE_URL}/${weight.image}`,
+                        '_blank',
+                      )
+                    }
+                  />
+                ) : (
+                  '-'
+                )}
               </td>
               <td>
                 {new Date(weight.created_at).toLocaleTimeString('ko-KR', {

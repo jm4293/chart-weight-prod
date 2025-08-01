@@ -62,7 +62,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
         closeModal();
 
         startTransition(async () => {
-          await createWeight({ patientId, weight });
+          await createWeight({ patientId, weight, image: null });
 
           openToast({ message: '체중이 등록되었습니다.', type: 'success' });
           router.push('/patient');
