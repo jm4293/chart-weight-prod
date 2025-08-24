@@ -48,7 +48,7 @@ export const Modal = () => {
 
         <div className="text-xl whitespace-pre-wrap">{modal.content}</div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           {modal.onCancel && (
             <Button.GRAY
               text={modal.cancelText || '취소'}
