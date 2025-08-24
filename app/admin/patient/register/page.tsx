@@ -1,6 +1,6 @@
 'use client';
 
-import { LinkButton, SubmitButton } from '@/components/button';
+import { Button, LinkButton } from '@/components/button';
 import { Input } from '@/components/input';
 import { Text } from '@/components/text';
 import { useToast } from '@/hooks/modal';
@@ -54,7 +54,7 @@ export default function RegisterPatientPage() {
           <label htmlFor="name">
             <Text.HEADING text="이름" />
           </label>
-          <Input.TEXT
+          <Input
             id="name"
             name="name"
             placeholder="이름을 입력하세요"
@@ -65,7 +65,7 @@ export default function RegisterPatientPage() {
           <label htmlFor="birth">
             <Text.HEADING text="생년월일" />
           </label>
-          <Input.TEXT
+          <Input
             id="birth"
             name="birth"
             placeholder="생년월일을 입력하세요"
@@ -80,7 +80,7 @@ export default function RegisterPatientPage() {
           <label htmlFor="register">
             <Text.HEADING text="등록번호" />
           </label>
-          <Input.TEXT
+          <Input
             id="register"
             name="register"
             placeholder="등록번호를 입력하세요"
@@ -89,7 +89,7 @@ export default function RegisterPatientPage() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <SubmitButton text="등록하기" />
+          <Button.BLUE type="submit" text="등록하기" />
           <LinkButton.GRAY text="취소하기" href="/admin/patient" />
         </div>
       </form>

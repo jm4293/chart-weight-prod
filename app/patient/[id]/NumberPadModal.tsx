@@ -105,7 +105,7 @@ export default function NumberPadModal(props: INumberPadModalProps) {
               ))}
             </div>
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex gap-2">
               <Button.GRAY text="취소" onClick={handleCancel} />
               <Button.BLUE text="등록" onClick={handleConfirm} />
             </div>

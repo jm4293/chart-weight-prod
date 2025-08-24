@@ -1,4 +1,4 @@
-import { LinkButton, SubmitButton } from '@/components/button';
+import { Button, LinkButton } from '@/components/button';
 import { Input } from '@/components/input';
 import { Text } from '@/components/text';
 import { getPatient, updatePatient } from '@/services/patient';
@@ -33,7 +33,7 @@ export default async function AdminPatientModifyPage(props: IProps) {
           <label htmlFor="name">
             <Text.HEADING text="이름" />
           </label>
-          <Input.TEXT
+          <Input
             id="name"
             name="name"
             defaultValue={patient.name}
@@ -45,7 +45,7 @@ export default async function AdminPatientModifyPage(props: IProps) {
           <label htmlFor="birth">
             <Text.HEADING text="생년월일" />
           </label>
-          <Input.TEXT
+          <Input
             id="birth"
             name="birth"
             defaultValue={patient.birth}
@@ -61,7 +61,7 @@ export default async function AdminPatientModifyPage(props: IProps) {
           <label htmlFor="register">
             <Text.HEADING text="등록번호" />
           </label>
-          <Input.TEXT
+          <Input
             id="register"
             name="register"
             defaultValue={patient.register}
@@ -71,7 +71,7 @@ export default async function AdminPatientModifyPage(props: IProps) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <SubmitButton text="수정하기" />
+          <Button.BLUE type="submit" text="수정하기" />
           <LinkButton.GRAY text="취소하기" href={`/admin/patient/${id}`} />
         </div>
       </form>

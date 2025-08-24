@@ -42,7 +42,8 @@ export default function AdminLogin() {
           <label htmlFor="email">
             <Text.HEADING text="이메일" />
           </label>
-          <Input.EMAIL
+          <Input
+            type="email"
             id="email"
             name="email"
             placeholder="이메일을 입력하세요"
@@ -53,7 +54,8 @@ export default function AdminLogin() {
           <label htmlFor="password">
             <Text.HEADING text="비밀번호" />
           </label>
-          <Input.PASSWORD
+          <Input
+            type="password"
             id="password"
             name="password"
             placeholder="비밀번호를 입력하세요"
