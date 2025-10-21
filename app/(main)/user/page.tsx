@@ -4,8 +4,9 @@ import { getUserInfo } from '@/services/user';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { SignOut } from './SignOut';
+import { UserType } from '@/shared/enum/user';
 
-export default async function mainPage() {
+export default async function userPage() {
   const { data: userInfo, success } = await getUserInfo();
 
   if (!success) {
@@ -34,6 +35,17 @@ export default async function mainPage() {
   return (
     <Wrapper.MAIN text="사용자 정보">
       <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
+
+      {[UserType.ADMIN, UserType.DOCTOR, UserType.NURSE].includes(
+        userInfo.type,
+      ) && (
+        <Wrapper.SECTION text="환자 관리">
+          <Link href="/user/records" className="flex justify-between">
+            <Text.HEADING text="환자 리스트" />
+            <ChevronRight />
+          </Link>
+        </Wrapper.SECTION>
+      )}
 
       <Wrapper.SECTION text="기록">
         <Link href="/user/records" className="flex justify-between">

@@ -17,7 +17,7 @@ export function SignOut() {
       <div
         className="flex justify-between cursor-pointer"
         onClick={handleSignOut}>
-        <Text.HEADING text="로그아웃" className=" text-red-500" />
+        <Text.HEADING text="로그아웃" className="text-red-500" />
         <ChevronRight />
       </div>
     </Wrapper.SECTION>

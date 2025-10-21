@@ -39,7 +39,7 @@ export default async function KakaoLoginPage(props: IProps) {
         <Text.PARAGRAPH text={`이메일: ${data.user.email}`} />
       </Wrapper.SECTION>
 
-      <Wrapper.SECTION text="로그인 진행 상태">
+      <Wrapper.SECTION text="로그인 진행">
         <KakaoLogin data={data} />
       </Wrapper.SECTION>
     </Wrapper.MAIN>

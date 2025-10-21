@@ -3,19 +3,21 @@
 import { serverClient } from '@/lib/supabase';
 import { UserEmailType, UserStatus, UserType } from '@/shared/enum/user';
 
-export const createUser = async (params: {
+interface IProps {
   type: UserType;
   email: string;
   email_type: UserEmailType;
   name: string;
   image: string | null;
-}) => {
+}
+
+export const createUser = async (props: IProps) => {
   const supabase = await serverClient();
 
   const { data, error } = await supabase
     .from('user')
     .insert({
-      ...params,
+      ...props,
       status: UserStatus.PENDING,
     })
     .single();

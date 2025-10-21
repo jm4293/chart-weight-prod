@@ -19,7 +19,6 @@ export const Footer = () => {
 
   const menuItems = [
     { path: '/main', icon: House, label: '메인' },
-    // { path: '/time', icon: ChartCandlestick, label: '시간' },
     { path: '/weight', icon: ChartCandlestick, label: '등록' },
     { path: '/user', icon: User, label: '내 정보' },
   ];
@@ -41,6 +40,10 @@ export const Footer = () => {
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (pathname === '/login/kakao') {
+    return null;
+  }
 
   return (
     <footer
