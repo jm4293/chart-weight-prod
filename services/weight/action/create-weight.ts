@@ -30,7 +30,7 @@ export async function createWeight(params: IProps) {
 
   const { data, error } = await supabase.storage
     .from('images')
-    .upload(`${Date.now()}_${file.name}`, file, {
+    .upload(`${Date.now()}/${userInfo.id}_${file.name}`, file, {
       contentType: file.type,
     });
 
@@ -45,7 +45,7 @@ export async function createWeight(params: IProps) {
       .insert({
         userId: userInfo.id,
         weight: null,
-        image: fullPath,
+        imageUrl: fullPath,
       })
       .single();
 
