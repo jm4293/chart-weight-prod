@@ -2,7 +2,7 @@ import { Wrapper } from '@/components/wrapper';
 import { Withdraw } from './Withdraw';
 import { getUserInfo } from '@/services/user';
 
-export default async function userAccountPage() {
+export default async function UserAccountPage() {
   const { data: userInfo, success } = await getUserInfo();
 
   if (!success || !userInfo) {

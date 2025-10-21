@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { SignOut } from './SignOut';
 import { UserType } from '@/shared/enum/user';
 
-export default async function userPage() {
+export default async function UserPage() {
   const { data: userInfo, success } = await getUserInfo();
 
   if (!success) {
@@ -39,7 +39,7 @@ export default async function userPage() {
       {[UserType.ADMIN, UserType.DOCTOR, UserType.NURSE].includes(
         userInfo.type,
       ) && (
-        <Wrapper.SECTION text="환자 관리">
+        <Wrapper.SECTION text="관리자 기능">
           <Link href="/user/records" className="flex justify-between">
             <Text.HEADING text="환자 리스트" />
             <ChevronRight />
@@ -48,7 +48,7 @@ export default async function userPage() {
       )}
 
       <Wrapper.SECTION text="기록">
-        <Link href="/user/records" className="flex justify-between">
+        <Link href="/user/weight" className="flex justify-between">
           <Text.HEADING text="몸무게 기록" />
           <ChevronRight />
         </Link>

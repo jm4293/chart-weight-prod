@@ -3,6 +3,7 @@
 import { Button } from '@/components/button';
 import { IUserModel } from '@/services/user';
 import { createWeight } from '@/services/weight';
+import { useRouter } from 'next/navigation';
 import { useRef, useTransition } from 'react';
 
 interface IProps {
@@ -11,6 +12,8 @@ interface IProps {
 
 export default function Register(props: IProps) {
   const { userInfo } = props;
+
+  const router = useRouter();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -30,26 +33,10 @@ export default function Register(props: IProps) {
       return;
     }
 
-    startTransition(async () => {
-      // const supabase = browserClient();
-      //
-      // const { data, error } = await supabase.storage
-      //   .from('images')
-      //   .upload(`${patientId}/${Date.now()}_${file.name}`, file, {
-      //     contentType: file.type,
-      //   });
-      // if (error) {
-      //   return;
-      // }
-      // if (data) {
-      //   const { id, path, fullPath } = data;
-      //   await createWeight({ patientId, weight: null, image: fullPath });
-      // }
-      //
-      // router.push('/patient');
+    await createWeight({ userInfo, file });
 
-      await createWeight({ userInfo, file });
-    });
+    alert('몸무게가 성공적으로 등록되었습니다.');
+    router.push('/user/weight');
 
     fileInputRef.current!.value = '';
   };
