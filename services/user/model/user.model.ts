@@ -11,6 +11,6 @@ export interface IUserModel {
   birth: string;
   registerNumber: string;
   status: UserStatus;
-  created_at: string;
-  updated_at: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

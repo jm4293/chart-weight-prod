@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/button';
-import { browserClient } from '@/lib/supabase';
 import { IUserModel } from '@/services/user';
+import { createWeight } from '@/services/weight';
 import { useRef, useTransition } from 'react';
 
 interface IProps {
@@ -32,6 +32,7 @@ export default function Register(props: IProps) {
 
     startTransition(async () => {
       // const supabase = browserClient();
+      //
       // const { data, error } = await supabase.storage
       //   .from('images')
       //   .upload(`${patientId}/${Date.now()}_${file.name}`, file, {
@@ -44,7 +45,10 @@ export default function Register(props: IProps) {
       //   const { id, path, fullPath } = data;
       //   await createWeight({ patientId, weight: null, image: fullPath });
       // }
+      //
       // router.push('/patient');
+
+      await createWeight({ userInfo, file });
     });
 
     fileInputRef.current!.value = '';

@@ -1,5 +1,5 @@
 import { serverClient } from '@/lib/supabase';
-import { IWeightEntity } from '../entity';
+import { IWeightEntity } from '../model';
 
 export const getWeightList = async (
   patientId: string,

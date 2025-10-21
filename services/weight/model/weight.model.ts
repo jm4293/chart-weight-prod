@@ -2,10 +2,10 @@ import { IPatientEntity } from '@/services/patient';
 
 export interface IWeightEntity {
   id: string;
-  weight: number;
-  image: string | null;
+  uuid: string;
+  weight: number | null;
+  imageUrl: string | null;
   patientId: string;
-  created_at: Date;
-
-  patient?: IPatientEntity;
+  createdAt: Date;
+  updatedAt: Date;
 }
