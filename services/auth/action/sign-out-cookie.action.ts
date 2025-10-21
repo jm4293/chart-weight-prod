@@ -9,5 +9,5 @@ export const signOutCookie = async () => {
 
   cookieStore.delete(SESSION_TOKEN_NAME);
 
-  redirect('/user');
+  redirect('/main');
 };

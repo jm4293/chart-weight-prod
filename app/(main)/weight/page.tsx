@@ -4,6 +4,7 @@ import { getUserInfo } from '@/services/user';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Profile from './Profile';
+import Register from './Register';
 
 export default async function mainPage() {
   const { data: userInfo, success } = await getUserInfo();
@@ -36,6 +37,7 @@ export default async function mainPage() {
       <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
 
       <Profile userInfo={userInfo} />
+      <Register userInfo={userInfo} />
     </Wrapper.MAIN>
   );
 }

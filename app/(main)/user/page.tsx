@@ -33,9 +33,7 @@ export default async function mainPage() {
 
   return (
     <Wrapper.MAIN text="사용자 정보">
-      <Wrapper.SECTION>
-        <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
-      </Wrapper.SECTION>
+      <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
 
       <Wrapper.SECTION text="기록">
         <Link href="/user/records" className="flex justify-between">

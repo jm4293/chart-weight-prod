@@ -14,7 +14,7 @@ export const Footer = () => {
   const lastScrollY = useRef(0);
 
   const getActiveClass = (path: string) => {
-    return pathname.startsWith(path) ? 'text-theme-main-color' : '';
+    return pathname.startsWith(path) ? 'text-blue-500' : '';
   };
 
   const menuItems = [
@@ -42,10 +42,6 @@ export const Footer = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (pathname === '/login') {
-    return null;
-  }
-
   return (
     <footer
       className={`
@@ -56,10 +52,7 @@ export const Footer = () => {
       {menuItems.map(({ path, icon: Icon, label }) => (
         <Link key={path} href={path} className="flex flex-col items-center">
           <Icon className={getActiveClass(path)} size={18} />
-          <Text.PARAGRAPH
-            text={label}
-            color={getActiveClass(path) ? 'main' : 'default'}
-          />
+          <Text.PARAGRAPH text={label} className={`${getActiveClass(path)}`} />
         </Link>
       ))}
     </footer>
