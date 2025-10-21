@@ -2,6 +2,7 @@
 
 import { serverClient } from '@/lib/supabase';
 import { IUserModel } from '@/services/user';
+import dayjs from 'dayjs';
 
 interface IProps {
   userInfo: IUserModel;
@@ -13,24 +14,11 @@ export async function createWeight(params: IProps) {
 
   const supabase = await serverClient();
 
-  // const { data, error } = await supabase
-  //   .from('weight')
-  //   .insert({
-  //     patientId,
-  //     weight: weight || null,
-  //     image: image || null,
-  //   })
-  //   .single();
-
-  // if (error) {
-  //   return { success: false, error: error.message };
-  // }
-
-  // return { success: true, data };
+  const today = dayjs().format('YYYY-MM-DD');
 
   const { data, error } = await supabase.storage
     .from('images')
-    .upload(`${Date.now()}/${userInfo.id}_${file.name}`, file, {
+    .upload(`${today}/${userInfo.id}_${file.name}`, file, {
       contentType: file.type,
     });
 
@@ -38,23 +26,24 @@ export async function createWeight(params: IProps) {
     return { success: false, error: error.message };
   }
 
-  if (data) {
-    const { id, path, fullPath } = data;
-    const { data: weightData, error: weightError } = await supabase
-      .from('weight')
-      .insert({
-        userId: userInfo.id,
-        weight: null,
-        imageUrl: fullPath,
-      })
-      .single();
-
-    if (weightError) {
-      return { success: false, error: weightError.message };
-    }
-
-    return { success: true, data: weightData };
+  if (!data) {
+    return { success: false, error: 'File upload failed' };
   }
 
-  return { success: false, error: 'Unknown error' };
+  const { id, path, fullPath } = data;
+
+  const { data: weightData, error: weightError } = await supabase
+    .from('weight')
+    .insert({
+      userId: userInfo.id,
+      weight: null,
+      imageUrl: fullPath,
+    })
+    .single();
+
+  if (weightError) {
+    return { success: false, error: weightError.message };
+  }
+
+  return { success: true, data: weightData };
 }
