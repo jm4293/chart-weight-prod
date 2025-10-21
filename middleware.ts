@@ -1,61 +1,68 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
-  const cookieStore = await cookies();
+  // const cookieStore = await cookies();
+  //
+  // if (
+  //   !request.nextUrl.pathname.includes('admin') &&
+  //   !request.nextUrl.pathname.includes('login') &&
+  //   !request.nextUrl.pathname.includes('auth')
+  // ) {
+  //   const session = cookieStore.get('__SE');
+  //
+  //   if (!session) {
+  //     return NextResponse.redirect(new URL('/login', request.url));
+  //   }
+  // }
+  //
+  // if (
+  //   request.nextUrl.pathname.includes('admin') &&
+  //   !request.nextUrl.pathname.includes('admin/login') &&
+  //   !request.nextUrl.pathname.includes('admin/signup') &&
+  //   !request.nextUrl.pathname.includes('admin/auth')
+  // ) {
+  //   const adminSession = cookieStore.get('__SE');
+  //
+  //   if (!adminSession) {
+  //     return NextResponse.redirect(new URL('/admin/login', request.url));
+  //   }
+  // }
+  //
+  // if (request.nextUrl.pathname === '/') {
+  //   return NextResponse.redirect(new URL('/login', request.url));
+  // }
+  //
+  // if (request.nextUrl.pathname === '/admin') {
+  //   return NextResponse.redirect(new URL('/admin/login', request.url));
+  // }
+  //
+  // if (request.nextUrl.pathname === '/login') {
+  //   const response = NextResponse.next();
+  //
+  //   for (const cookie of cookieStore.getAll()) {
+  //     response.cookies.delete(cookie.name);
+  //   }
+  //
+  //   return response;
+  // }
+  //
+  // if (request.nextUrl.pathname === '/admin/login') {
+  //   const response = NextResponse.next();
+  //
+  //   for (const cookie of cookieStore.getAll()) {
+  //     response.cookies.delete(cookie.name);
+  //   }
+  //
+  //   return response;
+  // }
 
-  if (
-    !request.nextUrl.pathname.includes('admin') &&
-    !request.nextUrl.pathname.includes('login') &&
-    !request.nextUrl.pathname.includes('auth')
-  ) {
-    const session = cookieStore.get('__SE');
-
-    if (!session) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
-  }
-
-  if (
-    request.nextUrl.pathname.includes('admin') &&
-    !request.nextUrl.pathname.includes('admin/login') &&
-    !request.nextUrl.pathname.includes('admin/signup') &&
-    !request.nextUrl.pathname.includes('admin/auth')
-  ) {
-    const adminSession = cookieStore.get('__SE');
-
-    if (!adminSession) {
-      return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
-  }
+  const response = NextResponse.next();
 
   if (request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/login', request.url));
+    return NextResponse.redirect(new URL('/main', request.url));
   }
 
-  if (request.nextUrl.pathname === '/admin') {
-    return NextResponse.redirect(new URL('/admin/login', request.url));
-  }
-
-  if (request.nextUrl.pathname === '/login') {
-    const response = NextResponse.next();
-
-    for (const cookie of cookieStore.getAll()) {
-      response.cookies.delete(cookie.name);
-    }
-
-    return response;
-  }
-
-  if (request.nextUrl.pathname === '/admin/login') {
-    const response = NextResponse.next();
-
-    for (const cookie of cookieStore.getAll()) {
-      response.cookies.delete(cookie.name);
-    }
-
-    return response;
-  }
+  return response;
 }
 
 export const config = {

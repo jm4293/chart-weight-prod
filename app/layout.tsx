@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Providers from '@/lib/provider';
 import { NetworkError } from '@/components/network-error';
 import { Modal, Toast } from '@/components/modal';
-import Header from '@/components/header';
+import Header from './Header';
+import { Footer } from './Footer';
+import QueryProvider from '@/lib/provider';
 
 interface IProps {
   children: React.ReactNode;
@@ -11,7 +12,13 @@ interface IProps {
 
 export const metadata: Metadata = {
   title: '동탄연세맑은내과 투석실',
-  description: '투석실',
+  description: '동탄연세맑은내과 투석실 몸무게 기록 서비스',
+  icons: {
+    icon: [
+      { rel: 'apple-touch-icon', url: '/logo-small.png', sizes: '180x180' },
+      { rel: 'icon', url: '/logo-small.png' },
+    ],
+  },
 };
 
 export default function RootLayout(props: IProps) {
@@ -28,11 +35,14 @@ export default function RootLayout(props: IProps) {
         <title>동탄연세맑은내과 투석실</title>
       </head>
       <body>
-        <Header />
         <NetworkError>
-          <Providers>
-            <main className="main-layout">{children}</main>
-          </Providers>
+          <QueryProvider>
+            <div className="relative">
+              {/* <Header /> */}
+              <main>{children}</main>
+              <Footer />
+            </div>
+          </QueryProvider>
         </NetworkError>
 
         <Modal />

@@ -1,6 +1,7 @@
 'use client';
 
 import { ButtonHTMLAttributes } from 'react';
+import { Text } from '../text';
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -12,9 +13,9 @@ const WHITE = (props: IProps) => {
 
   return (
     <button
-      className={`text-2xl p-3 border rounded bg-white text-black ${className}`}
+      className={`p-2 border rounded bg-white text-black ${className}`}
       {...rest}>
-      {text}
+      <Text.HEADING text={text} />
     </button>
   );
 };
@@ -24,9 +25,9 @@ const GRAY = (props: IProps) => {
 
   return (
     <button
-      className={`text-2xl p-3 rounded bg-gray-300 text-black ${className}`}
+      className={`p-2 rounded bg-gray-300 text-black ${className}`}
       {...rest}>
-      {text}
+      <Text.HEADING text={text} />
     </button>
   );
 };
@@ -36,9 +37,9 @@ const BLUE = (props: IProps) => {
 
   return (
     <button
-      className={`text-2xl p-3 rounded bg-blue-500 text-white ${className}`}
+      className={`p-2 rounded bg-blue-500 text-white ${className}`}
       {...rest}>
-      {text}
+      <Text.HEADING text={text} />
     </button>
   );
 };
@@ -48,9 +49,9 @@ const RED = (props: IProps) => {
 
   return (
     <button
-      className={`text-2xl p-3 rounded bg-red-500 text-white ${className}`}
+      className={`p-2 rounded bg-red-500 text-white ${className}`}
       {...rest}>
-      {text}
+      <Text.HEADING text={text} />
     </button>
   );
 };
@@ -60,9 +61,9 @@ const YELLOW = (props: IProps) => {
 
   return (
     <button
-      className={`text-2xl p-3 rounded bg-yellow-300 text-black ${className}`}
+      className={`p-2 rounded bg-yellow-300 text-black ${className}`}
       {...rest}>
-      {text}
+      <Text.HEADING text={text} />
     </button>
   );
 };

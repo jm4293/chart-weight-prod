@@ -1,1 +1,1 @@
-export { default } from './provider';
+export { default } from './query-provider';

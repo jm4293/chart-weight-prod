@@ -1,4 +1,4 @@
-interface IProps {
+interface IProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
   text: string;
 }
@@ -6,34 +6,34 @@ interface IProps {
 const TITLE = (props: IProps) => {
   const { className, text } = props;
 
-  return <h1 className={`text-4xl font-bold ${className ?? ''}`}>{text}</h1>;
+  return <h1 className={`text-xl font-semibold ${className ?? ''}`}>{text}</h1>;
 };
 
 const SUBTITLE = (props: IProps) => {
   const { className, text } = props;
 
-  return (
-    <h2 className={`text-3xl font-semibold ${className ?? ''}`}>{text}</h2>
-  );
+  return <h2 className={`text-lg font-medium ${className ?? ''}`}>{text}</h2>;
 };
 
 const HEADING = (props: IProps) => {
   const { className, text } = props;
 
-  return <h3 className={`text-2xl font-medium ${className ?? ''}`}>{text}</h3>;
+  return <h3 className={`text-base font-medium ${className ?? ''}`}>{text}</h3>;
 };
 
 const PARAGRAPH = (props: IProps) => {
   const { className, text } = props;
 
-  return <p className={`text-base ${className ?? ''}`}>{text}</p>;
+  return <p className={`text-sm ${className ?? ''}`}>{text}</p>;
 };
 
 const CAPTION = (props: IProps) => {
   const { className, text } = props;
 
   return (
-    <span className={`text-sm text-gray-500 ${className ?? ''}`}>{text}</span>
+    <span className={`text-xs italic text-gray-500 ${className ?? ''}`}>
+      {text}
+    </span>
   );
 };
 

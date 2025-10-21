@@ -6,8 +6,10 @@ export const signinByKakao = async () => {
   await supabase.auth.signInWithOAuth({
     provider: 'kakao',
     options: {
-      // redirectTo: 'http://localhost:3000/auth/kakao',
-      redirectTo: 'https://chart-weight.vercel.app/auth/kakao',
+      redirectTo:
+        process.env.NEXT_PUBLIC_NODE_ENV === 'production'
+          ? 'https://chart-weight.vercel.app/login/kakao'
+          : 'http://localhost:3000/login/kakao',
     },
   });
 };
