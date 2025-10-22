@@ -1,5 +1,6 @@
 import { serverClient } from '@/lib/supabase';
 import { SESSION_TOKEN_NAME } from '@/shared/const';
+import { UserType } from '@/shared/enum/user';
 import { jwtUtil } from '@/utils/jwt-util';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
@@ -27,15 +28,19 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const verifiedToken = jwtUtil<IVerifiedToken>().verify(accessToken!.value);
-  const { userId, userUid } = verifiedToken;
+  jwtUtil<IVerifiedToken>().verify(accessToken!.value);
 
   const supabase = await serverClient();
 
   const { data, error, count } = await supabase
-    .from('weight')
+    .from('user')
     .select('*', { count: 'exact' })
-    .eq('userId', userId)
+    .in('type', [
+      UserType.PATIENT,
+      UserType.FAMILY,
+      UserType.OTHER,
+      UserType.UNKNOWN,
+    ])
     .order('createdAt', { ascending: false })
     .range((page - 1) * limit, page * limit - 1);
 

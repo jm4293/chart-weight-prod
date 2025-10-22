@@ -6,7 +6,7 @@ import { useWeightList } from '@/services/weight';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-interface WeightData {
+interface IWeightData {
   id: number;
   weight: number | null;
   createdAt: string;
@@ -18,9 +18,13 @@ interface WeightData {
 
 export function UserWeight() {
   const [page, setPage] = useState(1);
-  const itemsPerPage = 20;
 
   const weightList = useWeightList({ page });
+
+  const itemsPerPage = 10;
+  const totalItems = weightList.data?.total || 0;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const currentItems = weightList.data?.data || [];
 
   const formatDate = (dateString: string) => {
     const formattedDate = dayjs(dateString).format('YY.MM.DD');
@@ -36,10 +40,6 @@ export function UserWeight() {
   const formatWeight = (weight: number | null) => {
     return weight ? `${weight}kg` : '미등록';
   };
-
-  const totalItems = weightList.data?.total || 0;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const currentItems = weightList.data?.data || [];
 
   const handlePreviousPage = () => {
     setPage((prev) => Math.max(prev - 1, 1));
@@ -66,43 +66,51 @@ export function UserWeight() {
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((item: WeightData) => (
-            <tr key={item.id} className="hover:bg-gray-50">
-              <td>
-                <Text.PARAGRAPH text={formatWeight(item.weight)} />
-              </td>
-              <td>
-                {item.imageUrl ? (
-                  <div className="flex justify-center">
-                    <img
-                      src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`}
-                      alt="체중 측정 이미지"
-                      className="w-16 h-16 object-cover rounded-lg cursor-pointer"
-                      onClick={() =>
-                        window.open(
-                          `${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`,
-                          '_blank',
-                        )
-                      }
-                    />
-                  </div>
-                ) : (
-                  <Text.PARAGRAPH text="이미지 없음" />
-                )}
-              </td>
-              <td>
-                <Text.PARAGRAPH text={formatDate(item.createdAt)} />
+          {currentItems.length > 0 ? (
+            currentItems.map((item: IWeightData) => (
+              <tr key={item.id} className="hover:bg-gray-50">
+                <td>
+                  <Text.PARAGRAPH text={formatWeight(item.weight)} />
+                </td>
+                <td>
+                  {item.imageUrl ? (
+                    <div className="flex justify-center">
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`}
+                        alt="체중 측정 이미지"
+                        className="w-16 h-16 object-cover rounded-lg cursor-pointer"
+                        onClick={() =>
+                          window.open(
+                            `${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`,
+                            '_blank',
+                          )
+                        }
+                      />
+                    </div>
+                  ) : (
+                    <Text.PARAGRAPH text="이미지 없음" />
+                  )}
+                </td>
+                <td>
+                  <Text.PARAGRAPH text={formatDate(item.createdAt)} />
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3}>
+                <Text.PARAGRAPH text="등록된 체중 기록이 없습니다." />
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
 
-      {(!currentItems || currentItems.length === 0) && (
+      {/* {(!currentItems || currentItems.length === 0) && (
         <div className="py-2 text-center">
           <Text.PARAGRAPH text="등록된 체중 기록이 없습니다." />
         </div>
-      )}
+      )} */}
 
       <div className="flex justify-between items-center">
         <button

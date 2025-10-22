@@ -1,5 +1,3 @@
-import { IPatientEntity } from '@/services/patient';
-
 export interface IWeightEntity {
   id: string;
   uuid: string;

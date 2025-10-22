@@ -8,8 +8,8 @@ export interface IUserModel {
   emailType: UserEmailType;
   name: string;
   image: string | null;
-  birth: string;
-  registerNumber: string;
+  birth: string | null;
+  registerNumber: string | null;
   status: UserStatus;
   createdAt: Date;
   updatedAt: Date;

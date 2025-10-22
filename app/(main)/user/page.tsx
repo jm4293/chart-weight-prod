@@ -39,8 +39,8 @@ export default async function UserPage() {
       {[UserType.ADMIN, UserType.DOCTOR, UserType.NURSE].includes(
         userInfo.type,
       ) && (
-        <Wrapper.SECTION text="관리자 기능">
-          <Link href="/user/records" className="flex justify-between">
+        <Wrapper.SECTION text="관리자">
+          <Link href="/user/patient" className="flex justify-between">
             <Text.HEADING text="환자 리스트" />
             <ChevronRight />
           </Link>
