@@ -39,7 +39,7 @@ export default function KakaoLogin(props: IProps) {
     const { success } = await createUser({
       type,
       email: data.user.email,
-      email_type: data.user.email_type,
+      emailType: data.user.emailType,
       name: data.user.name,
       image: data.user.image || null,
     });
@@ -60,7 +60,7 @@ export default function KakaoLogin(props: IProps) {
     (async () => {
       const { data: userInfo, success } = await getUserInfoByEmail({
         email: data.user.email,
-        emailType: data.user.email_type,
+        emailType: data.user.emailType,
       });
 
       if (!success || !userInfo) {
@@ -76,7 +76,7 @@ export default function KakaoLogin(props: IProps) {
 
       await UpdateUserOAuthTokenAction({
         userId: userInfo.id,
-        provider: userInfo.email_type,
+        provider: userInfo.emailType,
         accessToken: data.token.access_token,
         accessTokenExpiresIn: data.token.access_token_expires_in,
         refreshToken: data.token.refresh_token,

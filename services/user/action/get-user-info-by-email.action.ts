@@ -16,7 +16,7 @@ export const getUserInfoByEmail = async (params: {
     .from('user')
     .select('*')
     .eq('email', email)
-    .eq('email_type', emailType)
+    .eq('emailType', emailType)
     .single();
 
   if (error || !data) {

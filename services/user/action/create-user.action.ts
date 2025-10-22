@@ -6,7 +6,7 @@ import { UserEmailType, UserStatus, UserType } from '@/shared/enum/user';
 interface IProps {
   type: UserType;
   email: string;
-  email_type: UserEmailType;
+  emailType: UserEmailType;
   name: string;
   image: string | null;
 }

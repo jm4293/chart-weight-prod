@@ -5,7 +5,7 @@ export interface IOAuthKakaoResponse {
     email: string;
     name: string;
     image: string | null;
-    email_type: UserEmailType;
+    emailType: UserEmailType;
   };
   token: {
     token_type: string;

@@ -5,7 +5,7 @@ export interface IUserModel {
   uuid: string;
   type: UserType;
   email: string;
-  email_type: UserEmailType;
+  emailType: UserEmailType;
   name: string;
   image: string | null;
   birth: string;

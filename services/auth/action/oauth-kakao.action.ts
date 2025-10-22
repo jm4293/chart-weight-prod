@@ -50,7 +50,7 @@ export const oauthKakao = async (
         email,
         name: nickname,
         image: profile_image_url,
-        email_type: UserEmailType.KAKAO,
+        emailType: UserEmailType.KAKAO,
       },
       token: {
         token_type,
