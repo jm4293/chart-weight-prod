@@ -26,8 +26,8 @@ export const getUserInfo = async (): Promise<{
     };
   }
 
-  const verifiedToken = jwtUtil().verify(sessionToken.value);
-  const { userId, userUid } = verifiedToken as IVerifiedToken;
+  const verifiedToken = jwtUtil<IVerifiedToken>().verify(sessionToken.value);
+  const { userId, userUid } = verifiedToken;
 
   const supabase = await serverClient();
 

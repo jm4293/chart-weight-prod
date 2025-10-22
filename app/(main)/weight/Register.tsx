@@ -4,7 +4,8 @@ import { Button } from '@/components/button';
 import { IUserModel } from '@/services/user';
 import { createWeight } from '@/services/weight';
 import { useRouter } from 'next/navigation';
-import { useRef, useTransition } from 'react';
+import { useRef, useState } from 'react';
+import Loading from '../loading';
 
 interface IProps {
   userInfo: IUserModel;
@@ -14,10 +15,9 @@ export default function Register(props: IProps) {
   const { userInfo } = props;
 
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [isPending, startTransition] = useTransition();
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -33,16 +33,24 @@ export default function Register(props: IProps) {
       return;
     }
 
-    await createWeight({ userInfo, file });
+    setIsLoading(true);
 
-    alert('몸무게가 성공적으로 등록되었습니다.');
-    router.push('/user/weight');
+    try {
+      await createWeight({ userInfo, file });
 
-    fileInputRef.current!.value = '';
+      alert('몸무게가 성공적으로 등록되었습니다.');
+    } catch (error) {
+      alert('등록 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
+      fileInputRef.current!.value = '';
+    }
   };
 
   return (
     <>
+      {isLoading && <Loading />}
+
       <input
         type="file"
         accept="image/*"
@@ -52,7 +60,11 @@ export default function Register(props: IProps) {
         onChange={handleFileChange}
       />
 
-      <Button.BLUE text="사진 찍기" onClick={handleButtonClick} />
+      <Button.BLUE
+        text="사진 찍기"
+        onClick={handleButtonClick}
+        disabled={isLoading}
+      />
     </>
   );
 }

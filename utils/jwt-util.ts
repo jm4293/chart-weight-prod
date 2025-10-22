@@ -1,6 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-export function jwtUtil() {
+export function jwtUtil<T>(): {
+  sign: (payload: any, userUid: string, expiresIn: number) => string;
+  verify: (token: string) => T;
+} {
   const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!;
 
   const generateUniqueId = () => {
@@ -22,7 +25,7 @@ export function jwtUtil() {
       });
     },
     verify: (token: string) => {
-      return jwt.verify(token, secretKey);
+      return jwt.verify(token, secretKey) as T;
     },
   };
 }
