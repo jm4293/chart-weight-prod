@@ -1,6 +1,6 @@
 interface IProps extends React.HTMLAttributes<HTMLElement> {
   className?: string;
-  text: string;
+  text: string | React.ReactNode;
 }
 
 const TITLE = (props: IProps) => {
