@@ -38,7 +38,7 @@ export default function RootLayout(props: IProps) {
         <NetworkError>
           <QueryProvider>
             <div className="relative">
-              {/* <Header /> */}
+              <Header />
               <main>{children}</main>
               <Footer />
             </div>
