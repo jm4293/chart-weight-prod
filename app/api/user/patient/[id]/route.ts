@@ -10,8 +10,9 @@ export async function GET(
 
   const { data, error } = await supabase
     .from('user')
-    .select('*')
+    .select('*, weight(*)')
     .eq('id', id)
+    .limit(10, { referencedTable: 'weight' })
     .single();
 
   if (error) {

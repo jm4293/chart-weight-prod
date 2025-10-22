@@ -1,4 +1,4 @@
-export interface IWeightEntity {
+export interface IWeightModel {
   id: string;
   uuid: string;
   weight: number | null;

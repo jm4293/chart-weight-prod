@@ -19,12 +19,10 @@ interface IWeightData {
 export function UserWeight() {
   const [page, setPage] = useState(1);
 
-  const weightList = useWeightList({ page });
+  const { data, isLoading, isSuccess } = useWeightList({ page });
 
   const itemsPerPage = 10;
-  const totalItems = weightList.data?.total || 0;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const currentItems = weightList.data?.data || [];
+  const totalPages = Math.ceil(data?.total / itemsPerPage);
 
   const formatDate = (dateString: string) => {
     const formattedDate = dayjs(dateString).format('YY.MM.DD');
@@ -49,6 +47,22 @@ export function UserWeight() {
     setPage((prev) => Math.min(prev + 1, totalPages));
   };
 
+  if (isLoading) {
+    return (
+      <Wrapper.SECTION text="등록된 기록">
+        <Text.PARAGRAPH text="로딩 중..." />
+      </Wrapper.SECTION>
+    );
+  }
+
+  if (!isSuccess) {
+    return (
+      <Wrapper.SECTION text="등록된 기록">
+        <Text.PARAGRAPH text="체중 기록을 불러올 수 없습니다." />
+      </Wrapper.SECTION>
+    );
+  }
+
   return (
     <Wrapper.SECTION text="등록된 기록">
       <table className="min-w-full table-auto">
@@ -66,8 +80,8 @@ export function UserWeight() {
           </tr>
         </thead>
         <tbody>
-          {currentItems.length > 0 ? (
-            currentItems.map((item: IWeightData) => (
+          {data.data.length > 0 ? (
+            data.data.map((item: IWeightData) => (
               <tr key={item.id} className="hover:bg-gray-50">
                 <td>
                   <Text.PARAGRAPH text={formatWeight(item.weight)} />
@@ -105,12 +119,6 @@ export function UserWeight() {
           )}
         </tbody>
       </table>
-
-      {/* {(!currentItems || currentItems.length === 0) && (
-        <div className="py-2 text-center">
-          <Text.PARAGRAPH text="등록된 체중 기록이 없습니다." />
-        </div>
-      )} */}
 
       <div className="flex justify-between items-center">
         <button

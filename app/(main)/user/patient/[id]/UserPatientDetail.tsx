@@ -2,7 +2,7 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { useUser } from '@/services/user';
+import { usePatient } from '@/services/user';
 import {
   UserEmailType,
   UserStatusLabels,
@@ -18,7 +18,22 @@ interface IProps {
 export default function UserPatientDetail(props: IProps) {
   const { id } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ id });
+  const { data, isLoading, isSuccess } = usePatient({ id });
+
+  const formatDate = (dateString: Date) => {
+    const formattedDate = dayjs(dateString).format('YY.MM.DD');
+    const formattedTime = dayjs(dateString).format('HH:mm');
+
+    return (
+      <div className="flex flex-col items-center">
+        {formattedDate} <br /> {formattedTime}
+      </div>
+    );
+  };
+
+  const formatWeight = (weight: number | null) => {
+    return weight ? `${weight}kg` : '미등록';
+  };
 
   if (isLoading) {
     return (
@@ -69,6 +84,63 @@ export default function UserPatientDetail(props: IProps) {
       <div className="flex items-center gap-2">
         <Text.PARAGRAPH text="가입일:" />
         <Text.HEADING text={dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')} />
+      </div>
+
+      <div>
+        <table className="min-w-full table-auto">
+          <thead>
+            <tr>
+              <th>
+                <Text.PARAGRAPH text="체중" />
+              </th>
+              <th>
+                <Text.PARAGRAPH text="이미지" />
+              </th>
+              <th>
+                <Text.PARAGRAPH text="등록일" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.weight.length > 0 ? (
+              data.weight.map((item) => (
+                <tr key={item.id} className="hover:bg-gray-50">
+                  <td>
+                    <Text.PARAGRAPH text={formatWeight(item.weight)} />
+                  </td>
+                  <td>
+                    {item.imageUrl ? (
+                      <div className="flex justify-center">
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`}
+                          alt="체중 측정 이미지"
+                          className="w-16 h-16 object-cover rounded-lg cursor-pointer"
+                          onClick={() =>
+                            window.open(
+                              `${process.env.NEXT_PUBLIC_IMAGE_URL}/${item.imageUrl}`,
+                              '_blank',
+                            )
+                          }
+                        />
+                      </div>
+                    ) : (
+                      <Text.PARAGRAPH text="이미지 없음" />
+                    )}
+                  </td>
+                  <td>
+                    <Text.PARAGRAPH text={formatDate(item.createdAt)} />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3}>
+                  <Text.PARAGRAPH text="등록된 체중 기록이 없습니다." />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       <div className="flex justify-end items-center gap-4">

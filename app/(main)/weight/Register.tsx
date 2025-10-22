@@ -3,9 +3,9 @@
 import { Button } from '@/components/button';
 import { IUserModel } from '@/services/user';
 import { createWeight } from '@/services/weight';
-import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import Loading from '../loading';
+import { useToast } from '@/hooks/modal';
 
 interface IProps {
   userInfo: IUserModel;
@@ -14,10 +14,10 @@ interface IProps {
 export default function Register(props: IProps) {
   const { userInfo } = props;
 
-  const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { openToast } = useToast();
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -38,9 +38,15 @@ export default function Register(props: IProps) {
     try {
       await createWeight({ userInfo, file });
 
-      alert('몸무게가 성공적으로 등록되었습니다.');
+      openToast({
+        type: 'success',
+        message: '몸무게가 성공적으로 등록되었습니다.',
+      });
     } catch (error) {
-      alert('등록 중 오류가 발생했습니다.');
+      openToast({
+        type: 'error',
+        message: '등록 중 오류가 발생했습니다.',
+      });
     } finally {
       setIsLoading(false);
       fileInputRef.current!.value = '';

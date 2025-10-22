@@ -35,12 +35,7 @@ export async function GET(request: NextRequest) {
   const { data, error, count } = await supabase
     .from('user')
     .select('*', { count: 'exact' })
-    .in('type', [
-      UserType.PATIENT,
-      UserType.FAMILY,
-      UserType.OTHER,
-      UserType.UNKNOWN,
-    ])
+    .in('type', [UserType.PATIENT, UserType.UNKNOWN])
     .order('createdAt', { ascending: false })
     .range((page - 1) * limit, page * limit - 1);
 

@@ -5,7 +5,7 @@ interface IProps {
   id: string;
 }
 
-export const useUser = (props: IProps) => {
+export const usePatient = (props: IProps) => {
   const { id } = props;
 
   return useQuery<IUserModel>({

@@ -1,3 +1,4 @@
+import { IWeightModel } from '@/services/weight';
 import { UserEmailType, UserStatus, UserType } from '@/shared/enum/user';
 
 export interface IUserModel {
@@ -13,4 +14,6 @@ export interface IUserModel {
   status: UserStatus;
   createdAt: Date;
   updatedAt: Date;
+
+  weight: IWeightModel[];
 }

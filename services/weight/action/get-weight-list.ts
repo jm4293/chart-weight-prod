@@ -1,9 +1,9 @@
 import { serverClient } from '@/lib/supabase';
-import { IWeightEntity } from '../model';
+import { IWeightModel } from '../model';
 
 export const getWeightList = async (
   patientId: string,
-): Promise<IWeightEntity[]> => {
+): Promise<IWeightModel[]> => {
   const supabase = await serverClient();
 
   // 한국 시간(UTC+9) 오늘의 0시~24시를 UTC로 변환

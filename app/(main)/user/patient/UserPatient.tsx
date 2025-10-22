@@ -2,8 +2,8 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { IUserModel, usePatientList } from '@/services/user';
-import { UserStatusLabels, UserTypeLabels } from '@/shared/enum/user';
+import { usePatientList } from '@/services/user';
+import { UserStatusLabels } from '@/shared/enum/user';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -61,9 +61,6 @@ export function UserPatient() {
               <Text.PARAGRAPH text="등록번호" />
             </th>
             <th>
-              <Text.PARAGRAPH text="타입" />
-            </th>
-            <th>
               <Text.PARAGRAPH text="상태" />
             </th>
           </tr>
@@ -83,9 +80,6 @@ export function UserPatient() {
                 </td>
                 <td>
                   <Text.PARAGRAPH text={patient?.registerNumber || '미등록'} />
-                </td>
-                <td>
-                  <Text.PARAGRAPH text={UserTypeLabels[patient.type]} />
                 </td>
                 <td>
                   <Text.PARAGRAPH text={UserStatusLabels[patient.status]} />
