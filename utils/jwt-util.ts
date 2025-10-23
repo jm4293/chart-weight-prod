@@ -15,13 +15,10 @@ export function jwtUtil<T>(): {
       return jwt.sign(payload, secretKey, {
         expiresIn,
         algorithm: 'HS256',
-        keyid: 'chart-weight-key',
-        issuer: 'chart-weight-server',
-        audience: 'chart-weight-client',
+        issuer: 'yonseipureclinic.life',
+        audience: 'yonseipureclinic.life',
         subject: userUid,
         jwtid: generateUniqueId(),
-        noTimestamp: false,
-        allowInsecureKeySizes: false,
       });
     },
     verify: (token: string) => {
