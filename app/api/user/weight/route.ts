@@ -92,10 +92,11 @@ export async function POST(request: NextRequest) {
 
     const supabase = await serverClient();
     const today = dayjs().format('YYYY-MM-DD');
+    const timeNow = dayjs().format('HH-mm-ss');
 
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('images')
-      .upload(`${today}/${userId}_${file.name}`, file, {
+      .upload(`${today}/${userId}_${timeNow}`, file, {
         contentType: file.type,
       });
 
