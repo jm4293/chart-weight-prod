@@ -2,13 +2,15 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { usePatient } from '@/services/user';
+import { useUser, useUserMutation } from '@/services/user';
+import { useWeightMutation } from '@/services/weight';
 import {
   UserEmailType,
   UserStatusLabels,
   UserTypeLabels,
 } from '@/shared/enum/user';
 import dayjs from 'dayjs';
+import { Trash } from 'lucide-react';
 import Link from 'next/link';
 
 interface IProps {
@@ -18,7 +20,10 @@ interface IProps {
 export default function UserPatientDetail(props: IProps) {
   const { id } = props;
 
-  const { data, isLoading, isSuccess } = usePatient({ id });
+  const { data, isLoading, isSuccess } = useUser({ id });
+
+  const { deleteWeight } = useWeightMutation();
+  const { deleteUser } = useUserMutation();
 
   const formatDate = (dateString: Date) => {
     const formattedDate = dayjs(dateString).format('YY.MM.DD');
@@ -33,6 +38,26 @@ export default function UserPatientDetail(props: IProps) {
 
   const formatWeight = (weight: number | null) => {
     return weight ? `${weight}kg` : '미등록';
+  };
+
+  const handleWeightDelete = (id: number) => {
+    if (deleteWeight.isPending) {
+      return;
+    }
+
+    if (confirm('삭제하시겠습니까?')) {
+      deleteWeight.mutate(id);
+    }
+  };
+
+  const handlePatientDelete = () => {
+    if (deleteUser.isPending) {
+      return;
+    }
+
+    if (confirm('정말로 삭제하시겠습니까?')) {
+      deleteUser.mutate(id);
+    }
   };
 
   if (isLoading) {
@@ -52,41 +77,54 @@ export default function UserPatientDetail(props: IProps) {
   }
 
   return (
-    <Wrapper.SECTION text="환자 상세">
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="이름:" />
-        <Text.HEADING text={data.name} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="생년월일:" />
-        <Text.HEADING text={data.birth || '미등록'} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="등록번호:" />
-        <Text.HEADING text={data.registerNumber || '미등록'} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="이메일:" />
-        <Text.HEADING text={data.email} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="가입경로:" />
-        <Text.HEADING text={UserEmailType[data.emailType]} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="타입:" />
-        <Text.HEADING text={UserTypeLabels[data.type]} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="상태:" />
-        <Text.HEADING text={UserStatusLabels[data.status]} />
-      </div>
-      <div className="flex items-center gap-2">
-        <Text.PARAGRAPH text="가입일:" />
-        <Text.HEADING text={dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')} />
-      </div>
+    <>
+      <Wrapper.SECTION text="환자 상세">
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="이름:" />
+          <Text.HEADING text={data.name} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="생년월일:" />
+          <Text.HEADING text={data.birth || '미등록'} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="등록번호:" />
+          <Text.HEADING text={data.registerNumber || '미등록'} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="이메일:" />
+          <Text.HEADING text={data.email} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="가입경로:" />
+          <Text.HEADING text={UserEmailType[data.emailType]} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="타입:" />
+          <Text.HEADING text={UserTypeLabels[data.type]} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="상태:" />
+          <Text.HEADING text={UserStatusLabels[data.status]} />
+        </div>
+        <div className="flex items-center gap-2">
+          <Text.PARAGRAPH text="가입일:" />
+          <Text.HEADING
+            text={dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')}
+          />
+        </div>
 
-      <div>
+        <div className="flex justify-end items-center gap-4">
+          <div className="cursor-pointer" onClick={handlePatientDelete}>
+            <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
+          </div>
+          <Link className="text-end" href={`/user/patient/${id}/modify`}>
+            <Text.PARAGRAPH text="수정하기" className="text-blue-500" />
+          </Link>
+        </div>
+      </Wrapper.SECTION>
+
+      <Wrapper.SECTION text="환자 체중 기록">
         <table className="min-w-full table-auto">
           <thead>
             <tr>
@@ -98,6 +136,9 @@ export default function UserPatientDetail(props: IProps) {
               </th>
               <th>
                 <Text.PARAGRAPH text="등록일" />
+              </th>
+              <th>
+                <Text.PARAGRAPH text="삭제" />
               </th>
             </tr>
           </thead>
@@ -130,6 +171,11 @@ export default function UserPatientDetail(props: IProps) {
                   <td>
                     <Text.PARAGRAPH text={formatDate(item.createdAt)} />
                   </td>
+                  <td>
+                    <div className="flex justify-center">
+                      <Trash onClick={() => handleWeightDelete(item.id)} />
+                    </div>
+                  </td>
                 </tr>
               ))
             ) : (
@@ -141,16 +187,7 @@ export default function UserPatientDetail(props: IProps) {
             )}
           </tbody>
         </table>
-      </div>
-
-      <div className="flex justify-end items-center gap-4">
-        <div className="cursor-pointer">
-          <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
-        </div>
-        <Link className="text-end" href={`/user/patient/${id}/modify`}>
-          <Text.PARAGRAPH text="수정하기" className="text-blue-500" />
-        </Link>
-      </div>
-    </Wrapper.SECTION>
+      </Wrapper.SECTION>
+    </>
   );
 }

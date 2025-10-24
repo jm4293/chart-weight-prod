@@ -44,6 +44,10 @@ export default async function UserPage() {
             <Text.HEADING text="환자 리스트" />
             <ChevronRight />
           </Link>
+          <Link href="/user/member" className="flex justify-between">
+            <Text.HEADING text="직원 리스트" />
+            <ChevronRight />
+          </Link>
         </Wrapper.SECTION>
       )}
 

@@ -15,7 +15,7 @@ interface IProps {
   id: string;
 }
 
-export default function UserPatientModify(props: IProps) {
+export default function UserMemberModify(props: IProps) {
   const { id } = props;
 
   const { data, isLoading, isSuccess } = useUser({ id });
@@ -65,24 +65,6 @@ export default function UserPatientModify(props: IProps) {
         <div className="flex items-center gap-2">
           <Text.PARAGRAPH text="이름:" />
           <Text.HEADING text={data.name} />
-        </div>
-        <div className="flex items-center gap-2">
-          <Text.PARAGRAPH text="생년월일:" />
-          <input
-            type="text"
-            name="birth"
-            className="border border-gray-300 rounded px-2 py-1"
-            defaultValue={data.birth || ''}
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <Text.PARAGRAPH text="등록번호:" />
-          <input
-            type="text"
-            name="registerNumber"
-            className="border border-gray-300 rounded px-2 py-1"
-            defaultValue={data.registerNumber || ''}
-          />
         </div>
         <div className="flex items-center gap-2">
           <Text.PARAGRAPH text="이메일:" />

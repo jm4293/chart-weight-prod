@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { IUserModel } from '../model';
 
 interface IProps {
-  id: string;
+  page: number;
 }
 
-export const usePatient = (props: IProps) => {
-  const { id } = props;
+export const useMemberList = (props: IProps) => {
+  const { page } = props;
 
-  return useQuery<IUserModel>({
-    queryKey: ['user', id],
+  return useQuery<IUserModel[] & { total: number }>({
+    queryKey: ['memberList', page],
     queryFn: () =>
-      fetch(`/api/user/patient/${id}`, {
+      fetch(`/api/user/member?page=${page}&limit=20`, {
         method: 'GET',
         credentials: 'include',
       })

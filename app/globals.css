@@ -46,9 +46,9 @@ footer {
   position: fixed;
   width: 100vw;
   min-width: 256px;
-  height: 4rem;
+  height: 5rem;
   bottom: 0;
-  padding: 0 1.4rem;
+  padding: 0 1.4rem 1rem 1.4rem;
   z-index: 30;
   background: var(--bg-header);
 }
@@ -111,7 +111,6 @@ td {
   padding: 1rem 0;
   border: 1px solid #ddd;
   text-align: center;
-  font-size: 1.6rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

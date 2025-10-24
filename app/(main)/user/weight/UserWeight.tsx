@@ -2,9 +2,10 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { useWeightList } from '@/services/weight';
+import { useWeightList, useWeightMutation } from '@/services/weight';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { Trash } from 'lucide-react';
 
 interface IWeightData {
   id: number;
@@ -20,6 +21,8 @@ export function UserWeight() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isSuccess } = useWeightList({ page });
+
+  const { deleteWeight } = useWeightMutation();
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data?.total / itemsPerPage);
@@ -45,6 +48,16 @@ export function UserWeight() {
 
   const handleNextPage = () => {
     setPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const handleDelete = (id: number) => {
+    if (deleteWeight.isPending) {
+      return;
+    }
+
+    if (confirm('삭제하시겠습니까?')) {
+      deleteWeight.mutate(id);
+    }
   };
 
   if (isLoading) {
@@ -77,6 +90,9 @@ export function UserWeight() {
             <th>
               <Text.PARAGRAPH text="등록일" />
             </th>
+            <th>
+              <Text.PARAGRAPH text="삭제" />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -107,6 +123,11 @@ export function UserWeight() {
                 </td>
                 <td>
                   <Text.PARAGRAPH text={formatDate(item.createdAt)} />
+                </td>
+                <td>
+                  <div className="flex justify-center">
+                    <Trash onClick={() => handleDelete(item.id)} />
+                  </div>
                 </td>
               </tr>
             ))

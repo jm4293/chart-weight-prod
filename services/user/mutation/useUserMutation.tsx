@@ -14,7 +14,7 @@ export const useUserMutation = () => {
     ) => {
       const { id } = dto;
 
-      return fetch(`/api/user/patient/${id}`, {
+      return fetch(`/api/user/${id}`, {
         method: 'PUT',
         body: JSON.stringify(dto),
         headers: {
@@ -28,7 +28,19 @@ export const useUserMutation = () => {
     },
   });
 
+  const deleteUser = useMutation({
+    mutationFn: (id: string) => {
+      return fetch(`/api/user/${id}`, {
+        method: 'DELETE',
+      });
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: ['user', id] });
+    },
+  });
+
   return {
     modifyUser,
+    deleteUser,
   };
 };

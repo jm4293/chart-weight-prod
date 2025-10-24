@@ -1,5 +1,5 @@
 export interface IWeightModel {
-  id: string;
+  id: number;
   uuid: string;
   weight: number | null;
   imageUrl: string | null;

@@ -1,6 +1,6 @@
 'use client';
 
-import { ChartCandlestick, House, User } from 'lucide-react';
+import { House, User, Image } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
@@ -19,7 +19,7 @@ export const Footer = () => {
 
   const menuItems = [
     { path: '/main', icon: House, label: '메인' },
-    { path: '/weight', icon: ChartCandlestick, label: '등록' },
+    { path: '/weight', icon: Image, label: '등록' },
     { path: '/user', icon: User, label: '내 정보' },
   ];
 
