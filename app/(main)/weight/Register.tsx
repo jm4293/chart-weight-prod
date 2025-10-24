@@ -5,7 +5,6 @@ import { IUserModel } from '@/services/user';
 import { useWeightMutation } from '@/services/weight';
 import { useRef, useState } from 'react';
 import Loading from '../loading';
-import { useToast } from '@/hooks/modal';
 
 interface IProps {
   userInfo: IUserModel;
@@ -18,8 +17,6 @@ export default function Register(props: IProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const { createWeight } = useWeightMutation();
-
-  const { openToast } = useToast();
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -34,25 +31,6 @@ export default function Register(props: IProps) {
       alert('파일이 선택되지 않았습니다.');
       return;
     }
-
-    // setIsLoading(true);
-
-    // try {
-    //   await createWeight({ userInfo, file });
-
-    //   openToast({
-    //     type: 'success',
-    //     message: '몸무게가 성공적으로 등록되었습니다.',
-    //   });
-    // } catch (error) {
-    //   openToast({
-    //     type: 'error',
-    //     message: '등록 중 오류가 발생했습니다.',
-    //   });
-    // } finally {
-    //   setIsLoading(false);
-    //   fileInputRef.current!.value = '';
-    // }
 
     const formData = new FormData();
     formData.append('file', file);

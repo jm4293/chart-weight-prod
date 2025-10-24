@@ -5,6 +5,7 @@ import { Modal, Toast } from '@/components/modal';
 import Header from './Header';
 import { Footer } from './Footer';
 import QueryProvider from '@/lib/provider';
+import GlobalLoading from './GlobalLoading';
 
 interface IProps {
   children: React.ReactNode;
@@ -42,6 +43,7 @@ export default function RootLayout(props: IProps) {
               <main>{children}</main>
               <Footer />
             </div>
+            <GlobalLoading />
           </QueryProvider>
         </NetworkError>
 
