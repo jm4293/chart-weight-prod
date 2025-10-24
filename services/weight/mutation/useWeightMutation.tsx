@@ -2,10 +2,8 @@
 
 import { useToast } from '@/hooks/modal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export const useWeightMutation = () => {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const { openToast } = useToast();
@@ -44,6 +42,11 @@ export const useWeightMutation = () => {
     onSuccess: (_, id) => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       queryClient.invalidateQueries({ queryKey: ['weightList'] });
+
+      openToast({
+        type: 'success',
+        message: '몸무게가 성공적으로 삭제되었습니다.',
+      });
     },
   });
 
