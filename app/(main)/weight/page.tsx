@@ -37,7 +37,7 @@ export default async function mainPage() {
       <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
 
       <Profile userInfo={userInfo} />
-      <Register userInfo={userInfo} />
+      <Register />
     </Wrapper.MAIN>
   );
 }

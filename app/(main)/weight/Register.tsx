@@ -1,20 +1,11 @@
 'use client';
 
 import { Button } from '@/components/button';
-import { IUserModel } from '@/services/user';
 import { useWeightMutation } from '@/services/weight';
-import { useRef, useState } from 'react';
-import Loading from '../loading';
+import { useRef } from 'react';
 
-interface IProps {
-  userInfo: IUserModel;
-}
-
-export default function Register(props: IProps) {
-  const { userInfo } = props;
-
+export default function Register() {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { createWeight } = useWeightMutation();
 
@@ -42,8 +33,6 @@ export default function Register(props: IProps) {
 
   return (
     <>
-      {isLoading && <Loading />}
-
       <input
         type="file"
         accept="image/*"
@@ -57,7 +46,7 @@ export default function Register(props: IProps) {
         color="blue"
         text="사진 찍기"
         onClick={handleButtonClick}
-        disabled={isLoading}
+        disabled={createWeight.isPending}
       />
     </>
   );

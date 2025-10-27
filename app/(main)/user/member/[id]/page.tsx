@@ -6,11 +6,11 @@ interface IProps {
 }
 
 export default async function UserMemberDetailPage({ params }: IProps) {
-  const { id } = await params;
+  const { id: userId } = await params;
 
   return (
     <Wrapper.MAIN text="직원 상세">
-      <UserMemberDetail id={id} />
+      <UserMemberDetail userId={userId} />
     </Wrapper.MAIN>
   );
 }

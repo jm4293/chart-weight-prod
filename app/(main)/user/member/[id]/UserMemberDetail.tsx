@@ -12,13 +12,13 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 
 interface IProps {
-  id: string;
+  userId: string;
 }
 
 export default function UserMemberDetail(props: IProps) {
-  const { id } = props;
+  const { userId } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ id });
+  const { data, isLoading, isSuccess } = useUser({ userId });
 
   const { deleteUser } = useUserMutation();
 
@@ -28,7 +28,7 @@ export default function UserMemberDetail(props: IProps) {
     }
 
     if (confirm('정말로 삭제하시겠습니까?')) {
-      deleteUser.mutate(id);
+      deleteUser.mutate(userId);
     }
   };
 
@@ -79,7 +79,7 @@ export default function UserMemberDetail(props: IProps) {
         <div className="cursor-pointer" onClick={handleDelete}>
           <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
         </div>
-        <Link className="text-end" href={`/user/member/${id}/modify`}>
+        <Link className="text-end" href={`/user/member/${userId}/modify`}>
           <Text.PARAGRAPH text="수정하기" className="text-blue-500" />
         </Link>
       </div>

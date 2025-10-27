@@ -50,13 +50,13 @@ export function UserWeight() {
     setPage((prev) => Math.min(prev + 1, totalPages));
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (weightId: number) => {
     if (deleteWeight.isPending) {
       return;
     }
 
     if (confirm('삭제하시겠습니까?')) {
-      deleteWeight.mutate(id);
+      deleteWeight.mutate(weightId);
     }
   };
 

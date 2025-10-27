@@ -14,13 +14,13 @@ import { Trash } from 'lucide-react';
 import Link from 'next/link';
 
 interface IProps {
-  id: string;
+  userId: string;
 }
 
 export default function UserPatientDetail(props: IProps) {
-  const { id } = props;
+  const { userId } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ id });
+  const { data, isLoading, isSuccess } = useUser({ userId });
 
   const { deleteWeight } = useWeightMutation();
   const { deleteUser } = useUserMutation();
@@ -40,13 +40,13 @@ export default function UserPatientDetail(props: IProps) {
     return weight ? `${weight}kg` : '미등록';
   };
 
-  const handleWeightDelete = (id: number) => {
+  const handleWeightDelete = (weightId: number) => {
     if (deleteWeight.isPending) {
       return;
     }
 
     if (confirm('삭제하시겠습니까?')) {
-      deleteWeight.mutate(id);
+      deleteWeight.mutate(weightId);
     }
   };
 
@@ -56,7 +56,7 @@ export default function UserPatientDetail(props: IProps) {
     }
 
     if (confirm('정말로 삭제하시겠습니까?')) {
-      deleteUser.mutate(id);
+      deleteUser.mutate(userId);
     }
   };
 
@@ -118,7 +118,7 @@ export default function UserPatientDetail(props: IProps) {
           <div className="cursor-pointer" onClick={handlePatientDelete}>
             <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
           </div>
-          <Link className="text-end" href={`/user/patient/${id}/modify`}>
+          <Link className="text-end" href={`/user/patient/${userId}/modify`}>
             <Text.PARAGRAPH text="수정하기" className="text-blue-500" />
           </Link>
         </div>

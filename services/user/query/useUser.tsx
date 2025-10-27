@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { IUserModel } from '../model';
 
 interface IProps {
-  id: string;
+  userId: string;
 }
 
 export const useUser = (props: IProps) => {
-  const { id } = props;
+  const { userId } = props;
 
   return useQuery<IUserModel>({
-    queryKey: ['user', id],
+    queryKey: ['user', userId],
     queryFn: () =>
-      fetch(`/api/user/${id}`, {
+      fetch(`/api/user/${userId}`, {
         method: 'GET',
         credentials: 'include',
       })

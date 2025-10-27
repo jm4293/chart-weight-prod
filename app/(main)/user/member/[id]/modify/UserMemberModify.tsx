@@ -12,13 +12,13 @@ import {
 } from '@/shared/enum/user';
 
 interface IProps {
-  id: string;
+  userId: string;
 }
 
 export default function UserMemberModify(props: IProps) {
-  const { id } = props;
+  const { userId } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ id });
+  const { data, isLoading, isSuccess } = useUser({ userId });
 
   const { modifyUser } = useUserMutation();
 
@@ -36,7 +36,7 @@ export default function UserMemberModify(props: IProps) {
     const status = formData.get('status');
 
     modifyUser.mutate({
-      id: Number(id),
+      id: Number(userId),
       birth: birth ? String(birth) : null,
       registerNumber: registerNumber ? String(registerNumber) : null,
       status: Number(status),

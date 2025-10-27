@@ -33,13 +33,13 @@ export const useWeightMutation = () => {
   });
 
   const deleteWeight = useMutation({
-    mutationFn: (id: number) => {
-      return fetch(`/api/user/weight/${id}`, {
+    mutationFn: (weightId: number) => {
+      return fetch(`/api/user/weight/${weightId}`, {
         method: 'DELETE',
         credentials: 'include',
       });
     },
-    onSuccess: (_, id) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });
       queryClient.invalidateQueries({ queryKey: ['weightList'] });
 
