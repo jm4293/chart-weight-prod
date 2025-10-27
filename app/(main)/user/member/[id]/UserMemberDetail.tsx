@@ -2,7 +2,7 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { useUser, useUserMutation } from '@/services/user';
+import { useUserInfo, useUserMutation } from '@/services/user';
 import {
   UserEmailType,
   UserStatusLabels,
@@ -18,7 +18,7 @@ interface IProps {
 export default function UserMemberDetail(props: IProps) {
   const { userId } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ userId });
+  const { data, isLoading, isSuccess } = useUserInfo(userId);
 
   const { deleteUser } = useUserMutation();
 
@@ -28,7 +28,7 @@ export default function UserMemberDetail(props: IProps) {
     }
 
     if (confirm('정말로 삭제하시겠습니까?')) {
-      deleteUser.mutate(userId);
+      deleteUser.mutate({ userId: Number(userId), userUuid: data!.uuid });
     }
   };
 

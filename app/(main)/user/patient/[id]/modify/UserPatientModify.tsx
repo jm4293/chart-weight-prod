@@ -3,7 +3,7 @@
 import { Button } from '@/components/button';
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { useUser, useUserMutation } from '@/services/user';
+import { useUserInfo, useUserMutation } from '@/services/user';
 import {
   UserEmailType,
   UserStatus,
@@ -18,7 +18,7 @@ interface IProps {
 export default function UserPatientModify(props: IProps) {
   const { userId } = props;
 
-  const { data, isLoading, isSuccess } = useUser({ userId });
+  const { data, isLoading, isSuccess } = useUserInfo(userId);
 
   const { modifyUser } = useUserMutation();
 
@@ -36,7 +36,8 @@ export default function UserPatientModify(props: IProps) {
     const status = formData.get('status');
 
     modifyUser.mutate({
-      id: Number(userId),
+      userId: Number(userId),
+      userUuid: data.uuid,
       birth: birth ? String(birth) : null,
       registerNumber: registerNumber ? String(registerNumber) : null,
       status: Number(status),

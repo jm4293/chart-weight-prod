@@ -1,13 +1,13 @@
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { getUserInfo } from '@/services/user';
+import { getUserInfoByCookie } from '@/services/user';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Profile from './Profile';
 import Register from './Register';
 
 export default async function mainPage() {
-  const { data: userInfo, success } = await getUserInfo();
+  const { data: userInfo, success } = await getUserInfoByCookie();
 
   if (!success) {
     return (
@@ -37,7 +37,7 @@ export default async function mainPage() {
       <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
 
       <Profile userInfo={userInfo} />
-      <Register />
+      <Register userInfo={userInfo} />
     </Wrapper.MAIN>
   );
 }

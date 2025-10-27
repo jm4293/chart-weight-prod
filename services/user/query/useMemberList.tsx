@@ -11,7 +11,7 @@ export const useMemberList = (props: IProps) => {
   return useQuery<IUserModel[] & { total: number }>({
     queryKey: ['memberList', page],
     queryFn: () =>
-      fetch(`/api/user/member?page=${page}&limit=20`, {
+      fetch(`/api/user/member?page=${page}&limit=10`, {
         method: 'GET',
         credentials: 'include',
       })

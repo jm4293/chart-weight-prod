@@ -103,6 +103,10 @@ export default function Login(props: IProps) {
 
       await signInCookie({ userId: userInfo.id, userUid: userInfo.uuid });
 
+      openToast({
+        type: 'success',
+        message: `${userInfo.name}님, 환영합니다!`,
+      });
       router.push('/main');
     })();
   }, []);

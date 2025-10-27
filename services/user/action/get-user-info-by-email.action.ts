@@ -4,11 +4,13 @@ import { serverClient } from '@/lib/supabase';
 import { UserEmailType } from '@/shared/enum/user';
 import { IUserModel } from '../model';
 
-export const getUserInfoByEmail = async (params: {
+interface IProps {
   email: string;
   emailType: UserEmailType;
-}): Promise<{ success: boolean; data: IUserModel | null }> => {
-  const { email, emailType } = params;
+}
+
+export const getUserInfoByEmail = async (props: IProps) => {
+  const { email, emailType } = props;
 
   const supabase = await serverClient();
 

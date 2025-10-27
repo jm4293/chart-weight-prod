@@ -1,9 +1,9 @@
 import { Wrapper } from '@/components/wrapper';
-import { getUserInfo } from '@/services/user';
+import { getUserInfoByCookie } from '@/services/user';
 import Withdraw from './Withdraw';
 
 export default async function UserAccountPage() {
-  const { data: userInfo, success } = await getUserInfo();
+  const { data: userInfo, success } = await getUserInfoByCookie();
 
   if (!success || !userInfo) {
     return (

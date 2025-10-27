@@ -11,7 +11,7 @@ export const usePatientList = (props: IProps) => {
   return useQuery<IUserModel[] & { total: number }>({
     queryKey: ['patientList', page],
     queryFn: () =>
-      fetch(`/api/user/patient?page=${page}&limit=20`, {
+      fetch(`/api/user/patient?page=${page}&limit=10`, {
         method: 'GET',
         credentials: 'include',
       })

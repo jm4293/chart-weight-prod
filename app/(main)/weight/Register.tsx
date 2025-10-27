@@ -1,10 +1,17 @@
 'use client';
 
 import { Button } from '@/components/button';
+import { IUserModel } from '@/services/user';
 import { useWeightMutation } from '@/services/weight';
 import { useRef } from 'react';
 
-export default function Register() {
+interface IProps {
+  userInfo: IUserModel;
+}
+
+export default function Register(props: IProps) {
+  const { userInfo } = props;
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { createWeight } = useWeightMutation();
@@ -25,6 +32,8 @@ export default function Register() {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('userId', String(userInfo.id));
+    formData.append('userUid', userInfo.uuid);
 
     createWeight.mutate(formData);
 

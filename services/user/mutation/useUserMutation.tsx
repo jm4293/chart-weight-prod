@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { IUserModel } from '../model';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/modal';
+import { deleteUserAction, updateUserAction } from '../action';
 
 export const useUserMutation = () => {
   const router = useRouter();
@@ -13,16 +14,14 @@ export const useUserMutation = () => {
 
   const modifyUser = useMutation({
     mutationFn: (
-      dto: Pick<IUserModel, 'id' | 'birth' | 'registerNumber' | 'status'>,
+      dto: { userId: number; userUuid: string } & Partial<IUserModel>,
     ) => {
-      const { id } = dto;
+      const { userId, userUuid, ...rest } = dto;
 
-      return fetch(`/api/user/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(dto),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      return updateUserAction({
+        userId,
+        userUuid,
+        updateData: rest,
       });
     },
     onSuccess: (_, value) => {
@@ -37,9 +36,12 @@ export const useUserMutation = () => {
   });
 
   const deleteUser = useMutation({
-    mutationFn: (id: string) => {
-      return fetch(`/api/user/${id}`, {
-        method: 'DELETE',
+    mutationFn: (dto: { userId: number; userUuid: string }) => {
+      const { userId, userUuid } = dto;
+
+      return deleteUserAction({
+        userId,
+        userUuid,
       });
     },
     onSuccess: (_, id) => {

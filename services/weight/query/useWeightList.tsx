@@ -10,7 +10,7 @@ export const useWeightList = (props: IProps) => {
   return useQuery({
     queryKey: ['weightList', page],
     queryFn: () =>
-      fetch(`/api/user/weight?page=${page}&limit=20`, {
+      fetch(`/api/user/weight?page=${page}&limit=10`, {
         method: 'GET',
         credentials: 'include',
       }).then((res) => res.json()),

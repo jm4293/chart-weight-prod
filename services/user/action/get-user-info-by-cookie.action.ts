@@ -11,12 +11,7 @@ interface IVerifiedToken {
   userUid: string;
 }
 
-interface IGetUserInfoResponse {
-  success: boolean;
-  data: IUserModel | null;
-}
-
-export const getUserInfo = async (): Promise<IGetUserInfoResponse> => {
+export const getUserInfoByCookie = async () => {
   const cookieStore = await cookies();
 
   const sessionToken = cookieStore.get(SESSION_TOKEN_NAME);
