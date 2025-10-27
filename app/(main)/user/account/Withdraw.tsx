@@ -11,7 +11,7 @@ interface IProps {
   userInfo: IUserModel;
 }
 
-export function Withdraw(props: IProps) {
+export default function Withdraw(props: IProps) {
   const { userInfo } = props;
 
   const router = useRouter();

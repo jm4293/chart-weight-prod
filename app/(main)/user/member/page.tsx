@@ -1,5 +1,5 @@
 import { Wrapper } from '@/components/wrapper';
-import { UserMember } from './UserMember';
+import UserMember from './UserMember';
 
 export default async function UserMemberPage() {
   return (

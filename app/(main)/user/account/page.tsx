@@ -1,6 +1,6 @@
 import { Wrapper } from '@/components/wrapper';
-import { Withdraw } from './Withdraw';
 import { getUserInfo } from '@/services/user';
+import Withdraw from './Withdraw';
 
 export default async function UserAccountPage() {
   const { data: userInfo, success } = await getUserInfo();

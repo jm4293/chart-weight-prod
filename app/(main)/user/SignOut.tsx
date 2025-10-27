@@ -5,7 +5,7 @@ import { Wrapper } from '@/components/wrapper';
 import { signOutCookie } from '@/services/auth';
 import { ChevronRight } from 'lucide-react';
 
-export function SignOut() {
+export default function SignOut() {
   const handleSignOut = async () => {
     if (confirm('로그아웃 하시겠습니까?')) {
       await signOutCookie();

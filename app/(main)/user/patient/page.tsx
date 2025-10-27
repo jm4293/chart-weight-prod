@@ -1,5 +1,5 @@
 import { Wrapper } from '@/components/wrapper';
-import { UserPatient } from './UserPatient';
+import UserPatient from './UserPatient';
 
 export default function UserPatientPage() {
   return (

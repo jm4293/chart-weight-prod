@@ -1,5 +1,5 @@
 import { Wrapper } from '@/components/wrapper';
-import { UserWeight } from './UserWeight';
+import UserWeight from './UserWeight';
 
 export default function UserWeightPage() {
   return (

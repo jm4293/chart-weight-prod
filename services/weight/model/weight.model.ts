@@ -5,5 +5,5 @@ export interface IWeightModel {
   imageUrl: string | null;
   patientId: string;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: Date | null;
 }

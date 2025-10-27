@@ -9,6 +9,6 @@ export interface IUserOAuthTokenModel {
   refreshToken: string;
   refreshTokenExpiresIn: string | null;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: Date | null;
   userId: number;
 }

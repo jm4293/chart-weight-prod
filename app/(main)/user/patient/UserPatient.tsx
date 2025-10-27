@@ -7,7 +7,7 @@ import { UserStatusLabels } from '@/shared/enum/user';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export function UserPatient() {
+export default function UserPatient() {
   const router = useRouter();
 
   const [page, setPage] = useState(1);

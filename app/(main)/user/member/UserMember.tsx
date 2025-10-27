@@ -7,7 +7,7 @@ import { UserStatusLabels, UserTypeLabels } from '@/shared/enum/user';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export function UserMember() {
+export default function UserMember() {
   const router = useRouter();
 
   const [page, setPage] = useState(1);

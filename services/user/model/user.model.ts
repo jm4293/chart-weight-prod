@@ -13,7 +13,7 @@ export interface IUserModel {
   registerNumber: string | null;
   status: UserStatus;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: Date | null;
 
   weight: IWeightModel[];
 }

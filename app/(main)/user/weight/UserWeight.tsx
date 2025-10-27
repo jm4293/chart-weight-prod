@@ -17,7 +17,7 @@ interface IWeightData {
   updatedAt: string | null;
 }
 
-export function UserWeight() {
+export default function UserWeight() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isSuccess } = useWeightList({ page });
