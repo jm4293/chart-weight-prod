@@ -1,4 +1,5 @@
 import { serverClient } from '@/lib/supabase';
+import { IWeightModel } from '@/services/weight';
 import { SESSION_TOKEN_NAME } from '@/shared/const';
 import { cookies } from 'next/headers';
 
@@ -15,7 +16,7 @@ export async function GET(
     .select('*, weight(*)')
     .eq('id', id)
     .limit(10, { referencedTable: 'weight' })
-    .single();
+    .single<IWeightModel>();
 
   if (error) {
     return new Response(
@@ -40,11 +41,7 @@ export async function PUT(
 
   const supabase = await serverClient();
 
-  const { data, error } = await supabase
-    .from('user')
-    .update(body)
-    .eq('id', id)
-    .single();
+  const { data, error } = await supabase.from('user').update(body).eq('id', id);
 
   if (error) {
     return new Response(
@@ -68,11 +65,7 @@ export async function DELETE(
 
   const supabase = await serverClient();
 
-  const { data, error } = await supabase
-    .from('user')
-    .delete()
-    .eq('id', id)
-    .single();
+  const { data, error } = await supabase.from('user').delete().eq('id', id);
 
   if (error) {
     return new Response(

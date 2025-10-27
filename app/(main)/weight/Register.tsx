@@ -53,7 +53,8 @@ export default function Register(props: IProps) {
         onChange={handleFileChange}
       />
 
-      <Button.BLUE
+      <Button
+        color="blue"
         text="사진 찍기"
         onClick={handleButtonClick}
         disabled={isLoading}

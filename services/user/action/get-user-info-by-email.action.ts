@@ -17,10 +17,10 @@ export const getUserInfoByEmail = async (params: {
     .select('*')
     .eq('email', email)
     .eq('emailType', emailType)
-    .single();
+    .single<IUserModel>();
 
   if (error || !data) {
-    return { success: false, data: null };
+    return { success: true, data: null };
   }
 
   return { success: true, data };

@@ -1,6 +1,6 @@
 import { UserEmailType } from '@/shared/enum/user';
 
-export interface IOAuthKakaoResponse {
+export interface IOAuthResponse {
   user: {
     email: string;
     name: string;
@@ -12,6 +12,6 @@ export interface IOAuthKakaoResponse {
     access_token: string;
     access_token_expires_in: string;
     refresh_token: string;
-    refresh_token_expires_in: string;
+    refresh_token_expires_in: string | null;
   };
 }

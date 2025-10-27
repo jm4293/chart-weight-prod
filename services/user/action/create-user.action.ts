@@ -14,13 +14,10 @@ interface IProps {
 export const createUser = async (props: IProps) => {
   const supabase = await serverClient();
 
-  const { data, error } = await supabase
-    .from('user')
-    .insert({
-      ...props,
-      status: UserStatus.PENDING,
-    })
-    .single();
+  const { data, error } = await supabase.from('user').insert({
+    ...props,
+    status: UserStatus.PENDING,
+  });
 
   if (error) {
     return { success: false };

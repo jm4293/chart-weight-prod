@@ -1,15 +1,9 @@
 'use server';
 
 import { UserEmailType } from '@/shared/enum/user';
-import { IOAuthKakaoResponse } from '../response';
 
-export const oauthKakao = async (
-  code: string,
-): Promise<{
-  success: boolean;
-  data: IOAuthKakaoResponse | null;
-}> => {
-  const tokenResponse = await fetch(
+export const oauthKakao = async (code: string) => {
+  const response = await fetch(
     `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&code=${code}&client_secret=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET}`,
     { method: 'GET' },
   );
@@ -21,11 +15,7 @@ export const oauthKakao = async (
     refresh_token,
     refresh_token_expires_in,
     scope,
-  } = await tokenResponse.json();
-
-  if (!access_token) {
-    return { success: false, data: null };
-  }
+  } = await response.json();
 
   const userResponse = await fetch(
     'https://kapi.kakao.com/v2/user/me?secure_resource=false',

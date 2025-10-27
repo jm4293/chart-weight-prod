@@ -20,7 +20,7 @@ export function Withdraw(props: IProps) {
     if (confirm('정말로 회원 탈퇴를 진행하시겠습니까?')) {
       await WithdrawAction({
         userId: userInfo.id,
-        userUid: userInfo.uuid,
+        userUuid: userInfo.uuid,
       });
 
       alert('회원 탈퇴가 완료되었습니다.');

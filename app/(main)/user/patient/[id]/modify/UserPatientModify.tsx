@@ -112,7 +112,7 @@ export default function UserPatientModify(props: IProps) {
           </select>
         </div>
 
-        <Button.BLUE type="submit" text="수정완료" />
+        <Button color="blue" type="submit" text="수정완료" />
       </form>
     </Wrapper.SECTION>
   );

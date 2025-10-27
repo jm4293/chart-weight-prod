@@ -1,32 +1,17 @@
-import { Text } from '@/components/text';
+import { LinkText, Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
 import { getUserInfo } from '@/services/user';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import { SignOut } from './SignOut';
 import { UserType } from '@/shared/enum/user';
 
 export default async function UserPage() {
   const { data: userInfo, success } = await getUserInfo();
 
-  if (!success) {
-    return (
-      <Wrapper.MAIN text="사용자 정보">
-        <Wrapper.SECTION text="서버 오류가 발생했습니다.">
-          <Text.HEADING text="잠시 후 다시 시도해주세요." />
-        </Wrapper.SECTION>
-      </Wrapper.MAIN>
-    );
-  }
-
-  if (!userInfo) {
+  if (!success || !userInfo) {
     return (
       <Wrapper.MAIN text="사용자 정보">
         <Wrapper.SECTION text="로그인이 필요합니다.">
-          <Link href="/login" className="flex justify-between">
-            <Text.HEADING text="로그인 페이지로 이동" />
-            <ChevronRight />
-          </Link>
+          <LinkText href="/login" text="로그인 페이지로 이동" />
         </Wrapper.SECTION>
       </Wrapper.MAIN>
     );
@@ -40,29 +25,18 @@ export default async function UserPage() {
         userInfo.type,
       ) && (
         <Wrapper.SECTION text="관리자">
-          <Link href="/user/patient" className="flex justify-between">
-            <Text.HEADING text="환자 리스트" />
-            <ChevronRight />
-          </Link>
-          <Link href="/user/member" className="flex justify-between">
-            <Text.HEADING text="직원 리스트" />
-            <ChevronRight />
-          </Link>
+          <LinkText href="/user/patient" text="환자 관리" />
+          <LinkText href="/user/member" text="직원 관리" />
+          <LinkText href="/user/notice" text="공지사항 관리" />
         </Wrapper.SECTION>
       )}
 
       <Wrapper.SECTION text="기록">
-        <Link href="/user/weight" className="flex justify-between">
-          <Text.HEADING text="몸무게 기록" />
-          <ChevronRight />
-        </Link>
+        <LinkText href="/user/weight" text="몸무게 기록" />
       </Wrapper.SECTION>
 
       <Wrapper.SECTION text="계정">
-        <Link href="/user/account" className="flex justify-between">
-          <Text.HEADING text="계정 수정" />
-          <ChevronRight />
-        </Link>
+        <LinkText href="/user/account" text="계정 수정" />
       </Wrapper.SECTION>
 
       <SignOut />

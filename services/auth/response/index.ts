@@ -1,1 +1,1 @@
-export * from './oauth-kakao.response';
+export * from './oauth.response';

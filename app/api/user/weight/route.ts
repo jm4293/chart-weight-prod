@@ -124,9 +124,7 @@ export async function POST(request: NextRequest) {
         userId: userId,
         weight: null,
         imageUrl: uploadData.fullPath,
-      })
-      .select()
-      .single();
+      });
 
     if (weightError) {
       throw new Response(

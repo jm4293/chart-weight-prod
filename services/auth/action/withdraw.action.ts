@@ -1,69 +1,59 @@
 'use server';
 
 import { serverClient } from '@/lib/supabase';
+import { IUserOAuthTokenModel } from '@/services/user';
 import { SESSION_TOKEN_NAME } from '@/shared/const';
+import { UserEmailType } from '@/shared/enum/user';
 import { cookies } from 'next/headers';
 
 interface IProps {
   userId: number;
-  userUid: string;
+  userUuid: string;
 }
 
 export const WithdrawAction = async (props: IProps) => {
-  const { userId, userUid } = props;
+  const { userId, userUuid } = props;
 
   const supabase = await serverClient();
 
-  try {
-    const { data: oauthToken, error } = await supabase
-      .from('user_oauth_token')
-      .select('*')
-      .eq('userId', userId)
-      .single();
+  const { data: oauthToken } = await supabase
+    .from('user_oauth_token')
+    .select('*, user!inner(*)')
+    .eq('userId', userId)
+    .eq('user.uuid', userUuid)
+    .single<IUserOAuthTokenModel>();
 
-    if (error || !oauthToken) {
-      throw new Error('User OAuth token not found');
-    }
-
-    const kakaoUserInfoResponse = await fetch(
-      'https://kapi.kakao.com/v2/user/me?secure_resource=false',
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-          Authorization: `Bearer ${oauthToken.accessToken}`,
-        },
-      },
-    );
-
-    const kakaoUserInfo = await kakaoUserInfoResponse.json();
-
-    if (!kakaoUserInfo) {
-      throw new Error('Failed to fetch Kakao user info');
-    }
-
-    const unlinkResponse = await fetch(
-      'https://kapi.kakao.com/v1/user/unlink',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${oauthToken.accessToken}`,
-        },
-      },
-    );
-    const unlinkResult = await unlinkResponse.json();
-
-    await supabase
-      .from('user')
-      .delete()
-      .eq('id', userId)
-      .eq('uuid', userUid)
-      .single();
-
-    const cookieStore = await cookies();
-
-    cookieStore.delete(SESSION_TOKEN_NAME);
-  } catch (error) {
-    console.error('Error during withdrawal:', error);
+  if (!oauthToken) {
+    return { success: false, data: null };
   }
+
+  if (oauthToken.provider === UserEmailType.KAKAO) {
+    await fetch('https://kapi.kakao.com/v2/user/me?secure_resource=false', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        Authorization: `Bearer ${oauthToken.accessToken}`,
+      },
+    });
+
+    await fetch('https://kapi.kakao.com/v1/user/unlink', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${oauthToken.accessToken}`,
+      },
+    });
+  }
+
+  if (oauthToken.provider === UserEmailType.NAVER) {
+    await fetch(
+      `https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}&client_secret=${process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET}&access_token=${oauthToken.accessToken}&service_provider=NAVER`,
+      { method: 'POST' },
+    );
+  }
+
+  await supabase.from('user').delete().eq('id', userId).eq('uuid', userUuid);
+
+  const cookieStore = await cookies();
+
+  cookieStore.delete(SESSION_TOKEN_NAME);
 };

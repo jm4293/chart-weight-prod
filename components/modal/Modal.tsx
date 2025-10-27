@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 
 import { useModal } from '@/hooks/modal';
 import { Button } from '../button';
+import { Text } from '../text';
 
 export const Modal = () => {
   const modalRoot = useRef<Element | null>(null);
@@ -44,19 +45,21 @@ export const Modal = () => {
       <div
         className="w-5/6 bg-white rounded-2xl shadow-lg p-4 flex flex-col gap-4"
         onClick={(e) => e.stopPropagation()}>
-        <div className="text-2xl font-medium">{modal.title}</div>
+        <Text.HEADING text={modal.title} />
 
-        <div className="text-xl whitespace-pre-wrap">{modal.content}</div>
+        <pre className="whitespace-pre-wrap">{modal.content}</pre>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex gap-2">
           {modal.onCancel && (
-            <Button.GRAY
+            <Button
+              color="gray"
               text={modal.cancelText || '취소'}
               onClick={(e) => handleCancel(e)}
             />
           )}
           {modal.onConfirm && (
-            <Button.BLUE
+            <Button
+              color="blue"
               text={modal.confirmText || '확인'}
               onClick={(e) => handleConfirm(e)}
             />

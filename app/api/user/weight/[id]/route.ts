@@ -9,11 +9,7 @@ export async function DELETE(
 
   const supabase = await serverClient();
 
-  const { error } = await supabase
-    .from('weight')
-    .delete()
-    .eq('id', id)
-    .single();
+  const { error } = await supabase.from('weight').delete().eq('id', id);
 
   if (error) {
     return new Response(

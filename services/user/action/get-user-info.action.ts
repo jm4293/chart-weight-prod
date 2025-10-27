@@ -21,7 +21,7 @@ export const getUserInfo = async (): Promise<{
 
   if (!sessionToken) {
     return {
-      success: true,
+      success: false,
       data: null,
     };
   }
@@ -36,7 +36,7 @@ export const getUserInfo = async (): Promise<{
     .select('*')
     .eq('id', userId)
     .eq('uuid', userUid)
-    .single();
+    .single<IUserModel>();
 
   if (error || !data) {
     return {
