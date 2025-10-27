@@ -1,7 +1,7 @@
 import { LinkText, Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
 import { getUserInfo } from '@/services/user';
-import { UserType } from '@/shared/enum/user';
+import { UserType, UserTypeLabels } from '@/shared/enum/user';
 import SignOut from './SignOut';
 
 export default async function UserPage() {
@@ -19,7 +19,9 @@ export default async function UserPage() {
 
   return (
     <Wrapper.MAIN text="사용자 정보">
-      <Text.HEADING text={`안녕하세요, ${userInfo.name}님!`} />
+      <Text.HEADING
+        text={`안녕하세요, ${UserTypeLabels[userInfo.type]} ${userInfo.name}님!`}
+      />
 
       {[UserType.ADMIN, UserType.DOCTOR, UserType.NURSE].includes(
         userInfo.type,

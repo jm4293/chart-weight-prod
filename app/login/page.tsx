@@ -13,6 +13,7 @@ export default function LoginPage() {
 
         <Wrapper.SECTION>
           <Link
+            className="flex justify-center"
             href={`https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&response_type=code`}>
             <Image
               src="/kakao_login_medium_wide.png"
@@ -26,6 +27,7 @@ export default function LoginPage() {
 
         <Wrapper.SECTION>
           <Link
+            className="flex justify-center"
             href={`https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_NAVER_REDIRECT_URL}&state=peek`}>
             <Image
               src="/naver_login_light.png"
