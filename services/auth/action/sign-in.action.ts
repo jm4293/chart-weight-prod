@@ -9,7 +9,7 @@ interface IProps {
   userUid: string;
 }
 
-export const signInCookie = async (props: IProps) => {
+export const signInAction = async (props: IProps) => {
   const { userId, userUid } = props;
 
   const cookieStore = await cookies();

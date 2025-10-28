@@ -1,6 +1,6 @@
 import { Wrapper } from '@/components/wrapper';
 import { LinkText, Text } from '@/components/text';
-import { oauthKakao } from '@/services/auth';
+import { oauthKakaoAction } from '@/services/auth';
 import Login from '../_component/Login';
 
 interface IProps {
@@ -22,7 +22,7 @@ export default async function KakaoLoginPage(props: IProps) {
     );
   }
 
-  const { success, data } = await oauthKakao(code);
+  const { success, data } = await oauthKakaoAction(code);
 
   if (!success || !data) {
     return (

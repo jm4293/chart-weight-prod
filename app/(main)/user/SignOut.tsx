@@ -2,13 +2,13 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { signOutCookie } from '@/services/auth';
+import { signOutAction } from '@/services/auth';
 import { ChevronRight } from 'lucide-react';
 
 export default function SignOut() {
   const handleSignOut = async () => {
     if (confirm('로그아웃 하시겠습니까?')) {
-      await signOutCookie();
+      await signOutAction();
     }
   };
 

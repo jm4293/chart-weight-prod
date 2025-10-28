@@ -1,13 +1,13 @@
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { getUserInfoByCookie } from '@/services/user';
+import { getUserInfoByCookieAction } from '@/services/user';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Profile from './Profile';
 import Register from './Register';
 
 export default async function mainPage() {
-  const { data: userInfo, success } = await getUserInfoByCookie();
+  const { data: userInfo, success } = await getUserInfoByCookieAction();
 
   if (!success) {
     return (

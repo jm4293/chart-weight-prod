@@ -13,7 +13,7 @@ interface IGetUserInfoResponse {
   error?: string;
 }
 
-export const getUserInfoByUserId = async (
+export const getUserInfoByUserIdAction = async (
   props: IProps,
 ): Promise<IGetUserInfoResponse> => {
   try {

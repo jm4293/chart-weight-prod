@@ -1,11 +1,11 @@
 import { LinkText, Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { getUserInfoByCookie } from '@/services/user';
+import { getUserInfoByCookieAction } from '@/services/user';
 import { UserType, UserTypeLabels } from '@/shared/enum/user';
 import SignOut from './SignOut';
 
 export default async function UserPage() {
-  const { data: userInfo, success } = await getUserInfoByCookie();
+  const { data: userInfo, success } = await getUserInfoByCookieAction();
 
   if (!success || !userInfo) {
     return (

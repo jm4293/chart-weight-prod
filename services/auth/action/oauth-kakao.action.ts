@@ -2,7 +2,7 @@
 
 import { UserEmailType } from '@/shared/enum/user';
 
-export const oauthKakao = async (code: string) => {
+export const oauthKakaoAction = async (code: string) => {
   const response = await fetch(
     `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&code=${code}&client_secret=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET}`,
     { method: 'GET' },

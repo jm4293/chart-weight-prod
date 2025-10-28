@@ -1,13 +1,13 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getUserInfoByUserId } from '../action/get-user-info-by-user-id.action';
+import { getUserInfoByUserIdAction } from '../action/get-user-info-by-user-id.action';
 
 export const useUserInfo = (userId: string) => {
   return useQuery({
     queryKey: ['user', userId],
     queryFn: async () => {
-      const result = await getUserInfoByUserId({ userId });
+      const result = await getUserInfoByUserIdAction({ userId });
 
       if (!result.success) {
         throw new Error(result.error || 'Failed to fetch user info');

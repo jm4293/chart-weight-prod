@@ -9,7 +9,7 @@ interface IProps {
   emailType: UserEmailType;
 }
 
-export const getUserInfoByEmail = async (props: IProps) => {
+export const getUserInfoByEmailAction = async (props: IProps) => {
   const { email, emailType } = props;
 
   const supabase = await serverClient();

@@ -11,7 +11,7 @@ interface IVerifiedToken {
   userUid: string;
 }
 
-export const getUserInfoByCookie = async () => {
+export const getUserInfoByCookieAction = async () => {
   const cookieStore = await cookies();
 
   const sessionToken = cookieStore.get(SESSION_TOKEN_NAME);

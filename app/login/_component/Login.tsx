@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react';
 import { useModal, useToast } from '@/hooks/modal';
 import { LinkText, Text } from '@/components/text';
 import { Skeleton } from '@/components/skeleton';
-import { IOAuthResponse, signInCookie } from '@/services/auth';
+import { IOAuthResponse, signInAction } from '@/services/auth';
 import {
-  createUser,
-  getUserInfoByEmail,
+  createUserAction,
+  getUserInfoByEmailAction,
   UpdateUserOAuthTokenAction,
 } from '@/services/user';
 import { UserStatus, UserType, UserTypeLabels } from '@/shared/enum/user';
@@ -42,7 +42,7 @@ export default function Login(props: IProps) {
       return;
     }
 
-    const { success } = await createUser({
+    const { success } = await createUserAction({
       type: type!,
       email: data.user.email,
       emailType: data.user.emailType,
@@ -75,7 +75,7 @@ export default function Login(props: IProps) {
     (async () => {
       setName(data.user.name);
 
-      const { data: userInfo, success } = await getUserInfoByEmail({
+      const { data: userInfo, success } = await getUserInfoByEmailAction({
         email: data.user.email,
         emailType: data.user.emailType,
       });
@@ -101,7 +101,7 @@ export default function Login(props: IProps) {
         refreshTokenExpiresIn: data.token.refresh_token_expires_in,
       });
 
-      await signInCookie({ userId: userInfo.id, userUid: userInfo.uuid });
+      await signInAction({ userId: userInfo.id, userUid: userInfo.uuid });
 
       openToast({
         type: 'success',

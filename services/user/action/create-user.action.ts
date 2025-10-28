@@ -11,7 +11,7 @@ interface IProps {
   image: string | null;
 }
 
-export const createUser = async (props: IProps) => {
+export const createUserAction = async (props: IProps) => {
   const supabase = await serverClient();
 
   const { data, error } = await supabase.from('user').insert({

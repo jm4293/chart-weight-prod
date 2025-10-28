@@ -1,6 +1,6 @@
 import { Wrapper } from '@/components/wrapper';
 import { LinkText, Text } from '@/components/text';
-import { oauthNaver } from '@/services/auth';
+import { oauthNaverAction } from '@/services/auth';
 import Login from '../_component/Login';
 
 interface IProps {
@@ -22,7 +22,7 @@ export default async function NaverLoginPage(props: IProps) {
     );
   }
 
-  const { success, data } = await oauthNaver(code);
+  const { success, data } = await oauthNaverAction(code);
 
   if (!success || !data) {
     return (
