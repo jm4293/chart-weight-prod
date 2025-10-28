@@ -7,18 +7,37 @@ import { useEffect, useState } from 'react';
 import { useModal, useToast } from '@/hooks/modal';
 import { LinkText, Text } from '@/components/text';
 import { Skeleton } from '@/components/skeleton';
-import { IOAuthResponse, signInAction } from '@/services/auth';
+import { signInAction } from '@/services/auth';
 import {
   createUserAction,
   getUserInfoByEmailAction,
   UpdateUserOAuthTokenAction,
 } from '@/services/user';
-import { UserStatus, UserType, UserTypeLabels } from '@/shared/enum/user';
+import {
+  UserEmailType,
+  UserStatus,
+  UserType,
+  UserTypeLabels,
+} from '@/shared/enum/user';
 import { Input } from '@/components/input';
 import { Wrapper } from '@/components/wrapper';
 
 interface IProps {
-  data: IOAuthResponse;
+  data: {
+    user: {
+      email: string;
+      name: string;
+      image: string | null;
+      emailType: UserEmailType;
+    };
+    token: {
+      token_type: string;
+      access_token: string;
+      access_token_expires_in: string;
+      refresh_token: string;
+      refresh_token_expires_in: string | null;
+    };
+  };
 }
 
 export default function Login(props: IProps) {
@@ -42,7 +61,7 @@ export default function Login(props: IProps) {
       return;
     }
 
-    const { success } = await createUserAction({
+    const { success, code } = await createUserAction({
       type: type!,
       email: data.user.email,
       emailType: data.user.emailType,
@@ -76,12 +95,13 @@ export default function Login(props: IProps) {
 
     (async () => {
       try {
-        const { data: userInfo, success } = await getUserInfoByEmailAction({
-          email: data.user.email,
-          emailType: data.user.emailType,
-        });
+        const { data: userInfo, success: userInfoSuccess } =
+          await getUserInfoByEmailAction({
+            email: data.user.email,
+            emailType: data.user.emailType,
+          });
 
-        if (!success) {
+        if (!userInfoSuccess) {
           throw new Error();
         }
 
@@ -96,7 +116,7 @@ export default function Login(props: IProps) {
           return;
         }
 
-        await UpdateUserOAuthTokenAction({
+        const { success } = await UpdateUserOAuthTokenAction({
           userId: userInfo.id,
           userUuid: userInfo.uuid,
           provider: userInfo.emailType,
@@ -105,6 +125,13 @@ export default function Login(props: IProps) {
           refreshToken: data.token.refresh_token,
           refreshTokenExpiresIn: data.token.refresh_token_expires_in,
         });
+
+        if (!success) {
+          openToast({
+            type: 'error',
+            message: 'OAuth 토큰 업데이트에 실패했습니다.',
+          });
+        }
 
         await signInAction({ userId: userInfo.id, userUuid: userInfo.uuid });
 

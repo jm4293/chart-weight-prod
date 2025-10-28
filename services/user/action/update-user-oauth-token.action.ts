@@ -3,6 +3,8 @@
 import { serverClient } from '@/lib/supabase';
 import { IUserOAuthTokenModel } from '../model';
 import { getKSTDate } from '@/utils';
+import { IResponseType } from '@/types';
+import { ERROR_CODE } from '@/shared/const';
 
 interface IProps
   extends Omit<
@@ -13,7 +15,9 @@ interface IProps
   userUuid: string;
 }
 
-export const UpdateUserOAuthTokenAction = async (props: IProps) => {
+export const UpdateUserOAuthTokenAction = async (
+  props: IProps,
+): Promise<IResponseType<null>> => {
   const { userId, userUuid, ...rest } = props;
 
   const supabase = await serverClient();
@@ -25,9 +29,18 @@ export const UpdateUserOAuthTokenAction = async (props: IProps) => {
     .eq('user.uuid', userUuid)
     .single<IUserOAuthTokenModel>();
 
+  if (error) {
+    return {
+      success: false,
+      data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
+    };
+  }
+
   if (!data) {
     await supabase.from('user_oauth_token').insert({ userId, ...rest });
-    return;
+    return { success: true, data: null };
   }
 
   await supabase
@@ -37,4 +50,6 @@ export const UpdateUserOAuthTokenAction = async (props: IProps) => {
       updatedAt: getKSTDate(),
     })
     .eq('id', data.id);
+
+  return { success: true, data: null };
 };

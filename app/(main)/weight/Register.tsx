@@ -33,7 +33,7 @@ export default function Register(props: IProps) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('userId', String(userInfo.id));
-    formData.append('userUid', userInfo.uuid);
+    formData.append('userUuid', userInfo.uuid);
 
     createWeight.mutate(formData);
 

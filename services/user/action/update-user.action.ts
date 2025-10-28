@@ -2,6 +2,8 @@
 
 import { serverClient } from '@/lib/supabase';
 import { IUserModel } from '../model';
+import { IResponseType } from '@/types';
+import { ERROR_CODE } from '@/shared/const';
 
 interface IUpdateUserProps {
   userId: number;
@@ -9,33 +11,30 @@ interface IUpdateUserProps {
   updateData: Partial<IUserModel>;
 }
 
-export async function updateUserAction(props: IUpdateUserProps) {
-  try {
-    const { userId, userUuid, updateData } = props;
+export async function updateUserAction(
+  props: IUpdateUserProps,
+): Promise<IResponseType<null>> {
+  const { userId, userUuid, updateData } = props;
 
-    const supabase = await serverClient();
+  const supabase = await serverClient();
 
-    const { data, error } = await supabase
-      .from('user')
-      .update(updateData)
-      .eq('id', userId)
-      .eq('uuid', userUuid);
+  const { data, error } = await supabase
+    .from('user')
+    .update(updateData)
+    .eq('id', userId)
+    .eq('uuid', userUuid);
 
-    if (error) {
-      return {
-        success: false,
-        error: `Error updating user: ${error.message}`,
-      };
-    }
-
-    return {
-      success: true,
-      data,
-    };
-  } catch (error) {
+  if (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
     };
   }
+
+  return {
+    success: true,
+    data: null,
+  };
 }

@@ -2,8 +2,9 @@
 
 import { serverClient } from '@/lib/supabase';
 import { IUserOAuthTokenModel } from '@/services/user';
-import { SESSION_TOKEN_NAME } from '@/shared/const';
+import { ERROR_CODE, SESSION_TOKEN_NAME } from '@/shared/const';
 import { UserEmailType } from '@/shared/enum/user';
+import { IResponseType } from '@/types';
 import { cookies } from 'next/headers';
 
 interface IProps {
@@ -11,20 +12,31 @@ interface IProps {
   userUuid: string;
 }
 
-export const WithdrawAction = async (props: IProps) => {
+export const WithdrawAction = async (
+  props: IProps,
+): Promise<IResponseType<null>> => {
   const { userId, userUuid } = props;
 
   const supabase = await serverClient();
 
-  const { data: oauthToken } = await supabase
+  const { data: oauthToken, error } = await supabase
     .from('user_oauth_token')
     .select('*, user!inner(*)')
     .eq('userId', userId)
     .eq('user.uuid', userUuid)
     .single<IUserOAuthTokenModel>();
 
+  if (error) {
+    return {
+      success: false,
+      data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
+    };
+  }
+
   if (!oauthToken) {
-    return { success: false, data: null };
+    return { success: false, data: null, code: ERROR_CODE.BAD_REQUEST };
   }
 
   if (oauthToken.provider === UserEmailType.KAKAO) {
@@ -56,4 +68,6 @@ export const WithdrawAction = async (props: IProps) => {
   const cookieStore = await cookies();
 
   cookieStore.delete(SESSION_TOKEN_NAME);
+
+  return { success: true, data: null };
 };

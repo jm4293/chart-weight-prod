@@ -1,34 +1,27 @@
 'use server';
 
 import { serverClient } from '@/lib/supabase';
-
-interface IDeleteWeightResponse {
-  success: boolean;
-  error?: string;
-}
+import { ERROR_CODE } from '@/shared/const';
+import { IResponseType } from '@/types';
 
 export async function deleteWeightAction(
   weightId: number,
-): Promise<IDeleteWeightResponse> {
-  try {
-    const supabase = await serverClient();
+): Promise<IResponseType<null>> {
+  const supabase = await serverClient();
 
-    const { error } = await supabase.from('weight').delete().eq('id', weightId);
+  const { error } = await supabase.from('weight').delete().eq('id', weightId);
 
-    if (error) {
-      return {
-        success: false,
-        error: error.message,
-      };
-    }
-
-    return {
-      success: true,
-    };
-  } catch (error) {
+  if (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
     };
   }
+
+  return {
+    success: true,
+    data: null,
+  };
 }

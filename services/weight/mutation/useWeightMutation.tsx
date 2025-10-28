@@ -11,13 +11,11 @@ export const useWeightMutation = () => {
 
   const createWeight = useMutation({
     mutationFn: async (data: FormData) => {
-      const result = await createWeightAction(data);
+      const { success, code } = await createWeightAction(data);
 
-      if (!result.success) {
-        throw new Error(result.error || '등록 중 오류가 발생했습니다.');
+      if (!success) {
+        throw new Error(code || '등록 중 오류가 발생했습니다.');
       }
-
-      return result.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['weightList'] });
@@ -37,13 +35,11 @@ export const useWeightMutation = () => {
 
   const deleteWeight = useMutation({
     mutationFn: async (weightId: number) => {
-      const result = await deleteWeightAction(weightId);
+      const { success, error } = await deleteWeightAction(weightId);
 
-      if (!result.success) {
-        throw new Error(result.error || '삭제 중 오류가 발생했습니다.');
+      if (!success) {
+        throw new Error(error || '삭제 중 오류가 발생했습니다.');
       }
-
-      return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] });

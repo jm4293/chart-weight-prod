@@ -1,69 +1,54 @@
 'use server';
 
 import { serverClient } from '@/lib/supabase';
+import { ERROR_CODE } from '@/shared/const';
+import { IResponseType } from '@/types';
 import dayjs from 'dayjs';
-
-interface ICreateWeightResponse {
-  success: boolean;
-  data?: any;
-  error?: string;
-}
 
 export async function createWeightAction(
   formData: FormData,
-): Promise<ICreateWeightResponse> {
-  try {
-    const file = formData.get('file') as File;
-    const userId = Number(formData.get('userId'));
-    const userUid = String(formData.get('userUid'));
+): Promise<IResponseType<null>> {
+  const file = formData.get('file') as File;
+  const userId = Number(formData.get('userId'));
+  const userUuid = String(formData.get('userUuid'));
 
-    const supabase = await serverClient();
-    const today = dayjs().format('YYYY-MM-DD');
-    const timeNow = dayjs().format('HH-mm-ss');
+  const today = dayjs().format('YYYY-MM-DD');
+  const timeNow = dayjs().format('HH-mm-ss');
 
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from('images')
-      .upload(`${today}/${userId}_${timeNow}`, file, {
-        contentType: file.type,
-      });
+  const supabase = await serverClient();
 
-    if (uploadError) {
-      return {
-        success: false,
-        error: uploadError.message,
-      };
-    }
+  const { data: uploadData, error: uploadError } = await supabase.storage
+    .from('images')
+    .upload(`${today}/${userId}_${timeNow}`, file, {
+      contentType: file.type,
+    });
 
-    if (!uploadData) {
-      return {
-        success: false,
-        error: 'File upload failed',
-      };
-    }
-
-    const { data: weightData, error: weightError } = await supabase
-      .from('weight')
-      .insert({
-        userId: userId,
-        weight: null,
-        imageUrl: uploadData.fullPath,
-      });
-
-    if (weightError) {
-      return {
-        success: false,
-        error: weightError.message,
-      };
-    }
-
-    return {
-      success: true,
-      data: weightData,
-    };
-  } catch (error) {
+  if (uploadError) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
+      data: null,
+      error: uploadError.message,
+      code: ERROR_CODE.DATABASE_ERROR,
     };
   }
+
+  const { data, error } = await supabase.from('weight').insert({
+    userId: userId,
+    weight: null,
+    imageUrl: uploadData.fullPath,
+  });
+
+  if (error) {
+    return {
+      success: false,
+      data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
+    };
+  }
+
+  return {
+    success: true,
+    data: null,
+  };
 }
