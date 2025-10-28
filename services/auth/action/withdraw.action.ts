@@ -21,7 +21,7 @@ export const WithdrawAction = async (
 
   const { data: oauthToken, error } = await supabase
     .from('user_oauth_token')
-    .select('*, user!inner(*)')
+    .select('*, user(*)')
     .eq('userId', userId)
     .eq('user.uuid', userUuid)
     .single<IUserOAuthTokenModel>();

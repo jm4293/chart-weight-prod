@@ -24,7 +24,7 @@ export const UpdateUserOAuthTokenAction = async (
 
   const { data, error } = await supabase
     .from('user_oauth_token')
-    .select('*, user!inner(*)')
+    .select('*, user(*)')
     .eq('userId', userId)
     .eq('user.uuid', userUuid)
     .single<IUserOAuthTokenModel>();

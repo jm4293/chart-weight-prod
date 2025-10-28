@@ -3,6 +3,7 @@
 import { useToast } from '@/hooks/modal';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createWeightAction, deleteWeightAction } from '../action';
+import { QUERY_KEY } from '@/shared/queryKey';
 
 export const useWeightMutation = () => {
   const queryClient = useQueryClient();
@@ -17,8 +18,10 @@ export const useWeightMutation = () => {
         throw new Error(code || '등록 중 오류가 발생했습니다.');
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['weightList'] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.WEIGHT.LIST(),
+      });
 
       openToast({
         type: 'success',
@@ -41,9 +44,10 @@ export const useWeightMutation = () => {
         throw new Error(error || '삭제 중 오류가 발생했습니다.');
       }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] });
-      queryClient.invalidateQueries({ queryKey: ['weightList'] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.WEIGHT.LIST(),
+      });
 
       openToast({
         type: 'success',

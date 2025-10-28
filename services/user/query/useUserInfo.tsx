@@ -2,10 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfoByUserIdAction } from '../action/get-user-info-by-user-id.action';
+import { QUERY_KEY } from '@/shared/queryKey';
 
 export const useUserInfo = (userId: string) => {
   return useQuery({
-    queryKey: ['user', userId],
+    queryKey: QUERY_KEY.USER.DETAIL(Number(userId)),
     queryFn: async () => {
       const result = await getUserInfoByUserIdAction({ userId });
 

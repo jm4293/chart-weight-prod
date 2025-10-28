@@ -29,7 +29,7 @@ export async function deleteUserAction(
 
   const { data: oauthToken, error: oauthTokenError } = await supabase
     .from('user_oauth_token')
-    .select('*, user!inner(*)')
+    .select('*, user(*)')
     .eq('userId', userId)
     .single<IUserOAuthTokenModel>();
 

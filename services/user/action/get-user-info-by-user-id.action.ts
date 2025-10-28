@@ -31,7 +31,7 @@ export const getUserInfoByUserIdAction = async (
 
     const { data, error } = await supabase
       .from('user')
-      .select('*, weight!inner(*)')
+      .select('*, weight(*)')
       .eq('id', userId)
       .single<IUserModel>();
 

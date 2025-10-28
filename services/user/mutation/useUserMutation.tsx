@@ -5,6 +5,7 @@ import { IUserModel } from '../model';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/modal';
 import { deleteUserAction, updateUserAction } from '../action';
+import { QUERY_KEY } from '@/shared/queryKey';
 
 export const useUserMutation = () => {
   const router = useRouter();
@@ -28,8 +29,10 @@ export const useUserMutation = () => {
         throw new Error('Failed to update user.');
       }
     },
-    onSuccess: (_, value) => {
-      queryClient.invalidateQueries({ queryKey: ['user', value.id] });
+    onSuccess: async (_, variables) => {
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.USER.DETAIL(variables.userId),
+      });
 
       openToast({
         type: 'success',
@@ -58,8 +61,10 @@ export const useUserMutation = () => {
         throw new Error(`Failed to delete user. Code: ${code}`);
       }
     },
-    onSuccess: (_, id) => {
-      queryClient.invalidateQueries({ queryKey: ['user', id] });
+    onSuccess: async (_, variables) => {
+      await queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.USER.DETAIL(variables.userId),
+      });
 
       openToast({
         type: 'success',
