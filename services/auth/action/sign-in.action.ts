@@ -23,7 +23,7 @@ export const signInAction = async (props: IProps) => {
   cookieStore.set(SESSION_TOKEN_NAME, sessionToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
+    sameSite: 'lax',
     maxAge: SESSION_TOKEN_EXPIRE,
     path: '/',
   });
