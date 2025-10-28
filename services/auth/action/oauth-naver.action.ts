@@ -1,10 +1,20 @@
 import { UserEmailType } from '@/shared/enum/user';
+import { IResponseType } from '@/types';
 
-export const oauthNaverAction = async (code: string) => {
+export const oauthNaverAction = async (
+  code: string,
+): Promise<IResponseType<any>> => {
   const response = await fetch(
     `https://nid.naver.com/oauth2.0/token?client_id=${process.env.NEXT_PUBLIC_NAVER_CLIENT_ID}&client_secret=${process.env.NEXT_PUBLIC_NAVER_CLIENT_SECRET}&grant_type=authorization_code&code=${code}&state=yonseipureclinic`,
     { method: 'GET' },
   );
+
+  if (!response.ok) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
 
   const { token_type, access_token, expires_in, refresh_token } =
     await response.json();
@@ -16,6 +26,13 @@ export const oauthNaverAction = async (code: string) => {
       'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
     },
   });
+
+  if (!userResponse.ok) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
 
   const user = await userResponse.json();
   const { email, name, profile_image } = user.response;

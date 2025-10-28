@@ -5,11 +5,6 @@ import { jwtUtil } from '@/utils/jwt-util';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 
-interface IVerifiedToken {
-  userId: number;
-  userUid: string;
-}
-
 export async function GET(request: NextRequest) {
   const cookieStore = await cookies();
 
@@ -28,7 +23,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  jwtUtil<IVerifiedToken>().verify(accessToken!.value);
+  jwtUtil().verify(accessToken!.value);
 
   const supabase = await serverClient();
 

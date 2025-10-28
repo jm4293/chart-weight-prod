@@ -4,11 +4,6 @@ import { jwtUtil } from '@/utils/jwt-util';
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 
-interface IVerifiedToken {
-  userId: number;
-  userUid: string;
-}
-
 export async function GET(request: NextRequest) {
   const cookieStore = await cookies();
 
@@ -27,15 +22,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const verifiedToken = jwtUtil<IVerifiedToken>().verify(accessToken!.value);
-  const { userId, userUid } = verifiedToken;
+  const { id, uuid } = jwtUtil().verify(accessToken!.value);
 
   const supabase = await serverClient();
 
   const { data, error, count } = await supabase
     .from('weight')
     .select('*', { count: 'exact' })
-    .eq('userId', userId)
+    .eq('userId', id)
     .order('createdAt', { ascending: false })
     .range((page - 1) * limit, page * limit - 1);
 

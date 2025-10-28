@@ -14,7 +14,6 @@ export default async function KakaoLoginPage(props: IProps) {
     return (
       <Wrapper.MAIN text="카카오 로그인">
         <Wrapper.SECTION text="잘못된 접근입니다." />
-
         <Wrapper.SECTION>
           <LinkText href="/login" text="로그인 페이지로 이동" />
         </Wrapper.SECTION>
@@ -27,10 +26,12 @@ export default async function KakaoLoginPage(props: IProps) {
   if (!success || !data) {
     return (
       <Wrapper.MAIN text="카카오 로그인">
-        <Wrapper.SECTION text="카카오 서버 오류로 인해 로그인에 실패했습니다.">
-          <Text.HEADING text="잠시 후 다시 시도해주세요." />
+        <Wrapper.SECTION>
+          <div className="flex flex-col gap-2">
+            <Text.HEADING text="서버 오류로 인해 로그인에 실패했습니다." />
+            <Text.HEADING text="잠시 후 다시 시도해주세요." />
+          </div>
         </Wrapper.SECTION>
-
         <Wrapper.SECTION>
           <LinkText href="/login" text="로그인 페이지로 이동" />
         </Wrapper.SECTION>

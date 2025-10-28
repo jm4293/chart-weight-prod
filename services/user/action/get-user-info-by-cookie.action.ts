@@ -1,49 +1,47 @@
 'use server';
 
 import { serverClient } from '@/lib/supabase';
-import { SESSION_TOKEN_NAME } from '@/shared/const';
+import { ERROR_CODE, SESSION_TOKEN_NAME } from '@/shared/const';
 import { jwtUtil } from '@/utils/jwt-util';
 import { cookies } from 'next/headers';
 import { IUserModel } from '../model';
+import { IResponseType } from '@/types';
 
-interface IVerifiedToken {
-  userId: number;
-  userUid: string;
-}
-
-export const getUserInfoByCookieAction = async () => {
+export const getUserInfoByCookieAction = async (): Promise<
+  IResponseType<IUserModel | null>
+> => {
   const cookieStore = await cookies();
 
   const sessionToken = cookieStore.get(SESSION_TOKEN_NAME);
 
   if (!sessionToken) {
     return {
-      success: true,
+      success: false,
       data: null,
+      code: ERROR_CODE.UNAUTHORIZED,
     };
   }
 
-  const verifiedToken = jwtUtil<IVerifiedToken>().verify(sessionToken.value);
-  const { userId, userUid } = verifiedToken;
+  const verifiedToken = jwtUtil().verify(sessionToken.value);
+  const { id, uuid } = verifiedToken;
 
   const supabase = await serverClient();
 
   const { data, error } = await supabase
     .from('user')
     .select('*')
-    .eq('id', userId)
-    .eq('uuid', userUid)
+    .eq('id', id)
+    .eq('uuid', uuid)
     .single<IUserModel>();
 
-  if (error || !data) {
+  if (error) {
     return {
       success: false,
       data: null,
+      error: error.message,
+      code: ERROR_CODE.DATABASE_ERROR,
     };
   }
 
-  return {
-    success: true,
-    data,
-  };
+  return { success: true, data };
 };

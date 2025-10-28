@@ -6,17 +6,17 @@ import { cookies } from 'next/headers';
 
 interface IProps {
   userId: number;
-  userUid: string;
+  userUuid: string;
 }
 
 export const signInAction = async (props: IProps) => {
-  const { userId, userUid } = props;
+  const { userId, userUuid } = props;
 
   const cookieStore = await cookies();
 
   const sessionToken = jwtUtil().sign(
-    { userId, userUid, mutatePayload: true },
-    userUid,
+    { id: userId, uuid: userUuid, mutatePayload: true },
+    userUuid,
     SESSION_TOKEN_EXPIRE,
   );
 

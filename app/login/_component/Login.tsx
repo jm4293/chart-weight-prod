@@ -72,55 +72,68 @@ export default function Login(props: IProps) {
   };
 
   useEffect(() => {
+    setName(data.user.name);
+
     (async () => {
-      setName(data.user.name);
+      try {
+        const { data: userInfo, success } = await getUserInfoByEmailAction({
+          email: data.user.email,
+          emailType: data.user.emailType,
+        });
 
-      const { data: userInfo, success } = await getUserInfoByEmailAction({
-        email: data.user.email,
-        emailType: data.user.emailType,
-      });
+        if (!success) {
+          throw new Error();
+        }
 
-      if (!userInfo) {
-        setStep(2);
-        return;
+        if (!userInfo) {
+          setStep(2);
+          return;
+        }
+
+        if (userInfo.status === UserStatus.PENDING) {
+          setStep(4);
+          setType(userInfo.type);
+          return;
+        }
+
+        await UpdateUserOAuthTokenAction({
+          userId: userInfo.id,
+          userUuid: userInfo.uuid,
+          provider: userInfo.emailType,
+          accessToken: data.token.access_token,
+          accessTokenExpiresIn: data.token.access_token_expires_in,
+          refreshToken: data.token.refresh_token,
+          refreshTokenExpiresIn: data.token.refresh_token_expires_in,
+        });
+
+        await signInAction({ userId: userInfo.id, userUuid: userInfo.uuid });
+
+        openToast({
+          type: 'success',
+          message: `${userInfo.name}님, 환영합니다!`,
+        });
+
+        router.push('/main');
+      } catch (err) {
+        console.error('Login Error:', err);
+        setStep(-1);
       }
-
-      if (userInfo.status === UserStatus.PENDING) {
-        setStep(4);
-        setType(userInfo.type);
-        return;
-      }
-
-      await UpdateUserOAuthTokenAction({
-        userId: userInfo.id,
-        userUuid: userInfo.uuid,
-        provider: userInfo.emailType,
-        accessToken: data.token.access_token,
-        accessTokenExpiresIn: data.token.access_token_expires_in,
-        refreshToken: data.token.refresh_token,
-        refreshTokenExpiresIn: data.token.refresh_token_expires_in,
-      });
-
-      await signInAction({ userId: userInfo.id, userUid: userInfo.uuid });
-
-      openToast({
-        type: 'success',
-        message: `${userInfo.name}님, 환영합니다!`,
-      });
-      router.push('/main');
     })();
   }, []);
 
   if (step === -1) {
     return (
-      <Wrapper.SECTION text="로그인 오류">
-        <Text.HEADING text="오류가 발생했습니다" />
-
-        <div className="flex flex-col gap-2">
-          <Text.PARAGRAPH text="타입 선택 후 계정 생성에 실패했습니다." />
-          <Text.PARAGRAPH text="잠시 후 다시 시도해주세요." />
-        </div>
-      </Wrapper.SECTION>
+      <>
+        <Wrapper.SECTION text="로그인 오류">
+          <div className="flex flex-col gap-2">
+            <Text.PARAGRAPH text="오류가 발생했습니다" />
+            <Text.PARAGRAPH text="잠시 후 다시 시도해주세요." />
+          </div>
+        </Wrapper.SECTION>
+        <Wrapper.SECTION>
+          <LinkText href="/login" text="로그인 페이지로 이동" />
+        </Wrapper.SECTION>
+      </>
     );
   }
 

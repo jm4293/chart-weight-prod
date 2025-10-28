@@ -2,12 +2,14 @@
 
 import { serverClient } from '@/lib/supabase';
 import { IUserOAuthTokenModel } from '../model';
+import { getKSTDate } from '@/utils';
 
 interface IProps
   extends Omit<
     IUserOAuthTokenModel,
-    'id' | 'uuid' | 'createdAt' | 'updatedAt'
+    'id' | 'uuid' | 'createdAt' | 'updatedAt' | 'userId'
   > {
+  userId: number;
   userUuid: string;
 }
 
@@ -16,7 +18,7 @@ export const UpdateUserOAuthTokenAction = async (props: IProps) => {
 
   const supabase = await serverClient();
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from('user_oauth_token')
     .select('*, user!inner(*)')
     .eq('userId', userId)
@@ -28,5 +30,11 @@ export const UpdateUserOAuthTokenAction = async (props: IProps) => {
     return;
   }
 
-  await supabase.from('user_oauth_token').update(rest).eq('id', data.id);
+  await supabase
+    .from('user_oauth_token')
+    .update({
+      ...rest,
+      updatedAt: getKSTDate(),
+    })
+    .eq('id', data.id);
 };

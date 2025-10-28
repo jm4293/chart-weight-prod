@@ -1,8 +1,13 @@
 import jwt from 'jsonwebtoken';
 
-export function jwtUtil<T>(): {
+export interface IVerifiedToken {
+  id: number;
+  uuid: string;
+}
+
+export function jwtUtil(): {
   sign: (payload: any, userUid: string, expiresIn: number) => string;
-  verify: (token: string) => T;
+  verify: (token: string) => IVerifiedToken;
 } {
   const secretKey = process.env.NEXT_PUBLIC_JWT_SECRET_KEY!;
 
@@ -11,18 +16,18 @@ export function jwtUtil<T>(): {
   };
 
   return {
-    sign: (payload: any, userUid: string, expiresIn: number) => {
+    sign: (payload: any, uuid: string, expiresIn: number) => {
       return jwt.sign(payload, secretKey, {
         expiresIn,
         algorithm: 'HS256',
         issuer: 'yonseipureclinic.life',
         audience: 'yonseipureclinic.life',
-        subject: userUid,
+        subject: uuid,
         jwtid: generateUniqueId(),
       });
     },
     verify: (token: string) => {
-      return jwt.verify(token, secretKey) as T;
+      return jwt.verify(token, secretKey) as IVerifiedToken;
     },
   };
 }

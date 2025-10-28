@@ -1,12 +1,22 @@
 'use server';
 
 import { UserEmailType } from '@/shared/enum/user';
+import { IResponseType } from '@/types';
 
-export const oauthKakaoAction = async (code: string) => {
+export const oauthKakaoAction = async (
+  code: string,
+): Promise<IResponseType<any>> => {
   const response = await fetch(
     `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&code=${code}&client_secret=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET}`,
     { method: 'GET' },
   );
+
+  if (!response.ok) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
 
   const {
     token_type,
@@ -14,7 +24,6 @@ export const oauthKakaoAction = async (code: string) => {
     expires_in,
     refresh_token,
     refresh_token_expires_in,
-    scope,
   } = await response.json();
 
   const userResponse = await fetch(
@@ -27,6 +36,13 @@ export const oauthKakaoAction = async (code: string) => {
       },
     },
   );
+
+  if (!userResponse.ok) {
+    return {
+      success: false,
+      data: null,
+    };
+  }
 
   const user = await userResponse.json();
   const { kakao_account } = user;

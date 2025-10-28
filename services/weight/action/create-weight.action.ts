@@ -3,11 +3,6 @@
 import { serverClient } from '@/lib/supabase';
 import dayjs from 'dayjs';
 
-interface IVerifiedToken {
-  userId: number;
-  userUid: string;
-}
-
 interface ICreateWeightResponse {
   success: boolean;
   data?: any;
