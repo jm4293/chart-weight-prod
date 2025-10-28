@@ -113,7 +113,9 @@ export default function UserPatientDetail(props: IProps) {
             text={dayjs(data.createdAt).format('YYYY-MM-DD HH:mm')}
           />
         </div>
+      </Wrapper.SECTION>
 
+      <Wrapper.SECTION>
         <div className="flex justify-end items-center gap-4">
           <div className="cursor-pointer" onClick={handlePatientDelete}>
             <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
