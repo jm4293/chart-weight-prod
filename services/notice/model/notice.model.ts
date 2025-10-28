@@ -11,4 +11,6 @@ export interface INoticeModel {
   createdAt: Date;
   updatedAt: Date | null;
   userId: number;
+
+  user?: IUserModel;
 }

@@ -79,7 +79,7 @@ export default function UserMemberDetail(props: IProps) {
         <div className="cursor-pointer" onClick={handleDelete}>
           <Text.PARAGRAPH text="삭제하기" className="text-red-500" />
         </div>
-        <Link className="text-end" href={`/user/member/${userId}/modify`}>
+        <Link href={`/user/member/${userId}/modify`}>
           <Text.PARAGRAPH text="수정하기" className="text-blue-500" />
         </Link>
       </div>

@@ -9,4 +9,8 @@ export const QUERY_KEY = {
   WEIGHT: {
     LIST: (page?: number) => (page ? ['weightList', page] : ['weightList']),
   },
+  NOTICE: {
+    LIST: (page?: number) => (page ? ['noticeList', page] : ['noticeList']),
+    DETAIL: (noticeId: number) => ['noticeDetail', noticeId],
+  },
 };

@@ -9,7 +9,7 @@ interface IProps {
   userInfo: IUserModel;
 }
 
-export default function Register(props: IProps) {
+export default function WeightRegister(props: IProps) {
   const { userInfo } = props;
 
   const fileInputRef = useRef<HTMLInputElement>(null);

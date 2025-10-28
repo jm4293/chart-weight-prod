@@ -2,20 +2,14 @@
 
 import { Text } from '@/components/text';
 import { Wrapper } from '@/components/wrapper';
-import { useWeightList, useWeightMutation } from '@/services/weight';
+import {
+  IWeightModel,
+  useWeightList,
+  useWeightMutation,
+} from '@/services/weight';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { Trash } from 'lucide-react';
-
-interface IWeightData {
-  id: number;
-  weight: number | null;
-  createdAt: string;
-  imageUrl: string;
-  userId: number;
-  uuid: string;
-  updatedAt: string | null;
-}
 
 export default function UserWeight() {
   const [page, setPage] = useState(1);
@@ -27,7 +21,7 @@ export default function UserWeight() {
   const itemsPerPage = 10;
   const totalPages = Math.ceil(data?.total / itemsPerPage);
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: Date) => {
     const formattedDate = dayjs(dateString).format('YY.MM.DD');
     const formattedTime = dayjs(dateString).format('HH:mm');
 
@@ -97,7 +91,7 @@ export default function UserWeight() {
         </thead>
         <tbody>
           {data.data.length > 0 ? (
-            data.data.map((item: IWeightData) => (
+            data.data.map((item: IWeightModel) => (
               <tr key={item.id} className="hover:bg-gray-50">
                 <td>
                   <Text.PARAGRAPH text={formatWeight(item.weight)} />

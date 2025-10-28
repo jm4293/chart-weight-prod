@@ -5,7 +5,8 @@ interface IProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function UserPatientDetailPage({ params }: IProps) {
+export default async function UserPatientDetailPage(props: IProps) {
+  const { params } = props;
   const { id: userId } = await params;
 
   return (

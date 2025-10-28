@@ -17,9 +17,7 @@ export async function GET(request: NextRequest) {
   if (!accessToken) {
     return new Response(
       JSON.stringify({ success: false, error: 'No access token' }),
-      {
-        status: 401,
-      },
+      { status: 401 },
     );
   }
 
@@ -37,9 +35,7 @@ export async function GET(request: NextRequest) {
   if (error) {
     return new Response(
       JSON.stringify({ success: false, error: error.message }),
-      {
-        status: 500,
-      },
+      { status: 500 },
     );
   }
 
@@ -49,8 +45,6 @@ export async function GET(request: NextRequest) {
       data,
       total: count,
     }),
-    {
-      status: 200,
-    },
+    { status: 200 },
   );
 }

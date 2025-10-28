@@ -5,10 +5,8 @@ import {
   Wrapper,
 } from '@/components/wrapper';
 import { getUserInfoByCookieAction } from '@/services/user';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 import Profile from './Profile';
-import Register from './Register';
+import WeightRegister from './WeightRegister';
 import { ERROR_CODE } from '@/shared/const';
 
 export default async function weightPage() {
@@ -26,7 +24,7 @@ export default async function weightPage() {
     <Wrapper.MAIN text="몸무게 등록">
       <Text.HEADING text={`안녕하세요, ${userInfo!.name}님!`} />
       <Profile userInfo={userInfo!} />
-      <Register userInfo={userInfo!} />
+      <WeightRegister userInfo={userInfo!} />
     </Wrapper.MAIN>
   );
 }

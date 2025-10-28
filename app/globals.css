@@ -61,8 +61,18 @@ li {
 }
 
 input {
-  padding: 1rem;
+  width: 100%;
+  padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
+  border: 1px solid #cccccc;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #cccccc;
 }
 
 ul {

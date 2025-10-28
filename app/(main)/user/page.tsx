@@ -1,5 +1,5 @@
 import { LinkText, Text } from '@/components/text';
-import { Wrapper } from '@/components/wrapper';
+import { UnauthorizedView, Wrapper } from '@/components/wrapper';
 import { getUserInfoByCookieAction } from '@/services/user';
 import { UserType, UserTypeLabels } from '@/shared/enum/user';
 import SignOut from './SignOut';
@@ -8,13 +8,7 @@ export default async function UserPage() {
   const { data: userInfo, success } = await getUserInfoByCookieAction();
 
   if (!success || !userInfo) {
-    return (
-      <Wrapper.MAIN text="사용자 정보">
-        <Wrapper.SECTION text="로그인이 필요합니다.">
-          <LinkText href="/login" text="로그인 페이지로 이동" />
-        </Wrapper.SECTION>
-      </Wrapper.MAIN>
-    );
+    return <UnauthorizedView text="사용자 정보" />;
   }
 
   return (
