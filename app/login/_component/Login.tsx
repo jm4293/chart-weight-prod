@@ -143,6 +143,22 @@ export default function Login(props: IProps) {
     })();
   }, []);
 
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (step === 2 || step === 3) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [step]);
+
   if (step === -1) {
     return (
       <>
