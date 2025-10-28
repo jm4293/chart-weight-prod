@@ -95,15 +95,10 @@ export default function Login(props: IProps) {
 
     (async () => {
       try {
-        const { data: userInfo, success: userInfoSuccess } =
-          await getUserInfoByEmailAction({
-            email: data.user.email,
-            emailType: data.user.emailType,
-          });
-
-        if (!userInfoSuccess) {
-          throw new Error();
-        }
+        const { data: userInfo } = await getUserInfoByEmailAction({
+          email: data.user.email,
+          emailType: data.user.emailType,
+        });
 
         if (!userInfo) {
           setStep(2);
